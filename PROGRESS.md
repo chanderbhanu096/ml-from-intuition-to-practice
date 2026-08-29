@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-29
-**Chapters complete:** 14 of 121
-**Next chapter to build:** **02-05 · Distributions, outliers and transformations**
-(`notebooks/02_data_literacy/02-05_distributions.ipynb`).
+**Chapters complete:** 15 of 121
+**Next chapter to build:** **02-06 · Univariate, bivariate, multivariate without fooling
+yourself** (`notebooks/02_data_literacy/02-06_multivariate.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-30, **28/28 passed** (fourteen chapters and their fourteen solutions
+Last full run: 2026-08-30, **30/30 passed** (fifteen chapters and their fifteen solutions
 notebooks). The notebook template also executes cleanly.
 
 ## Status by module
@@ -26,7 +26,7 @@ notebooks). The notebook template also executes cleanly.
 |---|---|---|---|
 | 00 Orientation | 4 | **4** | complete and validated |
 | 01 Python bridge | 6 | **6** | complete and validated |
-| 02 Data literacy | 8 | 4 | 02-01 to 02-04 done; 02-08 needs the Seoul bike file, or falls back to synthetic |
+| 02 Data literacy | 8 | 5 | 02-01 to 02-05 done; 02-08 needs the Seoul bike file, or falls back to synthetic |
 | 03 Math foundations | 8 | 0 | |
 | 04 Workflow | 8 | 0 | the spine of the course |
 | 05 Regression | 12 | 0 | |
@@ -58,6 +58,14 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (15)** - Chapter 02-05 (distributions, outliers, transformations) and its solutions.
+The three-sigma rule applied to 900 days removes 29 rows, all 29 of them festival days and every
+festival in the dataset. Ordinary-day error is unchanged at 9.6; festival-day error goes from 8.3 to
+258.4. Solutions E4 shows the opposite failure - one extreme in seven inflates the standard
+deviation twelvefold and hides itself from its own three-sigma cut-off (masking). E14 is the finding
+that reframes the chapter: keeping the rows *without* the festival flag scores 250.4, almost as bad
+as deleting them, so the damage was never about the rows but about the information.
 
 **2026-08-30 (14)** - Chapter 02-04 (missing values, duplicates, impossible things) and its
 solutions. Same 22% missing rate under MCAR and MNAR: complete-case means of 33,951 and 29,447
