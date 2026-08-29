@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-29
-**Chapters complete:** 6 of 121
-**Next chapter to build:** **01-03 · NumPy: arrays, shapes, and vectorised thinking**
-(`notebooks/01_python_bridge/01-03_numpy.ipynb`).
+**Chapters complete:** 7 of 121
+**Next chapter to build:** **01-04 · pandas I: loading, selecting, filtering, dtypes**
+(`notebooks/01_python_bridge/01-04_pandas_basics.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-29, **12/12 passed** (six chapters and their six solutions
+Last full run: 2026-08-29, **14/14 passed** (seven chapters and their seven solutions
 notebooks). The notebook template also executes cleanly.
 
 ## Status by module
@@ -25,7 +25,7 @@ notebooks). The notebook template also executes cleanly.
 | Module | Chapters | Complete | Notes |
 |---|---|---|---|
 | 00 Orientation | 4 | **4** | complete and validated |
-| 01 Python bridge | 6 | 2 | 01-01 diagnostic, 01-02 Python essentials |
+| 01 Python bridge | 6 | 3 | 01-01 diagnostic, 01-02 Python, 01-03 NumPy |
 | 02 Data literacy | 8 | 0 | 02-08 needs the Seoul bike file, or falls back to synthetic |
 | 03 Math foundations | 8 | 0 | |
 | 04 Workflow | 8 | 0 | the spine of the course |
@@ -58,6 +58,14 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-29 (7)** - Chapter 01-03 (NumPy) and its solutions. Failure lab standardises a feature
+matrix two ways: per column (correct) and per row (`axis=1, keepdims=True`, which also runs and
+returns the same shape). Same shapes, no warning, MAE 2.16 against 7.91. The chapter's answer is
+two assert lines that state the property you claimed to create. Also shows that raw features score
+identically to correctly standardised ones under plain linear regression, so the step being
+debugged was optional for that model. Solutions E14 builds pairwise distances by broadcasting and
+then computes that the intermediate array is 400 GB at 50,000 rows.
 
 **2026-08-29 (6)** - Chapter 01-02 (essential Python) and its solutions. Failure lab is the
 mutable default argument: a results logger that returns experiment A's scores inside experiment
