@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-29
-**Chapters complete:** 12 of 121
-**Next chapter to build:** **02-03 · Sampling and selection bias: the rows you never see**
-(`notebooks/02_data_literacy/02-03_sampling_bias.ipynb`).
+**Chapters complete:** 13 of 121
+**Next chapter to build:** **02-04 · Missing values, duplicates, impossible values, messy
+categories** (`notebooks/02_data_literacy/02-04_data_quality.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-30, **24/24 passed** (twelve chapters and their twelve solutions
+Last full run: 2026-08-30, **26/26 passed** (thirteen chapters and their thirteen solutions
 notebooks). The notebook template also executes cleanly.
 
 ## Status by module
@@ -26,7 +26,7 @@ notebooks). The notebook template also executes cleanly.
 |---|---|---|---|
 | 00 Orientation | 4 | **4** | complete and validated |
 | 01 Python bridge | 6 | **6** | complete and validated |
-| 02 Data literacy | 8 | 2 | 02-01, 02-02 done; 02-08 needs the Seoul bike file, or falls back to synthetic |
+| 02 Data literacy | 8 | 3 | 02-01 to 02-03 done; 02-08 needs the Seoul bike file, or falls back to synthetic |
 | 03 Math foundations | 8 | 0 | |
 | 04 Workflow | 8 | 0 | the spine of the course |
 | 05 Regression | 12 | 0 | |
@@ -58,6 +58,14 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (13)** - Chapter 02-03 (the rows you never see) and its solutions. A satisfaction
+survey where response probability rises with satisfaction: the mean reads 3.74 against a true 3.41,
+and the share of unhappy customers reads 2.9% against a true 7.4% - understated by more than half.
+Second lab is censoring: rentals still running at the snapshot are excluded, so the mean duration
+reads 16.0 minutes against a true 19.9. Solutions E4 shows tripling both response rates leaving the
+bias at exactly +0.35, E7 has a fair sample of 50 beating a biased one of 1,550, and E14 shows
+inverse-probability weighting fixing selection on a recorded field and failing on an unrecorded one.
 
 **2026-08-30 (12)** - Chapter 02-02 (where data comes from) and its solutions. A firmware update on
 1 March starts logging staff bike movements as rentals; the recorded series jumps 27% and every
