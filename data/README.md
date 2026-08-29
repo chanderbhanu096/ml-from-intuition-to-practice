@@ -44,9 +44,25 @@ exists, the notebook states it rather than quietly using the data.
 
 ---
 
-## 4. Seoul bike sharing demand - the recurring case study
+## 4. Named public datasets - chosen per chapter
 
-**Status in this repository: NOT PRESENT.** No file has been downloaded, so nothing below
+**Policy (D-14):** each chapter uses whichever dataset shows its idea most clearly. There is no
+single recurring case study, because several methods only reveal their character on data with the
+right shape - class imbalance, heavy tails, genuine clusters, a real seasonal cycle, text.
+
+**The rule that does not move:** before a dataset is used anywhere in this course, this file must
+record its verified source, licence, target, unit of observation, time semantics, known limitations
+and retrieval method. A dataset with no entry here is not used.
+
+---
+
+## 5. Seoul bike sharing demand - available, no longer required
+
+**Status in this repository: NOT PRESENT, and nothing depends on it.** Since D-14 no chapter
+requires this dataset; it remains documented because it is a good fit for demand forecasting if you
+want it.
+
+**Original status note:** No file has been downloaded, so nothing below
 about its contents has been verified here. Treat the schema note as *expected*, and confirm
 it against the real file before relying on it. No notebook asserts a column name, statistic
 or result from this dataset until the file exists.
@@ -87,7 +103,7 @@ or result from this dataset until the file exists.
 
 ---
 
-## Rules for adding a dataset
+## 6. Rules for adding a dataset
 
 Before a new dataset enters the course it must have, in this file: verified source URL,
 licence, target, unit of observation, time semantics, known limitations, and retrieval

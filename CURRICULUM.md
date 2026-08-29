@@ -56,7 +56,7 @@ that were visible in the first hour.*
 | 02-05 | Distributions, outliers, and transformations | Core | 02-04 |
 | 02-06 | Univariate, bivariate, multivariate: looking without fooling yourself | Core | 02-05 |
 | 02-07 | Honest visualisation, correlation vs causation, and the limits of EDA | Core | 02-06 |
-| 02-08 | Applied: a data dictionary and a real EDA (Seoul bike, or synthetic fallback) | Applied | 02-07 |
+| 02-08 | Applied: a full EDA and a written data dictionary | Applied | 02-07 |
 
 ## Module 03 - Mathematical and statistical foundations (8 chapters)
 
@@ -105,7 +105,7 @@ is the spine of the whole course.*
 | 05-09 | Ridge, Lasso, Elastic Net: paying for complexity | Core | 05-08 |
 | 05-10 | Regression trees and random forests | Core | 05-08 |
 | 05-11 | Gradient boosting, and tuning hyperparameters honestly | Core | 05-10, 04-07 |
-| 05-12 | Applied: Seoul bike regression checkpoint and error analysis by segment | Applied | 05-11, 04-05 |
+| 05-12 | Applied: a regression checkpoint with segment error analysis | Applied | 05-11, 04-05 |
 
 ## Module 06 - Classification (12 chapters)
 
@@ -161,7 +161,7 @@ is the spine of the whole course.*
 | 09-06 | Exponential smoothing | Core | 09-04 |
 | 09-07 | ARIMA, enough to read a paper and ask a good question | Optional | 09-06 |
 | 09-08 | ML-based forecasting and prediction intervals | Core | 09-05, 05-11 |
-| 09-09 | Applied: Seoul bike forecasting checkpoint, error by season and horizon, drift | Applied | 09-08 |
+| 09-09 | Applied: a forecasting checkpoint, error by season and horizon, drift | Applied | 09-08 |
 
 ## Module 10 - Neural networks and deep learning (12 chapters)
 
@@ -225,7 +225,7 @@ is the spine of the whole course.*
 
 | ID | Chapter | Label | Prereqs |
 |---|---|---|---|
-| 14-01 | Guided: Seoul bike, end to end, time-aware | Applied | 09-09, 13-08 |
+| 14-01 | Guided: an end-to-end, time-aware project | Applied | 09-09, 13-08 |
 | 14-02 | Less guided: a classification project | Applied | 06-12, 07-07 |
 | 14-03 | Open: an unsupervised or anomaly investigation | Applied | 08-08 |
 | 14-04 | Small deep-learning or domain project | Applied | 11-05 |
@@ -255,7 +255,12 @@ Recorded here as required; the reasoning is in `DECISIONS.md`.
 - **Maths is deliberately not a single block** (D-10). Module 03 exists as a reference and a
   first pass, but every mathematical idea reappears immediately before the model that needs
   it.
-- **Classification and clustering do not use the Seoul bike dataset** (D-07). Manufacturing
+- **Each chapter chooses its own dataset** (D-14). The original plan made Seoul bike sharing a
+  recurring case study; that is now optional. Methods reveal their character on data with the right
+  shape - imbalance, heavy tails, real clusters, a genuine seasonal cycle - and forcing one dataset
+  through every chapter would hide exactly what several chapters exist to show. Every dataset still
+  has to be documented in `data/README.md` before use.
+- **Classification and clustering do not manufacture targets from unsuitable data** (D-07). Manufacturing
   a binary target from a count would teach exactly the habit this course argues against.
 - **Boosting is taught with scikit-learn's HistGradientBoosting** rather than XGBoost
   (D-04), and the vocabulary differences are named explicitly so the learner is not

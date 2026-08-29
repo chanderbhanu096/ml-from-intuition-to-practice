@@ -4,7 +4,8 @@
 # status: planned | in_progress | complete   (complete == learner notebook AND solution
 #         both executed from a fresh kernel with no errors)
 # level:  core | applied | optional
-# dataset: tiny (hand-typed table) | synthetic | sklearn | seoul_bike | none
+# dataset: tiny (hand-typed table) | synthetic | sklearn | best_fit | none
+#          best_fit = the chapter picks whichever real dataset shows its idea most clearly (D-14)
 
 version: 1
 updated: 2026-08-29
@@ -48,7 +49,7 @@ modules:
       - {id: "02-05", title: "Distributions, outliers, transformations", path: notebooks/02_data_literacy/02-05_distributions.ipynb, level: core, minutes: 50, prereqs: ["02-04"], concepts: [skew, mean vs median, log transform, three kinds of outlier, why three-sigma fails, masking], dataset: synthetic, status: complete}
       - {id: "02-06", title: "Univariate, bivariate, multivariate without fooling yourself", path: notebooks/02_data_literacy/02-06_multivariate.ipynb, level: core, minutes: 55, prereqs: ["02-05"], concepts: [scatter, correlation, confounding, Simpson's paradox], dataset: synthetic, status: planned}
       - {id: "02-07", title: "Honest visualisation; correlation vs causation; limits of EDA", path: notebooks/02_data_literacy/02-07_honest_visuals.ipynb, level: core, minutes: 45, prereqs: ["02-06"], concepts: [axis truncation, cherry-picking, multiple looks, EDA limits], dataset: synthetic, status: planned}
-      - {id: "02-08", title: "Applied: data dictionary and real EDA", path: notebooks/02_data_literacy/02-08_applied_eda.ipynb, level: applied, minutes: 90, prereqs: ["02-07"], concepts: [data dictionary, EDA workflow, documenting limitations], dataset: seoul_bike, status: planned}
+      - {id: "02-08", title: "Applied: a full EDA and a written data dictionary", path: notebooks/02_data_literacy/02-08_applied_eda.ipynb, level: applied, minutes: 90, prereqs: ["02-07"], concepts: [data dictionary, EDA workflow, documenting limitations], dataset: best_fit, status: planned}
 
   - id: "03"
     name: Mathematical and statistical foundations
@@ -97,7 +98,7 @@ modules:
       - {id: "05-09", title: "Ridge, Lasso, Elastic Net", path: notebooks/05_regression/05-09_regularisation.ipynb, level: core, minutes: 55, prereqs: ["05-08"], concepts: [penalty, shrinkage, sparsity, alpha selection], dataset: sklearn, status: planned}
       - {id: "05-10", title: "Regression trees and random forests", path: notebooks/05_regression/05-10_trees_forests.ipynb, level: core, minutes: 60, prereqs: ["05-08"], concepts: [splits, depth, bagging, feature subsampling], dataset: sklearn, status: planned}
       - {id: "05-11", title: "Gradient boosting and honest tuning", path: notebooks/05_regression/05-11_boosting_tuning.ipynb, level: core, minutes: 65, prereqs: ["05-10", "04-07"], concepts: [boosting, early stopping, search strategies], dataset: sklearn, status: planned}
-      - {id: "05-12", title: "Applied: bike regression checkpoint and segment error analysis", path: notebooks/05_regression/05-12_applied_checkpoint.ipynb, level: applied, minutes: 100, prereqs: ["05-11", "04-05"], concepts: [full workflow, error by segment, model comparison], dataset: seoul_bike, status: planned}
+      - {id: "05-12", title: "Applied: a regression checkpoint with segment error analysis", path: notebooks/05_regression/05-12_applied_checkpoint.ipynb, level: applied, minutes: 100, prereqs: ["05-11", "04-05"], concepts: [full workflow, error by segment, model comparison], dataset: best_fit, status: planned}
 
   - id: "06"
     name: Classification
@@ -161,7 +162,7 @@ modules:
       - {id: "09-06", title: "Exponential smoothing", path: notebooks/09_time_series/09-06_exponential_smoothing.ipynb, level: core, minutes: 55, prereqs: ["09-04"], concepts: [level, trend, seasonality components, smoothing parameter], dataset: synthetic, status: planned}
       - {id: "09-07", title: "ARIMA, enough to read a paper and ask a good question", path: notebooks/09_time_series/09-07_arima.ipynb, level: optional, minutes: 60, prereqs: ["09-06"], concepts: [AR, I, MA, stationarity, when it helps], dataset: synthetic, status: planned}
       - {id: "09-08", title: "ML-based forecasting and prediction intervals", path: notebooks/09_time_series/09-08_ml_forecasting.ipynb, level: core, minutes: 65, prereqs: ["09-05", "05-11"], concepts: [supervised reframing, direct vs recursive, intervals], dataset: synthetic, status: planned}
-      - {id: "09-09", title: "Applied: bike forecasting checkpoint, error by season and horizon, drift", path: notebooks/09_time_series/09-09_applied_forecast.ipynb, level: applied, minutes: 100, prereqs: ["09-08"], concepts: [full time-aware workflow, drift, segment error], dataset: seoul_bike, status: planned}
+      - {id: "09-09", title: "Applied: a forecasting checkpoint, error by season and horizon, drift", path: notebooks/09_time_series/09-09_applied_forecast.ipynb, level: applied, minutes: 100, prereqs: ["09-08"], concepts: [full time-aware workflow, drift, segment error], dataset: best_fit, status: planned}
 
   - id: "10"
     name: Neural networks and deep learning
@@ -229,7 +230,7 @@ modules:
     dir: notebooks/14_capstones
     goal: Decisions and written justification, not recipes.
     chapters:
-      - {id: "14-01", title: "Guided: Seoul bike, end to end, time-aware", path: notebooks/14_capstones/14-01_bike_capstone.ipynb, level: applied, minutes: 180, prereqs: ["09-09", "13-08"], concepts: [full lifecycle, justification, limitations], dataset: seoul_bike, status: planned}
+      - {id: "14-01", title: "Guided: an end-to-end, time-aware project", path: notebooks/14_capstones/14-01_bike_capstone.ipynb, level: applied, minutes: 180, prereqs: ["09-09", "13-08"], concepts: [full lifecycle, justification, limitations], dataset: best_fit, status: planned}
       - {id: "14-02", title: "Less guided: a classification project", path: notebooks/14_capstones/14-02_classification_capstone.ipynb, level: applied, minutes: 180, prereqs: ["06-12", "07-07"], concepts: [metric choice, threshold, cost, error analysis], dataset: sklearn, status: planned}
       - {id: "14-03", title: "Open: an unsupervised or anomaly investigation", path: notebooks/14_capstones/14-03_unsupervised_capstone.ipynb, level: applied, minutes: 150, prereqs: ["08-08"], concepts: [structure claims, stability, responsible reporting], dataset: sklearn, status: planned}
       - {id: "14-04", title: "Small deep-learning or domain project", path: notebooks/14_capstones/14-04_deep_capstone.ipynb, level: applied, minutes: 180, prereqs: ["11-05"], concepts: [baseline first, compute budget, honest comparison], dataset: sklearn, status: planned}

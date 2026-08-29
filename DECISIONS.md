@@ -65,6 +65,18 @@ that needs it (distances before kNN, gradients before gradient descent, likeliho
 logistic regression). A single maths block early is the most reliable way to lose a near
 beginner.
 
+**D-14 - Each chapter picks the dataset that teaches its idea most clearly.** (2026-08-30)
+Supersedes the "Seoul bike as the recurring case study" plan in D-06 and D-07. The owner's
+instruction: use whatever dataset helps understand that particular algorithm. This is a real
+pedagogical gain rather than a relaxation - a single recurring dataset forces every method through
+one lens, and several methods only show their character on data with the right shape: class
+imbalance for 06-08, heavy tails for 05-09, genuinely separated clusters for 08-03, a real seasonal
+cycle for 09-02, text for 11-01. Chapters now choose freely from small built-in datasets,
+clearly-labelled synthetic data with a known truth, and named public datasets. Seoul bike remains
+available and is no longer required, so no chapter is blocked on a download. The rule that survives
+unchanged: **no dataset is used until its source, licence, unit of observation and known limitations
+are recorded** in `data/README.md`, and synthetic data is always labelled SYNTHETIC.
+
 **D-13 - Orientation's third chapter split into 00-03 and 00-04.** (2026-08-29)
 The plan put kinds of learning, prediction-vs-explanation-vs-cause, and the lifecycle in one
 chapter. Written out that is roughly 90 minutes with two unrelated centres of gravity, and the
