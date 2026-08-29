@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-29
-**Chapters complete:** 11 of 121
-**Next chapter to build:** **02-02 · Where data comes from: provenance and the collection
-process** (`notebooks/02_data_literacy/02-02_provenance.ipynb`).
+**Chapters complete:** 12 of 121
+**Next chapter to build:** **02-03 · Sampling and selection bias: the rows you never see**
+(`notebooks/02_data_literacy/02-03_sampling_bias.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-29, **22/22 passed** (eleven chapters and their eleven solutions
+Last full run: 2026-08-30, **24/24 passed** (twelve chapters and their twelve solutions
 notebooks). The notebook template also executes cleanly.
 
 ## Status by module
@@ -26,7 +26,7 @@ notebooks). The notebook template also executes cleanly.
 |---|---|---|---|
 | 00 Orientation | 4 | **4** | complete and validated |
 | 01 Python bridge | 6 | **6** | complete and validated |
-| 02 Data literacy | 8 | 1 | 02-01 done; 02-08 needs the Seoul bike file, or falls back to synthetic |
+| 02 Data literacy | 8 | 2 | 02-01, 02-02 done; 02-08 needs the Seoul bike file, or falls back to synthetic |
 | 03 Math foundations | 8 | 0 | |
 | 04 Workflow | 8 | 0 | the spine of the course |
 | 05 Regression | 12 | 0 | |
@@ -58,6 +58,13 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (12)** - Chapter 02-02 (where data comes from) and its solutions. A firmware update on
+1 March starts logging staff bike movements as rentals; the recorded series jumps 27% and every
+number is correctly computed. The diagnostic is a slice where the real quantity cannot have moved -
+undockings between 2am and 5am, which go from 1.8 to 20.9 a night. Solutions E7 builds a correction
+from the night counts, E8 names the assumption it rests on and the 5.8 per day it cannot remove, and
+E14 prices the whole mistake at about 1,150 bike-days of phantom demand over a 30-day forecast.
 
 **2026-08-29 (11)** - Chapter 02-01 (what is a row?) and its solutions, opening module 02. Twelve
 rental events are arranged four ways - per rental, per station-day, per station, per customer - and
