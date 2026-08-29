@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-29
-**Chapters complete:** 9 of 121
-**Next chapter to build:** **01-06 · Plotting that says something, and reproducible randomness**
-(`notebooks/01_python_bridge/01-06_plotting_and_seeds.ipynb`) - closes module 01.
+**Chapters complete:** 10 of 121 - modules 00 and 01 finished
+**Next chapter to build:** **02-01 · What is a row? observations, features, targets, units**
+(`notebooks/02_data_literacy/02-01_what_is_a_row.ipynb`), opening module 02.
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-29, **18/18 passed** (nine chapters and their nine solutions
+Last full run: 2026-08-29, **20/20 passed** (ten chapters and their ten solutions
 notebooks). The notebook template also executes cleanly.
 
 ## Status by module
@@ -25,7 +25,7 @@ notebooks). The notebook template also executes cleanly.
 | Module | Chapters | Complete | Notes |
 |---|---|---|---|
 | 00 Orientation | 4 | **4** | complete and validated |
-| 01 Python bridge | 6 | 5 | 01-01 to 01-05 done |
+| 01 Python bridge | 6 | **6** | complete and validated |
 | 02 Data literacy | 8 | 0 | 02-08 needs the Seoul bike file, or falls back to synthetic |
 | 03 Math foundations | 8 | 0 | |
 | 04 Workflow | 8 | 0 | the spine of the course |
@@ -58,6 +58,13 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-29 (10)** - Chapter 01-06 (charts and seeds) and its solutions, closing module 01. The
+chart failure lab draws the same twelve months two ways - truncated axis plus a chosen window -
+for "+13% growth" against an actual +1.9%. The randomness lab compares two near-identical models
+over 200 unseeded splits: the winner flips between `random_state=3` and `random_state=6`, and the
+printed ratio shows the split mattering about 17x more than the model choice. Solutions E14 puts
+one split's score at the 8th percentile of 500, understating the error by 0.36 MAE.
 
 **2026-08-29 (9)** - Chapter 01-05 (pandas II) and its solutions. Two failure labs, both of which
 make results look better rather than worse. A duplicated key in a lookup table turns a 12-row left

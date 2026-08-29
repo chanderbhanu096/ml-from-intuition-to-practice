@@ -34,6 +34,11 @@ Assigning the treatment by chance, so the treated and untreated groups are alike
 including variables you never measured. Establishes an effect for that population, at that time,
 at that dose. *(00-04; 12-07)*
 
+### Broadcasting
+NumPy stretching a smaller array to fit a larger one so they can be combined. Shapes are aligned
+from the right; dimensions must match or be 1. It succeeding is a fact about shapes, not about
+meaning - if an array is unexpectedly large, suspect a broadcast. *(01-03)*
+
 ### Batch inference / online inference
 Whether predictions are produced in bulk on a schedule, or one at a time on request. A separate
 decision from batch versus online *learning*. *(00-03; 13-07)*
@@ -51,6 +56,11 @@ different mistakes usually cost different amounts. *(00-03; module 06)*
 The question "what happens to Y if I **set** X?" - as opposed to what is merely associated with
 Y. A fitted model does not answer it; an intervention or an explicitly stated assumption is
 required. *(00-04; 12-07)*
+
+### Chained indexing
+Selecting twice in a row (`df[mask]["col"] = x`) rather than once (`df.loc[mask, "col"] = x`).
+Under pandas copy-on-write the assignment modifies a temporary copy and is silently discarded.
+*(01-04)*
 
 ### Cluster stability
 Whether the same rows stay grouped together when you re-cluster a random subset of the data.
@@ -72,12 +82,27 @@ The four counts behind a yes/no prediction: correctly predicted positives, false
 positives, correctly predicted negatives. Every classification metric is built from these.
 *(previewed in 00-02 solutions; 06-04)*
 
+### Data contract
+A machine-checked statement of what a data file must look like - columns, dtypes, ranges, row
+counts - enforced at the point of loading rather than discovered downstream. *(01-04 solutions;
+13-05)*
+
+### dtype
+The type of a column or array. A numeric column containing one unparseable value becomes text for
+its whole length, after which `max()` compares alphabetically and `sum()` concatenates - both
+silently. Check `.info()` after every load. *(01-03, 01-04)*
+
 ### Dimensionality reduction
 Replacing many columns with fewer that carry most of the information. *(00-03; 08-07)*
 
 ### Drift
 The world moving away from the data a model was fitted to, so a once-correct model quietly stops
 being correct. Nothing announces it - detecting it is a separate job. *(00-02; 12-02, 13-08)*
+
+### Duplicate leakage
+Copies of the same observation appearing in both the training and test sets, so the model
+recognises rows it has already seen and scores far better than it will in production. Most often
+created by a join whose right-hand key was not unique. *(01-05; 04-05)*
 
 ### Feature
 A piece of information used as input to a prediction, which you will genuinely have at the moment
@@ -88,6 +113,11 @@ predictor, or `X`. *(00-01)*
 Rows deliberately hidden while a rule is built, used only to score it afterwards. Scoring on rows
 the rule was built from measures memory, not skill. Also called a test set. *(00-01; done
 properly in 04-03)*
+
+### Join (merge)
+Combining two tables on a key. Four kinds: left, inner, outer, right. The only question that
+matters is how many rows come out - a left join preserves the row count *only if the right key is
+unique*. Check the count before and after, and pass `validate=`. *(01-05)*
 
 ### k-means
 A clustering method that partitions rows into a number of groups **you specify**, by repeatedly
@@ -103,6 +133,11 @@ Makes a useless model look excellent. *(previewed in 00-01; the subject of 04-05
 A variable you could actually change. A feature can be an excellent predictor and a useless
 lever: `emailed` predicts spend because it carries information about loyalty, and emailing
 everyone destroys exactly that information. *(00-04; 07-06)*
+
+### Lag feature
+A past value of a series used to predict the present - "yesterday's rentals". Built on an
+incomplete index, "the previous row" stops meaning "the previous period" and every lag after a gap
+is wrong, silently. *(01-05; module 09)*
 
 ### Learning curve
 A plot of performance against the amount of training data. Steep means more data will help; flat
@@ -128,6 +163,10 @@ indistinguishable from it by looking at the data. *(00-04 solutions; 12-07)*
 The simplest reinforcement learning setting: repeatedly choose among options, observe the reward,
 and balance trying new options against exploiting the best one so far. *(00-03; 12-05)*
 
+### Mask (boolean)
+An array of True/False, one per element, used to select. `values[values > 5]` is two steps: build
+the mask, then index with it. The same mechanism in NumPy and pandas. *(01-03, 01-04)*
+
 ### Observation
 One thing you make a prediction about - one row. Saying out loud what one row *is* is the first
 question of every project. *(00-01; deeper in 02-01)*
@@ -145,6 +184,11 @@ Fitting the training rows so closely that the rule stops working on new ones. Th
 memorises answers and scores zero training error; the dangerous version is a large model doing
 the same thing while looking sophisticated. *(previewed in 00-01; 05-07, 05-08)*
 
+### Percentile
+The share of a distribution falling below a value. Reporting one split's score without saying where
+it sits in the distribution of possible splits is how a lucky draw becomes "the result".
+*(01-06 solutions; 03-01)*
+
 ### Prediction rule (model)
 Anything that turns a row's features into a guess about its target. Arithmetic, a lookup table, a
 tree, a neural network - all the same kind of object: information in, guess out. *(00-01)*
@@ -160,6 +204,16 @@ score with as much noise as signal recovered only about a third of the needed co
 nothing in the output to indicate it. Why "we controlled for it" deserves a follow-up question.
 *(00-04 solutions)*
 
+### Random seed / `random_state`
+A fixed starting point for a random number generator, so a run repeats. `np.random.default_rng(0)`
+gives you your own generator; `np.random.seed(0)` sets one hidden global that anything can advance.
+A seed makes a result repeatable, not correct and not representative. *(01-06; 04-08)*
+
+### Resample
+Re-indexing a time series onto a complete set of regular periods, so periods with no data become
+explicit rows rather than vanishing. Differs from grouping by date exactly on the empty periods -
+which is the case that matters. *(01-05; module 09)*
+
 ### Regression
 Supervised learning where the target is a number on a scale, so "close" means something. The
 test: is 7 nearer to 8 than to 2? *(00-03; module 05)*
@@ -167,6 +221,11 @@ test: is 7 nearer to 8 than to 2? *(00-03; module 05)*
 ### Reinforcement learning
 Learning a policy from rewards, where your own actions determine what you observe next - which
 creates the trade-off between exploring and exploiting. *(00-03; 12-05)*
+
+### Reproducibility
+Someone else getting your number, on their machine, later, from your description. Needs the seed,
+the library versions, the exact data, and the order of operations - a seed alone is not enough.
+*(01-06; 04-08)*
 
 ### Robust (of a summary)
 Not easily moved by a few extreme values. The median is robust; the mean is not. Useful when
@@ -181,6 +240,20 @@ and that representation transfers. *(00-03; 10-12, 12-03)*
 Learning from a few labelled rows plus many unlabelled ones, using the shape of the unlabelled
 data to stretch the labels further. *(00-03; 12-01)*
 
+### Sentinel value
+A real-looking number standing in for "not recorded" - `-999`, `0`, `99`. It loads as valid data
+and quietly distorts every average. *(01-04; 02-04)*
+
+### Split-to-split noise
+How much a held-out score changes purely because different rows landed in the test set. On small
+data it routinely exceeds the difference between two models, which is why a single split's score is
+mostly noise and cross-validation exists. *(01-06; 07-03)*
+
+### Standardisation
+Subtracting each feature's mean and dividing by its standard deviation, so values are measured in
+deviations rather than in units. Irrelevant to plain linear regression, essential for regularised,
+distance-based and neural models. Must be fitted on training rows only. *(01-03; 04-06)*
+
 ### Supervised learning
 Learning from examples where the outcome was recorded, in order to predict it for new rows. Most
 of applied ML, and most of this course. *(00-03; modules 05, 06)*
@@ -189,6 +262,15 @@ of applied ML, and most of this course. *(00-03; modules 05, 06)*
 Data generated by code rather than measured. Used here when we need to know the true answer in
 advance in order to check whether a method finds it. Never quote a number from synthetic data as
 a fact about the world. *(00-01)*
+
+### `transform` (versus `agg`)
+Two ways to finish a `groupby`. `agg` collapses each group to one row; `transform` returns one row
+per original row, carrying its group's value. Pick by the shape you want. *(01-05)*
+
+### Truncated axis
+A chart whose value axis does not start at zero. Legitimate when the variation is the message and
+zero is not a meaningful reference - dishonest when it silently magnifies a small change. Disclose
+it on the chart. *(01-06)*
 
 ### Target
 The quantity you want to know but do not have yet - what the model predicts. Also called the
@@ -202,10 +284,24 @@ Starting from a model trained on a large related problem and adapting it with yo
 dataset, so you inherit general structure and only learn what is specific to you. *(00-03;
 10-12, 11-05)*
 
+### Units
+What a number measures. Errors have units too: MAE on bikes is in bikes. A standardised value has
+no units at all, which is why the original scale must be recorded somewhere. *(00-01, 01-03)*
+
 ### Unsupervised learning
 Learning where no outcome column exists at all, so you look for structure - groups, dimensions,
 oddities. There is no right answer to check against, which is why its results must be validated
 from outside the algorithm. *(00-03; module 08)*
+
+### Vectorisation
+Replacing a Python loop with one operation on a whole array. Faster because the loop runs in
+compiled code instead of returning to the interpreter per element - and shorter, which is the better
+reason. *(01-03)*
+
+### View versus copy
+A view shares memory with the original, so writing through it writes through to the original; a copy
+does not. Plain NumPy slices are views; fancy and boolean indexing give copies. The same idea as
+`b = a` in Python and chained indexing in pandas. *(01-02, 01-03, 01-04)*
 
 ### `.fit` / `.predict`
 The two-step shape almost every scikit-learn model follows. `fit(X, y)` looks at training data
