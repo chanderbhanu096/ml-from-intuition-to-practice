@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-29
-**Chapters complete:** 7 of 121
-**Next chapter to build:** **01-04 · pandas I: loading, selecting, filtering, dtypes**
-(`notebooks/01_python_bridge/01-04_pandas_basics.ipynb`).
+**Chapters complete:** 8 of 121
+**Next chapter to build:** **01-05 · pandas II: grouping, joining, timestamps**
+(`notebooks/01_python_bridge/01-05_pandas_group_join_time.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-29, **14/14 passed** (seven chapters and their seven solutions
+Last full run: 2026-08-29, **16/16 passed** (eight chapters and their eight solutions
 notebooks). The notebook template also executes cleanly.
 
 ## Status by module
@@ -25,7 +25,7 @@ notebooks). The notebook template also executes cleanly.
 | Module | Chapters | Complete | Notes |
 |---|---|---|---|
 | 00 Orientation | 4 | **4** | complete and validated |
-| 01 Python bridge | 6 | 3 | 01-01 diagnostic, 01-02 Python, 01-03 NumPy |
+| 01 Python bridge | 6 | 4 | 01-01 to 01-04 done |
 | 02 Data literacy | 8 | 0 | 02-08 needs the Seoul bike file, or falls back to synthetic |
 | 03 Math foundations | 8 | 0 | |
 | 04 Workflow | 8 | 0 | the spine of the course |
@@ -58,6 +58,13 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-29 (8)** - Chapter 01-04 (pandas I) and its solutions. Failure lab loads a CSV from a
+German supplier: no warning, `temp_c.max()` returns `'9,0'` when the real maximum is 31.7,
+`rentals.sum()` returns a 22-character concatenated string, and `mean()` raises - the asymmetry is
+the lesson. The obvious one-argument fix, `decimal=","`, then reads the thousands-separated
+`"1,050"` as 1.05, which is worse because it is plausible. Second lab is pandas 3 copy-on-write:
+an edit through a filtered subset is now silently lost rather than warned about.
 
 **2026-08-29 (7)** - Chapter 01-03 (NumPy) and its solutions. Failure lab standardises a feature
 matrix two ways: per column (correct) and per row (`axis=1, keepdims=True`, which also runs and
