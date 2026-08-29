@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-29
-**Chapters complete:** 10 of 121 - modules 00 and 01 finished
-**Next chapter to build:** **02-01 · What is a row? observations, features, targets, units**
-(`notebooks/02_data_literacy/02-01_what_is_a_row.ipynb`), opening module 02.
+**Chapters complete:** 11 of 121
+**Next chapter to build:** **02-02 · Where data comes from: provenance and the collection
+process** (`notebooks/02_data_literacy/02-02_provenance.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-29, **20/20 passed** (ten chapters and their ten solutions
+Last full run: 2026-08-29, **22/22 passed** (eleven chapters and their eleven solutions
 notebooks). The notebook template also executes cleanly.
 
 ## Status by module
@@ -26,7 +26,7 @@ notebooks). The notebook template also executes cleanly.
 |---|---|---|---|
 | 00 Orientation | 4 | **4** | complete and validated |
 | 01 Python bridge | 6 | **6** | complete and validated |
-| 02 Data literacy | 8 | 0 | 02-08 needs the Seoul bike file, or falls back to synthetic |
+| 02 Data literacy | 8 | 1 | 02-01 done; 02-08 needs the Seoul bike file, or falls back to synthetic |
 | 03 Math foundations | 8 | 0 | |
 | 04 Workflow | 8 | 0 | the spine of the course |
 | 05 Regression | 12 | 0 | |
@@ -58,6 +58,15 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-29 (11)** - Chapter 02-01 (what is a row?) and its solutions, opening module 02. Twelve
+rental events are arranged four ways - per rental, per station-day, per station, per customer - and
+the failure lab computes "average rentals per day" two defensible ways to get 2.400 and 2.167. The
+gap closes to exactly zero when the group sizes are equalised, which is shown rather than asserted.
+Same trap on duration: 17.42 minutes per rental against 27.00 per customer. Solutions E14 needed a
+larger synthetic set than the chapter's twelve rows to demonstrate honestly: 60 customers with a
+randomly assigned label give accuracy 1.000 under a random split and 0.243 under a grouped one,
+against a majority baseline of 0.757.
 
 **2026-08-29 (10)** - Chapter 01-06 (charts and seeds) and its solutions, closing module 01. The
 chart failure lab draws the same twelve months two ways - truncated axis plus a chosen window -

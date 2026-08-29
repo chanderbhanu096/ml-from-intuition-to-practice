@@ -41,7 +41,7 @@ modules:
     goal: Read a dataset like a sceptic before modelling anything.
     assessment: assessments/02_data_literacy_assessment.ipynb
     chapters:
-      - {id: "02-01", title: "What is a row? observations, features, targets, units, dtypes", path: notebooks/02_data_literacy/02-01_what_is_a_row.ipynb, level: core, minutes: 45, prereqs: ["00-04"], concepts: [unit of observation, feature, label, units, measurement scale], dataset: tiny, status: planned}
+      - {id: "02-01", title: "What is a row? observations, features, targets, units, dtypes", path: notebooks/02_data_literacy/02-01_what_is_a_row.ipynb, level: core, minutes: 45, prereqs: ["00-04"], concepts: [unit of observation, target vs feature vs identifier, measurement scales, mean of means, grain and splitting], dataset: tiny, status: complete}
       - {id: "02-02", title: "Where data comes from: provenance and collection", path: notebooks/02_data_literacy/02-02_provenance.ipynb, level: core, minutes: 45, prereqs: ["02-01"], concepts: [data generating process, instrumentation, recording gaps], dataset: tiny, status: planned}
       - {id: "02-03", title: "Sampling and selection bias: the rows you never see", path: notebooks/02_data_literacy/02-03_sampling_bias.ipynb, level: core, minutes: 50, prereqs: ["02-02"], concepts: [sampling frame, survivorship, selection bias], dataset: synthetic, status: planned}
       - {id: "02-04", title: "Missing values, duplicates, impossible values, messy categories", path: notebooks/02_data_literacy/02-04_data_quality.ipynb, level: core, minutes: 55, prereqs: ["02-03"], concepts: [MCAR/MAR/MNAR, duplicates, sentinel values, category hygiene], dataset: synthetic, status: planned}
