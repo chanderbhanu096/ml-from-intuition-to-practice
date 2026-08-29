@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-29
-**Chapters complete:** 15 of 121
-**Next chapter to build:** **02-06 · Univariate, bivariate, multivariate without fooling
-yourself** (`notebooks/02_data_literacy/02-06_multivariate.ipynb`).
+**Chapters complete:** 16 of 121
+**Next chapter to build:** **02-07 · Honest visualisation, correlation vs causation, the limits
+of EDA** (`notebooks/02_data_literacy/02-07_honest_visuals.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-30, **30/30 passed** (fifteen chapters and their fifteen solutions
+Last full run: 2026-08-30, **32/32 passed** (sixteen chapters and their sixteen solutions
 notebooks). The notebook template also executes cleanly.
 
 ## Status by module
@@ -26,7 +26,7 @@ notebooks). The notebook template also executes cleanly.
 |---|---|---|---|
 | 00 Orientation | 4 | **4** | complete and validated |
 | 01 Python bridge | 6 | **6** | complete and validated |
-| 02 Data literacy | 8 | 5 | 02-01 to 02-05 done; 02-08 needs the Seoul bike file, or falls back to synthetic |
+| 02 Data literacy | 8 | 6 | 02-01 to 02-06 done; 02-08 needs the Seoul bike file, or falls back to synthetic |
 | 03 Math foundations | 8 | 0 | |
 | 04 Workflow | 8 | 0 | the spine of the course |
 | 05 Regression | 12 | 0 | |
@@ -62,6 +62,14 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (17)** - Chapter 02-06 (looking at two things at once) and its solutions. Four rows of
+hand-checkable data give a clean Simpson's paradox: electric bikes rent at 0.931 and 0.730 against
+classic's 0.867 and 0.688 - winning at both stations - and 0.780 against 0.826 overall, because 75%
+of the electric bikes sat at the quiet station. Second demo is Anscombe's quartet, identical to two
+decimal places on every summary statistic and completely different in shape. Solutions E7 has the
+result people get backwards (pooled r = 0.676 against subgroup correlations of 0.92 and 0.89) and
+E14 builds a full sign reversal: pooled slope -0.041, within-station +0.057 to +0.061.
 
 **2026-08-30 (16)** - Repository documentation, no new chapters. Added the algorithm map to
 README.md: a mermaid taxonomy keyed on "do you have recorded outcomes, and for how many rows?",
