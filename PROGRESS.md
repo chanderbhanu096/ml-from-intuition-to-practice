@@ -49,7 +49,11 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
 
 ## Open items
 
-- **Seoul bike dataset is not downloaded.** `scripts/get_seoul_bike.py` exists and is not run
+- **Dataset policy changed (D-14, 2026-08-30).** Chapters now pick whichever dataset shows their
+  idea most clearly rather than reusing one case study. Four chapters were retitled (02-08, 05-12,
+  09-09, 14-01) and nothing is blocked on a download any more. Every dataset still needs a
+  `data/README.md` entry before use.
+- **Seoul bike dataset is not downloaded, and is now optional.** `scripts/get_seoul_bike.py` exists and is not run
   automatically. Until it is run, nothing in the repo asserts any of its column names,
   statistics or results, and `data/README.md` marks its schema as expected-but-unverified.
   Needed by 02-08; chapters before that do not touch it.
@@ -58,6 +62,16 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (16)** - Repository documentation, no new chapters. Added the algorithm map to
+README.md: a mermaid taxonomy keyed on "do you have recorded outcomes, and for how many rows?",
+then one table per family listing every method the course teaches, its chapter, what shape it can
+express and where it breaks. The first two versions of the diagram were wrong - GitHub sanitises
+HTML in mermaid labels so it rendered as an empty box, then the fixed version laid out too wide to
+read. Verified in a browser both times rather than assumed. Also generated a README for every
+module folder from `curriculum.yml` (`scripts/build_module_readmes.py` plus prose in
+`scripts/module_content.py`), carrying chapters with a one-line idea each, prerequisites in and out,
+algorithms introduced, data used, and what to skip. Recorded D-14, the dataset-freedom decision.
 
 **2026-08-30 (15)** - Chapter 02-05 (distributions, outliers, transformations) and its solutions.
 The three-sigma rule applied to 900 days removes 29 rows, all 29 of them festival days and every
