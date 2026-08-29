@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-29
-**Chapters complete:** 13 of 121
-**Next chapter to build:** **02-04 · Missing values, duplicates, impossible values, messy
-categories** (`notebooks/02_data_literacy/02-04_data_quality.ipynb`).
+**Chapters complete:** 14 of 121
+**Next chapter to build:** **02-05 · Distributions, outliers and transformations**
+(`notebooks/02_data_literacy/02-05_distributions.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-30, **26/26 passed** (thirteen chapters and their thirteen solutions
+Last full run: 2026-08-30, **28/28 passed** (fourteen chapters and their fourteen solutions
 notebooks). The notebook template also executes cleanly.
 
 ## Status by module
@@ -26,7 +26,7 @@ notebooks). The notebook template also executes cleanly.
 |---|---|---|---|
 | 00 Orientation | 4 | **4** | complete and validated |
 | 01 Python bridge | 6 | **6** | complete and validated |
-| 02 Data literacy | 8 | 3 | 02-01 to 02-03 done; 02-08 needs the Seoul bike file, or falls back to synthetic |
+| 02 Data literacy | 8 | 4 | 02-01 to 02-04 done; 02-08 needs the Seoul bike file, or falls back to synthetic |
 | 03 Math foundations | 8 | 0 | |
 | 04 Workflow | 8 | 0 | the spine of the course |
 | 05 Regression | 12 | 0 | |
@@ -58,6 +58,14 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (14)** - Chapter 02-04 (missing values, duplicates, impossible things) and its
+solutions. Same 22% missing rate under MCAR and MNAR: complete-case means of 33,951 and 29,447
+against a true 33,941, and mean imputation reproduces the MNAR figure exactly, because inserting the
+observed mean cannot move the mean. Second lab is a sentinel: `-1` for "never rented" makes a
+"rented in the last 3 days" filter select 25.0% of customers when 5.7% qualify, and 77% of those
+selected have never rented at all. Solutions E14 prices the handling choices as model error - oracle
+233, drop 472, median-impute 490, impute-plus-indicator 342.
 
 **2026-08-30 (13)** - Chapter 02-03 (the rows you never see) and its solutions. A satisfaction
 survey where response probability rises with satisfaction: the mean reads 3.74 against a true 3.41,
