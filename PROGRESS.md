@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-29
-**Chapters complete:** 3 of 121
-**Next chapter to build:** **00-04 · Prediction, explanation, and cause**
-(`notebooks/00_orientation/00-04_prediction_vs_cause.ipynb`) - the chapter that closes module 00.
+**Chapters complete:** 4 of 121 - module 00 finished
+**Next chapter to build:** **01-01 · Diagnostic: can you skip this module?**
+(`notebooks/01_python_bridge/01-01_diagnostic.ipynb`), opening the optional Python bridge.
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,14 +17,14 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-29, **6/6 passed** (three chapters and their three solutions
+Last full run: 2026-08-29, **8/8 passed** (four chapters and their four solutions
 notebooks). The notebook template also executes cleanly.
 
 ## Status by module
 
 | Module | Chapters | Complete | Notes |
 |---|---|---|---|
-| 00 Orientation | 4 | 3 | 00-01, 00-02, 00-03 done and validated; split per D-13 |
+| 00 Orientation | 4 | **4** | complete and validated |
 | 01 Python bridge | 6 | 0 | optional module, gated by its own diagnostic |
 | 02 Data literacy | 8 | 0 | 02-08 needs the Seoul bike file, or falls back to synthetic |
 | 03 Math foundations | 8 | 0 | |
@@ -58,6 +58,14 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-29 (4)** - Chapter 00-04 (prediction, explanation, cause) and its solutions built and
+validated, finishing module 00. Built a confounded email campaign whose true effect is 5.00 EUR:
+the naive model reports 20.42, adjusting for loyalty recovers 5.39, and randomising recovers
+4.36 with no adjustment at all. Failure lab acts on the naive number - 19,929 EUR promised,
+4,880 EUR delivered, 4.1x overstatement. Solutions E7 shows residual confounding (a noisy
+loyalty proxy recovers only a third of the correction) and E14 shows the opposite error, where
+adjusting for a mediator destroys a correct estimate (6.97 -> 0.97 against a truth of 7.00).
 
 **2026-08-29 (3)** - Chapter 00-03 (kinds of learning + the lifecycle map) and its solutions
 built and validated. Failure lab: k-means asked for 2, 3, 4 and 5 groups on the same 60 days,

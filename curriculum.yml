@@ -21,7 +21,7 @@ modules:
       - {id: "00-01", title: "Start here: course map, notebooks, your first prediction by hand", path: notebooks/00_orientation/00-01_start_here.ipynb, level: core, minutes: 50, prereqs: [], concepts: [prediction rule, feature, target, one row, baseline, MAE, overfitting], dataset: tiny, status: complete}
       - {id: "00-02", title: "What ML is, is not, and when a rule or a query wins", path: notebooks/00_orientation/00-02_what_ml_is.ipynb, level: core, minutes: 45, prereqs: ["00-01"], concepts: [rules vs learning, seven questions, alternatives to ML, drift], dataset: synthetic, status: complete}
       - {id: "00-03", title: "The kinds of learning, and the map of the work", path: notebooks/00_orientation/00-03_kinds_and_lifecycle.ipynb, level: core, minutes: 55, prereqs: ["00-02"], concepts: [supervised, unsupervised, self-supervised, transfer, RL, batch vs online, lifecycle], dataset: synthetic, status: complete}
-      - {id: "00-04", title: "Prediction, explanation, and cause", path: notebooks/00_orientation/00-04_prediction_vs_cause.ipynb, level: core, minutes: 55, prereqs: ["00-03"], concepts: [association vs intervention, confounding, why a good predictor misleads a decision], dataset: synthetic, status: planned}
+      - {id: "00-04", title: "Prediction, explanation, and cause", path: notebooks/00_orientation/00-04_prediction_vs_cause.ipynb, level: core, minutes: 55, prereqs: ["00-03"], concepts: [association vs intervention, confounding, mediator, randomisation, residual confounding], dataset: synthetic, status: complete}
 
   - id: "01"
     name: Python and data bridge

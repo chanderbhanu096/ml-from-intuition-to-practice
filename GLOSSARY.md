@@ -29,6 +29,11 @@ A deliberately trivial rule that your model has to beat before it is worth anyth
 predict the average", "always predict the majority class". A baseline turns a score into a
 judgement, and catches bugs. *(00-01; formalised in 04-02)*
 
+### A/B test (randomised experiment)
+Assigning the treatment by chance, so the treated and untreated groups are alike in everything -
+including variables you never measured. Establishes an effect for that population, at that time,
+at that dose. *(00-04; 12-07)*
+
 ### Batch inference / online inference
 Whether predictions are produced in bulk on a schedule, or one at a time on request. A separate
 decision from batch versus online *learning*. *(00-03; 13-07)*
@@ -42,6 +47,11 @@ back. *(00-03; 12-02, 13-07)*
 Supervised learning where the target is a category from a fixed list. Errors are counted, and
 different mistakes usually cost different amounts. *(00-03; module 06)*
 
+### Causation
+The question "what happens to Y if I **set** X?" - as opposed to what is merely associated with
+Y. A fitted model does not answer it; an intervention or an explicitly stated assumption is
+required. *(00-04; 12-07)*
+
 ### Cluster stability
 Whether the same rows stay grouped together when you re-cluster a random subset of the data.
 One of the few genuine checks available for a clustering, because there is no held-out score.
@@ -51,6 +61,11 @@ One of the few genuine checks available for a clustering, because there is no he
 Unsupervised grouping of similar rows. The number of groups is something you choose, not
 something the algorithm discovers - so clusters are a partition you requested, not a fact about
 the world. *(00-03; module 08)*
+
+### Confounder
+A variable that influences both who receives the treatment and the outcome, so a plain
+comparison of treated with untreated mixes the two effects. Both arrows are required - a
+variable correlated with the outcome alone is just a useful feature. *(00-04)*
 
 ### Confusion matrix
 The four counts behind a yes/no prediction: correctly predicted positives, false alarms, missed
@@ -84,6 +99,11 @@ Using information when building or scoring a model that would not really be avai
 prediction time - typically something from the future, or the answer itself under another name.
 Makes a useless model look excellent. *(previewed in 00-01; the subject of 04-05)*
 
+### Lever (versus predictor)
+A variable you could actually change. A feature can be an excellent predictor and a useless
+lever: `emailed` predicts spend because it carries information about loyalty, and emailing
+everyone destroys exactly that information. *(00-04; 07-06)*
+
 ### Learning curve
 A plot of performance against the amount of training data. Steep means more data will help; flat
 means it will not, and you need a different model, better features or a different framing.
@@ -98,6 +118,11 @@ model is a small part of it. *(00-03)*
 The average size of the errors, ignoring direction, in the same units as the target:
 `MAE = (1/n) * sum |y_i - yhat_i|`. Its virtue is that you can say it out loud to a non-technical
 person. Minimised by the median, not the mean. *(00-01; compared with MSE and RMSE in 05-04)*
+
+### Mediator
+A variable that lies on the causal path from treatment to outcome. Adjusting for one removes the
+effect you were trying to measure - the opposite of what adjusting for a confounder does, and
+indistinguishable from it by looking at the data. *(00-04 solutions; 12-07)*
 
 ### Multi-armed bandit
 The simplest reinforcement learning setting: repeatedly choose among options, observe the reward,
@@ -128,6 +153,12 @@ tree, a neural network - all the same kind of object: information in, guess out.
 The simplest semi-supervised method: label the unlabelled rows with your model's own confident
 predictions and retrain on everything. Fails when the model is confidently wrong, because the
 errors become training labels and reinforce themselves. *(00-03 solutions; 12-01)*
+
+### Residual confounding
+The bias left over when a confounder is adjusted for but was measured imprecisely. A loyalty
+score with as much noise as signal recovered only about a third of the needed correction, with
+nothing in the output to indicate it. Why "we controlled for it" deserves a follow-up question.
+*(00-04 solutions)*
 
 ### Regression
 Supervised learning where the target is a number on a scale, so "close" means something. The
