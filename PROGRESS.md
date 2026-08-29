@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-29
-**Chapters complete:** 4 of 121 - module 00 finished
-**Next chapter to build:** **01-01 · Diagnostic: can you skip this module?**
-(`notebooks/01_python_bridge/01-01_diagnostic.ipynb`), opening the optional Python bridge.
+**Chapters complete:** 5 of 121
+**Next chapter to build:** **01-02 · Essential Python for data work**
+(`notebooks/01_python_bridge/01-02_python_essentials.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-29, **8/8 passed** (four chapters and their four solutions
+Last full run: 2026-08-29, **10/10 passed** (five chapters and their five solutions
 notebooks). The notebook template also executes cleanly.
 
 ## Status by module
@@ -25,7 +25,7 @@ notebooks). The notebook template also executes cleanly.
 | Module | Chapters | Complete | Notes |
 |---|---|---|---|
 | 00 Orientation | 4 | **4** | complete and validated |
-| 01 Python bridge | 6 | 0 | optional module, gated by its own diagnostic |
+| 01 Python bridge | 6 | 1 | 01-01 diagnostic done; it routes learners to the rest |
 | 02 Data literacy | 8 | 0 | 02-08 needs the Seoul bike file, or falls back to synthetic |
 | 03 Math foundations | 8 | 0 | |
 | 04 Workflow | 8 | 0 | the spine of the course |
@@ -58,6 +58,12 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-29 (5)** - Chapter 01-01, the Python/pandas diagnostic, and its answer key. Ten
+self-checking tasks that report "not attempted" rather than failing, so the notebook validates
+whether or not a learner fills it in; the result cell routes to skip / skim / do-the-module. The
+answer key doubles as a short reference on the two tasks that produce silent bugs rather than
+errors: choosing the wrong axis, and a join that changes the row count.
 
 **2026-08-29 (4)** - Chapter 00-04 (prediction, explanation, cause) and its solutions built and
 validated, finishing module 00. Built a confounded email campaign whose true effect is 5.00 EUR:
