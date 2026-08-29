@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-29
-**Chapters complete:** 8 of 121
-**Next chapter to build:** **01-05 · pandas II: grouping, joining, timestamps**
-(`notebooks/01_python_bridge/01-05_pandas_group_join_time.ipynb`).
+**Chapters complete:** 9 of 121
+**Next chapter to build:** **01-06 · Plotting that says something, and reproducible randomness**
+(`notebooks/01_python_bridge/01-06_plotting_and_seeds.ipynb`) - closes module 01.
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-29, **16/16 passed** (eight chapters and their eight solutions
+Last full run: 2026-08-29, **18/18 passed** (nine chapters and their nine solutions
 notebooks). The notebook template also executes cleanly.
 
 ## Status by module
@@ -25,7 +25,7 @@ notebooks). The notebook template also executes cleanly.
 | Module | Chapters | Complete | Notes |
 |---|---|---|---|
 | 00 Orientation | 4 | **4** | complete and validated |
-| 01 Python bridge | 6 | 4 | 01-01 to 01-04 done |
+| 01 Python bridge | 6 | 5 | 01-01 to 01-05 done |
 | 02 Data literacy | 8 | 0 | 02-08 needs the Seoul bike file, or falls back to synthetic |
 | 03 Math foundations | 8 | 0 | |
 | 04 Workflow | 8 | 0 | the spine of the course |
@@ -58,6 +58,14 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-29 (9)** - Chapter 01-05 (pandas II) and its solutions. Two failure labs, both of which
+make results look better rather than worse. A duplicated key in a lookup table turns a 12-row left
+join into 16 rows and inflates the rental total from 1125 to 1480, which is duplicate leakage
+arriving through a join rather than a modelling decision; the defences are the row count,
+`validate=`, and `.duplicated(keep=False)` to name the guilty row. The second is a missing day:
+`resample("D")` produces it and `groupby(.dt.date)` does not, and solutions E14 shows the lag
+feature going wrong on exactly three rows - the day after the gap, for each station.
 
 **2026-08-29 (8)** - Chapter 01-04 (pandas I) and its solutions. Failure lab loads a CSV from a
 German supplier: no warning, `temp_c.max()` returns `'9,0'` when the real maximum is 31.7,
