@@ -44,40 +44,34 @@ Chapter 00-03 walks the decision; this is the map it produces.
 flowchart TD
     Q{"Do you have recorded outcomes?"}
 
-    Q -->|"yes, for most rows"| SUP["SUPERVISED"]
-    Q -->|"yes, for a few rows"| SEMI["Semi-supervised + active &#8212; 12-01"]
-    Q -->|"yes, but another problem"| TRANS["Transfer &#8212; 10-12, 11-05"]
-    Q -->|"no, but I can hide part of the data"| SELF["Self-supervised &#8212; 10-12, 12-03"]
+    Q -->|"for most rows"| SUP["SUPERVISED"]
+    Q -->|"for a few rows"| SEMI["Semi-supervised, active learning &#183; 12-01"]
+    Q -->|"for a related problem"| TRANS["Transfer learning &#183; 10-12, 11-05"]
+    Q -->|"no, but I can hide part of the data"| SELF["Self-supervised &#183; 10-12, 12-03"]
     Q -->|"no, I want structure"| UNSUP["UNSUPERVISED"]
-    Q -->|"no, answers come from acting"| RL["Reinforcement, bandits &#8212; 12-05"]
+    Q -->|"no, they come from acting"| RL["Reinforcement, bandits &#183; 12-05"]
 
-    SUP --> REG["Regression &#8212; target is a number &#8212; module 05"]
-    SUP --> CLF["Classification &#8212; target is a category &#8212; module 06"]
-    SUP --> TS["Forecasting &#8212; target is the future &#8212; module 09"]
+    SUP --> REG["Regression &#183; module 05"]
+    SUP --> CLF["Classification &#183; module 06"]
+    SUP --> TS["Forecasting &#183; module 09"]
 
-    REG --> R1["linear, ridge, lasso, elastic net, polynomial"]
-    REG --> R2["decision tree, random forest, gradient boosting"]
-    REG --> R3["k-nearest neighbours, MLP"]
+    UNSUP --> CLU["Clustering &#183; 08-03 to 08-06"]
+    UNSUP --> DIM["Dimensionality reduction &#183; 08-07, 08-08"]
+    UNSUP --> ANO["Anomaly detection &#183; 08-08"]
 
-    CLF --> C1["logistic regression, naive Bayes"]
-    CLF --> C2["SVM, linear and kernel"]
-    CLF --> C3["decision tree, random forest, gradient boosting"]
-    CLF --> C4["kNN, MLP, CNN, transformer"]
-
-    TS --> T1["naive, seasonal naive, exponential smoothing, ARIMA"]
-    TS --> T2["lag features plus any regression model"]
-
-    UNSUP --> CLU["Clustering &#8212; k-means, hierarchical, DBSCAN, GMM &#8212; 08-03 to 08-06"]
-    UNSUP --> DIM["Dimensionality reduction &#8212; PCA, t-SNE, UMAP &#8212; 08-07, 08-08"]
-    UNSUP --> ANO["Anomaly detection &#8212; isolation forest, density &#8212; 08-08"]
-
+    classDef q fill:#ffffff,stroke:#333333,color:#111111
     classDef task fill:#0072B2,stroke:#013a5c,color:#ffffff
     classDef leaf fill:#e8f1f8,stroke:#0072B2,color:#0b2233
     classDef other fill:#D55E00,stroke:#6e3000,color:#ffffff
+    class Q q
     class SUP,UNSUP task
-    class REG,CLF,TS,CLU,DIM,ANO,R1,R2,R3,C1,C2,C3,C4,T1,T2 leaf
+    class REG,CLF,TS,CLU,DIM,ANO leaf
     class SEMI,TRANS,SELF,RL other
 ```
+
+*The diagram stops at the task. Which algorithm to reach for within a task is the table below —
+and it is a different question, decided by the shape of your data rather than by the shape of your
+labels.*
 
 ### Where each algorithm lives
 
