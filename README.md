@@ -41,41 +41,41 @@ The top-level split is the one Andrew Ng uses and it is the right one, because i
 Chapter 00-03 walks the decision; this is the map it produces.
 
 ```mermaid
-flowchart LR
-    Q{"Do you have<br/>recorded outcomes?"}
+flowchart TD
+    Q{"Do you have recorded outcomes?"}
 
-    Q -->|"yes, for most rows"| SUP["<b>SUPERVISED</b>"]
-    Q -->|"yes, for a few"| SEMI["<b>SEMI-SUPERVISED</b><br/>+ active learning<br/><i>12-01</i>"]
-    Q -->|"yes, other problem"| TRANS["<b>TRANSFER</b><br/><i>10-12 · 11-05 · 12-03</i>"]
-    Q -->|"no, I can hide<br/>part of the data"| SELF["<b>SELF-SUPERVISED</b><br/><i>10-12 · 12-03</i>"]
-    Q -->|"no, I want structure"| UNSUP["<b>UNSUPERVISED</b>"]
-    Q -->|"no, answers come<br/>from acting"| RL["<b>REINFORCEMENT</b><br/>bandits · Q-learning<br/><i>12-05</i>"]
+    Q -->|"yes, for most rows"| SUP["SUPERVISED"]
+    Q -->|"yes, for a few rows"| SEMI["Semi-supervised + active &#8212; 12-01"]
+    Q -->|"yes, but another problem"| TRANS["Transfer &#8212; 10-12, 11-05"]
+    Q -->|"no, but I can hide part of the data"| SELF["Self-supervised &#8212; 10-12, 12-03"]
+    Q -->|"no, I want structure"| UNSUP["UNSUPERVISED"]
+    Q -->|"no, answers come from acting"| RL["Reinforcement, bandits &#8212; 12-05"]
 
-    SUP --> REG["<b>Regression</b><br/>target is a number<br/><i>module 05</i>"]
-    SUP --> CLF["<b>Classification</b><br/>target is a category<br/><i>module 06</i>"]
-    SUP --> TS["<b>Forecasting</b><br/>target is the future<br/><i>module 09</i>"]
+    SUP --> REG["Regression &#8212; target is a number &#8212; module 05"]
+    SUP --> CLF["Classification &#8212; target is a category &#8212; module 06"]
+    SUP --> TS["Forecasting &#8212; target is the future &#8212; module 09"]
 
-    REG --> RL1["linear · ridge · lasso<br/>elastic net · polynomial"]
-    REG --> RL2["trees · random forest<br/>gradient boosting"]
-    REG --> RL3["kNN · MLP"]
+    REG --> R1["linear, ridge, lasso, elastic net, polynomial"]
+    REG --> R2["decision tree, random forest, gradient boosting"]
+    REG --> R3["k-nearest neighbours, MLP"]
 
-    CLF --> CL1["logistic regression<br/>naive Bayes"]
-    CLF --> CL2["SVM (linear · kernel)"]
-    CLF --> CL3["trees · random forest<br/>gradient boosting"]
-    CLF --> CL4["kNN · MLP · CNN<br/>transformer"]
+    CLF --> C1["logistic regression, naive Bayes"]
+    CLF --> C2["SVM, linear and kernel"]
+    CLF --> C3["decision tree, random forest, gradient boosting"]
+    CLF --> C4["kNN, MLP, CNN, transformer"]
 
-    TS --> TS1["naive · seasonal naive<br/>exponential smoothing · ARIMA"]
-    TS --> TS2["lag features + any<br/>regression model"]
+    TS --> T1["naive, seasonal naive, exponential smoothing, ARIMA"]
+    TS --> T2["lag features plus any regression model"]
 
-    UNSUP --> CLU["<b>Clustering</b><br/>k-means · hierarchical<br/>DBSCAN · GMM<br/><i>08-03 to 08-06</i>"]
-    UNSUP --> DIM["<b>Dimensionality<br/>reduction</b><br/>PCA · t-SNE · UMAP<br/><i>08-07 · 08-08</i>"]
-    UNSUP --> ANO["<b>Anomaly detection</b><br/>isolation forest<br/>density methods<br/><i>08-08</i>"]
+    UNSUP --> CLU["Clustering &#8212; k-means, hierarchical, DBSCAN, GMM &#8212; 08-03 to 08-06"]
+    UNSUP --> DIM["Dimensionality reduction &#8212; PCA, t-SNE, UMAP &#8212; 08-07, 08-08"]
+    UNSUP --> ANO["Anomaly detection &#8212; isolation forest, density &#8212; 08-08"]
 
-    classDef task fill:#0072B2,stroke:#003f63,color:#fff
-    classDef leaf fill:#eef4fa,stroke:#0072B2,color:#123
-    classDef other fill:#D55E00,stroke:#7a3600,color:#fff
+    classDef task fill:#0072B2,stroke:#013a5c,color:#ffffff
+    classDef leaf fill:#e8f1f8,stroke:#0072B2,color:#0b2233
+    classDef other fill:#D55E00,stroke:#6e3000,color:#ffffff
     class SUP,UNSUP task
-    class REG,CLF,TS,CLU,DIM,ANO,RL1,RL2,RL3,CL1,CL2,CL3,CL4,TS1,TS2 leaf
+    class REG,CLF,TS,CLU,DIM,ANO,R1,R2,R3,C1,C2,C3,C4,T1,T2 leaf
     class SEMI,TRANS,SELF,RL other
 ```
 
