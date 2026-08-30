@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-30
-**Chapters complete:** 24 of 121
-**Next to build:** **03-07 · Vectors, distance, norms, dot products, matrices, shapes**
-(`notebooks/03_math_foundations/03-07_vectors_matrices.ipynb`).
+**Chapters complete:** 25 of 121
+**Next to build:** **03-08 · Loss, finite differences, gradients, optimisation**
+(`notebooks/03_math_foundations/03-08_loss_and_gradients.ipynb`) - the last chapter of module 03.
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-30, **50/50 passed** (twenty-four chapters, their twenty-four solutions
+Last full run: 2026-08-30, **52/52 passed** (twenty-five chapters, their twenty-five solutions
 notebooks, and the module 02 assessment with its solutions). The notebook template also executes
 cleanly. Notebooks are committed without stored outputs (D-15).
 
@@ -28,7 +28,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 00 Orientation | 4 | **4** | complete and validated |
 | 01 Python bridge | 6 | **6** | complete and validated |
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
-| 03 Math foundations | 8 | 6 | 03-01 to 03-06 done |
+| 03 Math foundations | 8 | 7 | 03-01 to 03-07 done |
 | 04 Workflow | 8 | 0 | the spine of the course |
 | 05 Regression | 12 | 0 | |
 | 06 Classification | 12 | 0 | |
@@ -63,6 +63,25 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (28)** - Chapter 03-07 (vectors, distance, and shapes) and its solutions. Five flats,
+three columns, and a failure lab that changes how the rest of the course treats data: asked for the
+nearest match to 1210 euros / 4 rooms / 5 km, raw Euclidean distance returns flat A, which has two
+rooms and sits 1 km out, while flat B - an exact match on both non-price requirements, 40 euros
+dearer - comes third. The contribution table shows why: rent supplies between 83.3% and 99.997% of
+every squared distance, because a 40-euro gap contributes 1,600 and a two-room gap contributes 4.
+Standardising flips the answer to B at 0.1097. Norms next, with a case where L1 and L2 disagree - out
+by 3.0 on one feature against 1.8 on two gives L1 3.000 vs 3.600 and L2 3.000 vs 2.546 - which is
+03-01's squared-versus-absolute fork appearing a third time, and which is also Ridge against Lasso.
+The dot product is then introduced as a weighted sum and immediately as a prediction, with flat A
+checked by hand at 76.0, so module 05's prediction step is already familiar. Cosine similarity
+contrasted with distance on a listener who has identical taste and ten times the activity: euclidean
+20.125 and cosine 1.0000. Closes on shapes, the matmul contract, and reading a real ValueError.
+Solutions E8 is the sharpest version of the chapter's point - dividing rent by 1000, with no
+standardisation anywhere, flips the nearest flat from A to B, so unscaled distance is not a weak
+measure of similarity but a statement about spreadsheet units. E10 predicts and confirms that income
+supplies 99.94% of the distance in an unscaled kNN. E16 measures the curse of dimensionality: the
+ratio of furthest to nearest neighbour falls from 73.9 at two dimensions to 1.268 at two hundred.
 
 **2026-08-30 (27)** - Chapter 03-06 (lines, slopes, and logarithms) and its solutions, the
 vocabulary chapter for module 05. Six exact data points - rentals rising 45 per 3 degrees - give a

@@ -33,7 +33,7 @@ ONE_IDEA = {
     "03-04": "The same 36 bikes give 0.90 or 0.27 depending on the denominator, and multiplying is an assumption.",
     "03-05": "Turn rates into counts and the hard part disappears - then two positives mean 83% or 5%.",
     "03-06": "A coefficient without its units is a rumour, and 0.70 on a logged outcome is 101%.",
-    "03-07": "Distance, dot product and shape are the vocabulary every model after this is written in.",
+    "03-07": "Distance is measured in whatever unit is largest, and X @ w is already a model.",
     "03-08": "A loss turns 'better' into a number, and a gradient says which way to step.",
 
     "04-01": "Unit, target, prediction time and horizon - the contract that has to exist before any model.",
