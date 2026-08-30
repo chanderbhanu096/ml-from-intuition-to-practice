@@ -84,6 +84,24 @@ causality half needs a failure lab of its own - it is the most expensive confusi
 ML. Split into 00-03 (the families of learning plus the lifecycle map) and 00-04 (prediction,
 explanation, cause). Module 00 is now 4 chapters; the course is 121.
 
+**D-17 - Visual density: a figure for every idea, not one per chapter.** (2026-08-30)
+Strengthens D-16 after a second request for more visual learning. The target is now **six to ten figures
+per chapter**, and the test is per-*idea* rather than per-chapter: if a paragraph asks the reader to hold
+a structure in their head - a split, a timeline, a surface, a flow of rows - it gets a picture.
+
+Three kinds are now expected, and the first is the one that was missing:
+
+1. **Schematic diagrams**, drawn with matplotlib but carrying no data - rows as coloured blocks, windows
+   as shaded bands, arrows for flow. These teach structure, and structure is what a scatter plot of real
+   data cannot show. A random split versus a grouped split is one picture and a thousand words.
+2. **Small multiples showing a process in stills** - the same object at steps 1, 3, 10, 30, 100 - which is
+   an animation the reader can scan at their own pace.
+3. **A closing summary figure** where a chapter has more than one moving part, recapping it in one frame.
+
+Every figure keeps D-16's requirement to be checked by eye. The cost is real - roughly half the authoring
+time of a chapter is now figures - and it is accepted deliberately: the learner is a near-beginner, and
+for a near-beginner an unreadable paragraph and a clear diagram are not close substitutes.
+
 **D-16 - Every chapter carries a picture of the mechanism and a page of arithmetic.** (2026-08-30)
 From 03-08 onwards a chapter is not finished until it contains, in addition to whatever plots the data
 needs: at least one figure that draws the *mechanism* rather than the data - a loss surface with the

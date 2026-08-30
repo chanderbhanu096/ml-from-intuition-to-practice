@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-30
-**Chapters complete:** 29 of 121
-**Next to build:** **04-04 · Splitting II: grouped and chronological**
-(`notebooks/04_workflow/04-04_splitting_group_time.ipynb`).
+**Chapters complete:** 30 of 121
+**Next to build:** **04-05 · Leakage lab: target, temporal, duplicate, preprocessing**
+(`notebooks/04_workflow/04-05_leakage.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-30, **62/62 passed** (twenty-nine chapters, their twenty-nine solutions
+Last full run: 2026-08-30, **64/64 passed** (thirty chapters, their thirty solutions
 notebooks, and the module 02 and 03 assessments with their solutions). The notebook template also executes
 cleanly. Notebooks are committed without stored outputs (D-15).
 
@@ -29,7 +29,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 01 Python bridge | 6 | **6** | complete and validated |
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
 | 03 Math foundations | 8 | **8** | complete and validated, assessment written |
-| 04 Workflow | 8 | 3 | the spine of the course; 04-01 to 04-03 done |
+| 04 Workflow | 8 | 4 | the spine of the course; 04-01 to 04-04 done |
 | 05 Regression | 12 | 0 | |
 | 06 Classification | 12 | 0 | |
 | 07 Evaluation | 7 | 0 | |
@@ -63,6 +63,36 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (34)** - Chapter 04-04 (grouped and chronological splitting) and its solutions, built to
+the new D-17 visual standard: **nine figures**, including three pure schematics that carry no data.
+
+Uses 04-01's E18 member-month table (6,318 rows, 580 members, 10.9 rows each). Under a random 70/30 split
+**539 of 544 test members - 99.1% - are also in training**. What that costs depends entirely on the model:
+logistic regression **+0.0021**, random forest **+0.0957**, k-nearest-neighbours **+0.1052**, because
+inflation scales with capacity to memorise.
+
+The finding worth the chapter: **the ranking reverses.** The random split says the forest is best (0.7580
+against 0.7313); the honest split says the logistic regression is (0.7292 against 0.6624). A leaky split
+does not merely inflate - it systematically favours the models that leak best, so it changes what you
+ship.
+
+Four-stage ladder measured for both models: random rows / grouped only / chronological only / grouped AND
+forward. The forest loses most at the grouping step, the logistic regression at the chronological step,
+and the crossing survives every stage.
+
+Figures: the block schematic of a random versus grouped split (the picture the whole chapter rests on),
+the composition of the "held-out" set, the inflation bars, the crossing-lines slope chart, three real
+per-month split profiles, the forward-chaining staircase, and a 2x2 decision grid.
+
+Exercise answers that qualify the headline. E9: inflation grows with tree depth to +0.0835 at 238 leaves
+and then **falls** to +0.0607 at 842, because an unlimited tree's leaky score has itself collapsed - so
+inflation scales with capacity only over the range where the model still works. E10: of the 0.1134 total
+drop, **0.0248 is less training data and 0.0886 is leakage** - four fifths real. E12: with one row per
+member the inflation vanishes (-0.0272), the control the chapter needed, and the base rate jumps 0.1198 to
+0.2155 because per-member sampling weights members equally - 04-01's unit-of-observation lesson arriving
+uninvited. E20 finds a fourth leak neither grouping nor chronology removes: **target overlap**, worth
+0.0368 once the training-size effect (0.0514) is separated out.
 
 **2026-08-30 (33)** - Chapter 04-03 (splitting: train, validation, test) and its solutions. Audits the
 two previous chapters: the same logistic regression over **200 random splits** scores anywhere from
