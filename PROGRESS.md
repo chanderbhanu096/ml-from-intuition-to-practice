@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-31
-**Chapters complete:** 36 of 121
-**Next to build:** **05-03 · Multiple linear regression and what a coefficient means**
-(`notebooks/05_regression/05-03_multiple_linear.ipynb`).
+**Chapters complete:** 37 of 121
+**Next to build:** **05-04 · Metrics: MAE, MSE, RMSE, MAPE's trouble, R-squared**
+(`notebooks/05_regression/05-04_metrics.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-31, **78/78 passed** (thirty-six chapters, their thirty-six solutions
+Last full run: 2026-08-31, **80/80 passed** (thirty-seven chapters, their thirty-seven solutions
 notebooks, and the module 02, 03 and 04 assessments with their solutions). The notebook template also executes
 cleanly. Notebooks are committed without stored outputs (D-15).
 
@@ -30,7 +30,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
 | 03 Math foundations | 8 | **8** | complete and validated, assessment written |
 | 04 Workflow | 8 | **8** | complete and validated, assessment written |
-| 05 Regression | 12 | 2 | 05-01 and 05-02 done |
+| 05 Regression | 12 | 3 | 05-01 to 05-03 done |
 | 06 Classification | 12 | 0 | |
 | 07 Evaluation | 7 | 0 | |
 | 08 Unsupervised | 8 | 0 | |
@@ -63,6 +63,41 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-31 (3)** - Chapter 05-03 (multiple regression and what a coefficient means) and its solutions,
+6 figures. Built around a **sign flip** on 300 synthetic houses where the truth is known: price rises 3.0
+per m2 and 0.9 per year of age, but older houses are smaller. Age fitted alone gives **-1.03**; age fitted
+alongside size gives **+0.82**. Both correct, different questions, and the omitted-variable formula
+predicts the flip in advance (0.9 + 3.0 x -0.6619 = -1.09 against a measured -1.03).
+
+**Frisch-Waugh-Lovell is the centrepiece**, because it turns "holding the others constant" from a phrase
+into a procedure: strip size out of age and out of price, fit a line to the leftovers, and its slope is
+the coefficient to six decimals. Drawn as three panels, it is the clearest explanation of a regression
+coefficient I know.
+
+The collinearity experiment came out cleaner than designed. Coefficient spread grows 0.056 -> 1.263 as the
+correlation goes 0 -> 0.999, while the **prediction spread is 0.0802 in all three, exactly**. That equality
+is not luck: the second feature is always built from the same two underlying draws, so `span{first,
+second}` is the same plane throughout and only the basis rotates. The residual vector is identical
+(sd 1.0528) in every case. Collinearity rotates the coordinates without moving the space.
+
+Real data: California's `AveRooms` and `AveBedrms` are 0.81 correlated, and moving from single-feature to
+two-feature fits takes +0.0735 to +0.2901 and -0.1730 to -1.4405, with inflation factors of 6.01 and 5.25.
+
+Three exercise findings. **E9**: twenty pure-noise columns move the coefficients by about 1% - irrelevant
+columns are nearly harmless, in sharp contrast to correlated ones - but R-squared climbs from 0.766 to
+0.851 at 100 noise columns, which sets up 05-07. **E20**: given `size` and `2 x size`, sklearn returns
+(0.3848, 0.7697) with no warning; their combined effect is exactly the single-feature 1.9242 and the
+predictions are bit-identical. The library picks the minimum-norm solution, so a coefficient can be
+entirely an artefact of the solver.
+
+**E11 was rewritten twice after executing.** I claimed the engineered ratio was "an interpretability fix,
+not an accuracy fix" - it costs more than half the R-squared (0.1091 -> 0.0479), because a ratio is
+nonlinear and does not span the same space. My replacement parenthetical was also wrong: `AveBedrms -
+AveRooms` makes the inflation factor *worse* (62.14), not better. The corrected answer compares four
+parameterisations and lands on orthogonalising, which gives a factor of exactly 1.00 at no cost in
+R-squared - and returns `AveRooms` to +0.0735, its single-feature value.
+
 
 **2026-08-31 (2)** - Chapter 05-02 (simple linear regression, fitted by hand) and its solutions, 7
 figures. Nine deliveries chosen so every intermediate number is exact: x̄ = 5, ȳ = 30, Sxx = 60, Sxy = 210,
