@@ -40,7 +40,7 @@ modules:
     name: Data literacy and EDA
     dir: notebooks/02_data_literacy
     goal: Read a dataset like a sceptic before modelling anything.
-    assessment: assessments/02_data_literacy_assessment.ipynb
+    assessment: assessments/module_02_assessment.ipynb
     chapters:
       - {id: "02-01", title: "What is a row? observations, features, targets, units, dtypes", path: notebooks/02_data_literacy/02-01_what_is_a_row.ipynb, level: core, minutes: 45, prereqs: ["00-04"], concepts: [unit of observation, target vs feature vs identifier, measurement scales, mean of means, grain and splitting], dataset: tiny, status: complete}
       - {id: "02-02", title: "Where data comes from: provenance and collection", path: notebooks/02_data_literacy/02-02_provenance.ipynb, level: core, minutes: 45, prereqs: ["02-01"], concepts: [six provenance questions, definition change vs world change, control slice, data dictionary, purpose bias], dataset: synthetic, status: complete}
@@ -55,7 +55,7 @@ modules:
     name: Mathematical and statistical foundations
     dir: notebooks/03_math_foundations
     goal: The maths actually used, on a ladder from counting to gradients.
-    assessment: assessments/03_math_foundations_assessment.ipynb
+    assessment: assessments/module_03_assessment.ipynb
     chapters:
       - {id: "03-01", title: "Summaries: the arithmetic behind typical and spread", path: notebooks/03_math_foundations/03-01_summaries.ipynb, level: core, minutes: 45, prereqs: ["02-05"], concepts: [mean minimises squared error, median minimises absolute error, ddof, why n-1, variance units, quantile conventions, breakdown point, weighted mean], dataset: tiny, status: complete}
       - {id: "03-02", title: "Why two samples never agree", path: notebooks/03_math_foundations/03-02_sampling.ipynb, level: core, minutes: 50, prereqs: ["03-01"], concepts: [population vs sample, sampling distribution, standard error, sd vs se, the sqrt(n) law, central limit theorem measured, false winners, precision of mean vs median], dataset: synthetic, status: complete}

@@ -2,8 +2,8 @@
 
 **Last updated:** 2026-08-30
 **Chapters complete:** 26 of 121
-**Next to build:** the **module 03 assessment** (`assessments/module_03_assessment.ipynb`), then
-**04-01 · Framing a problem** (`notebooks/04_workflow/04-01_framing.ipynb`) - the start of module 04.
+**Next to build:** **04-01 · Framing a problem** (`notebooks/04_workflow/04-01_framing.ipynb`) -
+the start of module 04, the workflow.
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,8 +17,8 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-30, **54/54 passed** (twenty-six chapters, their twenty-six solutions
-notebooks, and the module 02 assessment with its solutions). The notebook template also executes
+Last full run: 2026-08-30, **56/56 passed** (twenty-six chapters, their twenty-six solutions
+notebooks, and the module 02 and 03 assessments with their solutions). The notebook template also executes
 cleanly. Notebooks are committed without stored outputs (D-15).
 
 ## Status by module
@@ -28,7 +28,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 00 Orientation | 4 | **4** | complete and validated |
 | 01 Python bridge | 6 | **6** | complete and validated |
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
-| 03 Math foundations | 8 | **8** | complete and validated, assessment still to write |
+| 03 Math foundations | 8 | **8** | complete and validated, assessment written |
 | 04 Workflow | 8 | 0 | the spine of the course |
 | 05 Regression | 12 | 0 | |
 | 06 Classification | 12 | 0 | |
@@ -63,6 +63,17 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (30)** - Module 03 assessment and its solutions. 40 marks over recall, doing and
+judgement, on 400 synthetic parcel deliveries from a two-depot courier network. The eight Part B tasks
+cover all eight chapters and mark themselves against salted digests, so no answer is readable in the
+notebook source; the checker was tested to accept the correct value, accept it 0.01 out, and reject the
+two plausible wrong answers for the Bayes task (85, the sensitivity, and 6, the base rate). Part C1 hands
+the learner four loss curves and asks which is which - the first assessment question in the course that
+is read off a picture. C3 turned out better than designed: the two-feature model scores 33.77 against a
+supposed noise floor of 36.0, because the 400 noise values actually drawn have a variance of 34.05, and
+adding `weight_kg` - which by construction cannot matter - lowers the training error again to 33.766.
+That is held-out data argued for in three numbers, and it sets up module 04.
 
 **2026-08-30 (29)** - Chapter 03-08 (loss, gradients, and how a model is fitted) and its solutions
 built and validated, finishing module 03 and the mathematics. Gradient descent in five lines recovers
