@@ -24,7 +24,7 @@ ONE_IDEA = {
     "02-04": "Every visible defect needs a decision, and dropna() is itself a selection mechanism.",
     "02-05": "An outlier is a question, not a category - and automatic removal deletes the rows that matter most.",
     "02-06": "Relationships can appear, vanish or reverse depending on what else you hold constant.",
-    "02-07": "A chart persuades before it informs; EDA generates hypotheses and cannot confirm them.",
+    "02-07": "Every number on the slide is true and the impression is still wrong; and the arrow is not in the data.",
     "02-08": "The whole module applied to one real dataset, ending in a written data dictionary.",
 
     "03-01": "Centre and spread answer different questions, and robustness is a tool rather than a virtue.",

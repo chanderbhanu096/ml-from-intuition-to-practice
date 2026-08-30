@@ -2,7 +2,7 @@
 
 > Read a dataset like a sceptic before modelling anything.
 
-**6 of 8 chapters complete** · ~7 learner-hours · Applied, Core
+**7 of 8 chapters complete** · ~7 learner-hours · Applied, Core
 
 ---
 
@@ -28,7 +28,7 @@ The order is deliberate: what a row is, where it came from, who is missing, what
 | `[x]` | **[02-04](02-04_data_quality.ipynb)** Missing values, duplicates, impossible values, messy categories | Core | 55m | Every visible defect needs a decision, and dropna() is itself a selection mechanism. |
 | `[x]` | **[02-05](02-05_distributions.ipynb)** Distributions, outliers, transformations | Core | 50m | An outlier is a question, not a category - and automatic removal deletes the rows that matter most. |
 | `[x]` | **[02-06](02-06_multivariate.ipynb)** Univariate, bivariate, multivariate without fooling yourself | Core | 55m | Relationships can appear, vanish or reverse depending on what else you hold constant. |
-| `[ ]` | **02-07** Honest visualisation; correlation vs causation; limits of EDA | Core | 45m | A chart persuades before it informs; EDA generates hypotheses and cannot confirm them. |
+| `[x]` | **[02-07](02-07_honest_visuals.ipynb)** Showing what you found, without saying more than you found | Core | 50m | Every number on the slide is true and the impression is still wrong; and the arrow is not in the data. |
 | `[ ]` | **02-08** Applied: a full EDA and a written data dictionary | Applied | 90m | The whole module applied to one real dataset, ending in a written data dictionary. |
 
 ## Data used

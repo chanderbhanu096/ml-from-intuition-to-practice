@@ -1,9 +1,10 @@
 # Progress
 
-**Last updated:** 2026-08-29
-**Chapters complete:** 16 of 121
-**Next chapter to build:** **02-07 · Honest visualisation, correlation vs causation, the limits
-of EDA** (`notebooks/02_data_literacy/02-07_honest_visuals.ipynb`).
+**Last updated:** 2026-08-30
+**Chapters complete:** 17 of 121
+**Next chapter to build:** **02-08 · A full exploratory analysis and a written data dictionary**
+(`notebooks/02_data_literacy/02-08_applied_eda.ipynb`). It closes module 02 and is followed by the
+module's cumulative assessment - the first one in the course.
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +18,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-30, **32/32 passed** (sixteen chapters and their sixteen solutions
+Last full run: 2026-08-30, **34/34 passed** (seventeen chapters and their seventeen solutions
 notebooks). The notebook template also executes cleanly.
 
 ## Status by module
@@ -26,7 +27,7 @@ notebooks). The notebook template also executes cleanly.
 |---|---|---|---|
 | 00 Orientation | 4 | **4** | complete and validated |
 | 01 Python bridge | 6 | **6** | complete and validated |
-| 02 Data literacy | 8 | 6 | 02-01 to 02-06 done; 02-08 needs the Seoul bike file, or falls back to synthetic |
+| 02 Data literacy | 8 | 7 | 02-01 to 02-07 done; 02-08 picks its dataset under D-14 |
 | 03 Math foundations | 8 | 0 | |
 | 04 Workflow | 8 | 0 | the spine of the course |
 | 05 Regression | 12 | 0 | |
@@ -62,6 +63,25 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (18)** - Chapter 02-07 (showing what you found, without saying more than you found)
+and its solutions. Three demonstrations, all executed. A bar chart of two docking-rack averages is
+accurate - 45.54 s against 40.13 s - and hides that 28.5% of new dockings are slower than the old
+average and a random new docking wins only 64.6% of the time. Two independently generated random
+walks correlate at 0.914 on levels and -0.011 on their monthly changes, which is the twin-axis trap
+and a forward reference to module 09. The centrepiece is three worlds - opens cause rides, rides
+cause opens, enthusiasm causes both - tuned so all three land on r = 0.754 exactly and are
+standardised so the clouds are indistinguishable; simulating the intervention gives 0.800 extra
+rides in the first world and exactly zero in the other two. Second failure lab screens 40 pure-noise
+columns against a pure-noise target: the winner is r = 0.254, it comes back at -0.045 on fresh data,
+and 60.1% of noise runs beat it (the best-of-40 median is 0.264 against 0.074 for one pre-chosen
+column), so the finding is below average for noise. Chapter closes with a table of what EDA can and
+cannot settle and a four-line format for writing a finding. Solutions E15 adds a fourth world -
+mutual causation, b = 1/3 giving r = 2b/(1+b squared) = 0.600 - which is equally indistinguishable
+and has a third distinct intervention effect of 0.333. Fixed by executing: a stray returned tuple
+printing as np.float64, a literal `5%%` in a non-formatted string, a claim that the intervention
+effect was 0.800 standard deviations when it is 0.800 rides units, and "about a third" for a share
+that is 28.5%.
 
 **2026-08-30 (17)** - Chapter 02-06 (looking at two things at once) and its solutions. Four rows of
 hand-checkable data give a clean Simpson's paradox: electric bikes rent at 0.931 and 0.730 against
