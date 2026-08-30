@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-31
-**Chapters complete:** 35 of 121
-**Next to build:** **05-02 · Simple linear regression, fitted by hand**
-(`notebooks/05_regression/05-02_simple_linear.ipynb`).
+**Chapters complete:** 36 of 121
+**Next to build:** **05-03 · Multiple linear regression and what a coefficient means**
+(`notebooks/05_regression/05-03_multiple_linear.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-31, **76/76 passed** (thirty-five chapters, their thirty-five solutions
+Last full run: 2026-08-31, **78/78 passed** (thirty-six chapters, their thirty-six solutions
 notebooks, and the module 02, 03 and 04 assessments with their solutions). The notebook template also executes
 cleanly. Notebooks are committed without stored outputs (D-15).
 
@@ -30,7 +30,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
 | 03 Math foundations | 8 | **8** | complete and validated, assessment written |
 | 04 Workflow | 8 | **8** | complete and validated, assessment written |
-| 05 Regression | 12 | 1 | 05-01 done |
+| 05 Regression | 12 | 2 | 05-01 and 05-02 done |
 | 06 Classification | 12 | 0 | |
 | 07 Evaluation | 7 | 0 | |
 | 08 Unsupervised | 8 | 0 | |
@@ -63,6 +63,35 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-31 (2)** - Chapter 05-02 (simple linear regression, fitted by hand) and its solutions, 7
+figures. Nine deliveries chosen so every intermediate number is exact: x̄ = 5, ȳ = 30, Sxx = 60, Sxy = 210,
+**slope 3.5, intercept 12.5**, residuals all halves summing to zero. The closed form matches
+`LinearRegression` and `polyfit` to six decimals.
+
+The figure I am most pleased with is the **covariance rectangles**: each delivery draws a rectangle from
+its point to `(x̄, ȳ)`, its area is that row's `product` column, and its colour is the sign. All nine are
+blue and they total exactly 210 - what a correlation of 0.99 looks like drawn out.
+
+Identities made concrete rather than asserted: tilting the line by `d` costs `d² x Sxx` (60 here) and
+shifting it by `s` costs `n x s²` (81), which are the two axes of the elliptical loss surface; **R-squared
+is exactly the skill score under squared error** (0.977394 both ways); and `slope = correlation x
+sd(y)/sd(x)`, so on standardised columns the slope *is* the correlation (0.988632).
+
+Exercise results worth keeping. **E9**: changing one delivery from 45 to 95 minutes moves the
+least-squares slope from 3.500 to **6.833** and the absolute-error slope **not at all** - stronger than
+05-01's mean-versus-median contrast, because the corrupted point never crosses the line. **E10**:
+regressing the other way gives a different line, and the product of the two fitted slopes is exactly `r²`
+(0.977394). **E15**: a reported slope of 0.29 where 3.5 was expected is diagnosed from the number alone -
+`1/3.5 = 0.2857`, the signature of swapped axes.
+
+Two things executing changed. **E12**: I claimed a wrong-intercept line still satisfies the tilt condition;
+it does not. The corrected table shows that *any* line through `(x̄, ȳ)` satisfies `sum(residual) = 0` -
+so that condition is not evidence of a good fit at all - while only the fitted line also satisfies
+`sum(residual x x) = 0`. **E11**: the leave-one-out table has two deliveries with exactly zero influence,
+for different reasons - one sits at `x̄` so its weight is zero, the other lies exactly on the line so its
+residual is. Influence needs both, which is a better definition than the one I had written.
+
 
 **2026-08-31 (1)** - Chapter 05-01 (the best constant) and its solutions, opening module 05. Seven
 figures on fifteen delivery times, small enough to print and check by hand.
