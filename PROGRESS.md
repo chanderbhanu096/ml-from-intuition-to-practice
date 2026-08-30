@@ -2,8 +2,8 @@
 
 **Last updated:** 2026-08-30
 **Chapters complete:** 18 of 121
-**Next to build:** the **module 02 cumulative assessment** (`assessments/`), the first in the
-course, then **03-01 · Notation you can read** (`notebooks/03_math_foundations/03-01_notation.ipynb`).
+**Next to build:** **03-01 · Notation you can read**
+(`notebooks/03_math_foundations/03-01_notation.ipynb`), opening module 03.
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,8 +17,9 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-30, **36/36 passed** (eighteen chapters and their eighteen solutions
-notebooks). The notebook template also executes cleanly.
+Last full run: 2026-08-30, **38/38 passed** (eighteen chapters, their eighteen solutions
+notebooks, and the module 02 assessment with its solutions). The notebook template also executes
+cleanly.
 
 ## Status by module
 
@@ -26,7 +27,7 @@ notebooks). The notebook template also executes cleanly.
 |---|---|---|---|
 | 00 Orientation | 4 | **4** | complete and validated |
 | 01 Python bridge | 6 | **6** | complete and validated |
-| 02 Data literacy | 8 | **8** | complete and validated; assessment still to write |
+| 02 Data literacy | 8 | **8** | complete and validated, assessment written |
 | 03 Math foundations | 8 | 0 | |
 | 04 Workflow | 8 | 0 | the spine of the course |
 | 05 Regression | 12 | 0 | |
@@ -62,6 +63,23 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (20)** - Module 02 cumulative assessment and its solutions, the first assessment in
+the course. 40 marks in three parts: ten recall questions, eight computed quantities, three judgement
+questions. Part B marks itself - answers are stored as salted SHA-256 digests so the notebook source
+does not reveal them, with a plus or minus 0.01 tolerance on decimals; verified that all eight correct
+answers pass, that wrong answers and unknown task ids fail, and that the tolerance works. The dataset
+is synthetic library loans, 1,176 delivered rows, seeded, carrying four planted defects that have to
+be found rather than announced: 75 duplicate rows overstating the loan count by 6.81%; a -1 sentinel
+for unreturned loans (86 rows, 7.81%) that drags the naive mean of days_kept from 13.03 down to
+11.93; a 28-day ceiling holding 114 returned loans (11.23%) against 12 at 27 days; and an
+aggregation trap where the mean over loans is 13.03 and the mean over members is 16.65, because
+heavy borrowers return faster and contribute more rows. Part C is a Simpson reversal: ebooks renew
+more at central (0.647 vs 0.618) and at riverside (0.416 vs 0.351) but less overall (0.471 vs 0.543),
+because 76.4% of ebook loans sit at riverside. Full marks on C1 require naming the condition under
+which the pooled answer would be the right one. Ends with a score table and a remediation map from
+each question to the chapter that covers it. Module 02 is now complete: eight chapters, eight
+solutions, one assessment, 38/38 notebooks passing.
 
 **2026-08-30 (19)** - Chapter 02-08 (a full exploratory analysis and the document it produces) and
 its solutions, closing module 02. First chapter on a real dataset: California housing, 20,640 census
