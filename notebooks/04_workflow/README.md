@@ -2,7 +2,7 @@
 
 > The spine of the course - framing, splitting, leakage, pipelines.
 
-**0 of 8 chapters complete** · ~7 learner-hours · Core
+**1 of 8 chapters complete** · ~7 learner-hours · Core
 
 ---
 
@@ -28,7 +28,7 @@ Nine of the later modules name a chapter from here as a prerequisite. If you ski
 
 | | Chapter | Level | Time | The one idea |
 |---|---|---|---|---|
-| `[ ]` | **04-01** Framing: unit of observation, target, prediction time, horizon | Core | 55m | Unit, target, prediction time and horizon - the contract that has to exist before any model. |
+| `[x]` | **[04-01](04-01_framing.ipynb)** Framing: unit of observation, target, prediction time, horizon | Core | 55m | Unit, target, prediction time and horizon - the contract that has to exist before any model. |
 | `[ ]` | **04-02** Baselines first, always | Core | 45m | The number your model must beat, computed before your model exists. |
 | `[ ]` | **04-03** Splitting I: train, validation, test; random and stratified | Core | 55m | Held-out data is the only evidence, and stratification protects the rare class. |
 | `[ ]` | **04-04** Splitting II: grouped and chronological | Core | 55m | When rows share an entity or a timeline, a random split is a lie. |
@@ -41,7 +41,6 @@ Nine of the later modules name a chapter from here as a prerequisite. If you ski
 
 - datasets shipped with scikit-learn
 - generated data with a known truth
-- hand-typed tables you can check with a pen
 
 Synthetic data is always labelled **SYNTHETIC** in the notebook, and is used where knowing the
 true answer in advance is the only way to check whether a method finds it.

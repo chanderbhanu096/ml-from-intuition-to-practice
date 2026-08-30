@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-30
-**Chapters complete:** 26 of 121
-**Next to build:** **04-01 · Framing a problem** (`notebooks/04_workflow/04-01_framing.ipynb`) -
-the start of module 04, the workflow.
+**Chapters complete:** 27 of 121
+**Next to build:** **04-02 · Baselines first, always**
+(`notebooks/04_workflow/04-02_baselines.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-30, **56/56 passed** (twenty-six chapters, their twenty-six solutions
+Last full run: 2026-08-30, **58/58 passed** (twenty-seven chapters, their twenty-seven solutions
 notebooks, and the module 02 and 03 assessments with their solutions). The notebook template also executes
 cleanly. Notebooks are committed without stored outputs (D-15).
 
@@ -29,7 +29,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 01 Python bridge | 6 | **6** | complete and validated |
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
 | 03 Math foundations | 8 | **8** | complete and validated, assessment written |
-| 04 Workflow | 8 | 0 | the spine of the course |
+| 04 Workflow | 8 | 1 | the spine of the course; 04-01 done |
 | 05 Regression | 12 | 0 | |
 | 06 Classification | 12 | 0 | |
 | 07 Evaluation | 7 | 0 | |
@@ -63,6 +63,26 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (31)** - Chapter 04-01 (framing) and its solutions, opening module 04. Turns "predict who
+will churn" into a five-question contract on 9,059 member-months of a synthetic gym panel. The unit of
+observation alone gives **33.00%, 2.19% and 1.51%** for the phrase "churn rate", and the horizon moves the
+base rate from **1.73% to 22.84%** with everything else held fixed. Central visual is the wall diagram -
+nine members' timelines with the feature window, the prediction point and the outcome window shaded -
+which is the picture the rest of the module refers back to.
+
+The failure lab came out stronger than planned. Two whole-history columns take AUC from 0.636 to **1.000**,
+but neither does it alone: `months_on_file` manages 0.954, and it is the *harmless* `tenure_months`
+(correlation +0.0367 with the target) that completes the leak, because `months_on_file + 12 -
+tenure_months` reconstructs the exact cancellation month, and cancellers end in months 13-18 while
+survivors end in 19-24 with no overlap. So leakage is a property of the feature set, not of individual
+columns - which also gives E11's per-column detector an honest limitation to state.
+
+Second finding worth keeping: the honest model's accuracy (0.847) is **below** the constant baseline
+(0.866) while its AUC shows real signal, which sets up 04-02 directly. E10 was rewritten after executing:
+a single 70/30 split shows AUC falling from 0.845 at a two-month horizon to 0.636 at six, a clean story
+that is entirely noise - cross-validated, every horizon sits between 0.698 and 0.733, and the fold-to-fold
+sd at two months is 0.149.
 
 **2026-08-30 (30)** - Module 03 assessment and its solutions. 40 marks over recall, doing and
 judgement, on 400 synthetic parcel deliveries from a two-depot courier network. The eight Part B tasks
