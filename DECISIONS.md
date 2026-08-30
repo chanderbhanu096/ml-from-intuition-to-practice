@@ -84,6 +84,19 @@ causality half needs a failure lab of its own - it is the most expensive confusi
 ML. Split into 00-03 (the families of learning plus the lifecycle map) and 00-04 (prediction,
 explanation, cause). Module 00 is now 4 chapters; the course is 121.
 
+**D-15 - Notebooks are committed without stored outputs.** (2026-08-30)
+Every `.ipynb` here is committed with empty `outputs` and null `execution_count`. Notebooks are
+executed to verify them; the execution artefacts are not kept. Three reasons. The learner should run
+the notebook themselves, and one that arrives pre-filled with answers invites reading instead of
+running - the opposite of what "predict before running" is for. Stored outputs embed matplotlib
+figures as base64 PNGs: 02-07 and 02-08 were briefly committed with outputs at 328 KB and 288 KB
+against roughly 29 KB for comparable chapters without, a tenfold cost for content regenerated in two
+seconds. And diffs stay readable, since a one-word prose fix should not show as a hundred changed
+lines of image data. Consequence: `scripts/validate_notebooks.py` executes in memory and
+deliberately does not write back, so when a notebook is executed with `nbconvert --execute --inplace`
+during authoring - the convenient way to check prose against real output - **the outputs must be
+stripped before committing**. This was missed for five chapters and corrected on 2026-08-30.
+
 **D-11 - Notebook file naming `MM-CC_slug.ipynb`.** (2026-08-29)
 Module and chapter numbers in the filename, so learning order is sort order and a file is
 still identifiable when it is opened alone or moved.

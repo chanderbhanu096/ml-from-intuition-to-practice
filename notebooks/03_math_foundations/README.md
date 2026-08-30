@@ -2,7 +2,7 @@
 
 > The maths actually used, on a ladder from counting to gradients.
 
-**2 of 8 chapters complete** · ~7 learner-hours · Core
+**3 of 8 chapters complete** · ~7 learner-hours · Core
 
 ---
 
@@ -24,7 +24,7 @@ That repetition is deliberate. A single maths block early is the most reliable w
 |---|---|---|---|---|
 | `[x]` | **[03-01](03-01_summaries.ipynb)** Summaries: the arithmetic behind typical and spread | Core | 45m | Mean and median are answers to two different questions, and numpy and pandas disagree about variance. |
 | `[x]` | **[03-02](03-02_sampling.ipynb)** Why two samples never agree | Core | 50m | The same number computed twice never matches, and how far it moves is predictable. |
-| `[ ]` | **03-03** Uncertainty: error bars by resampling | Core | 50m | Resampling turns a single number into an honest interval, with no formula to memorise. |
+| `[x]` | **[03-03](03-03_uncertainty.ipynb)** Error bars from the data you actually have | Core | 50m | Four lines give an error bar for any statistic - and it fails completely on some of them. |
 | `[ ]` | **03-04** Probability and conditional probability, with counts | Core | 50m | Conditional probability is counting in a restricted world, and base rates decide everything. |
 | `[ ]` | **03-05** Bayes' rule you can do on paper | Core | 45m | Bayes' rule is arithmetic on counts before it is a formula about beliefs. |
 | `[ ]` | **03-06** Functions, lines, slopes, logarithms | Core | 45m | A model is a function; slope, intercept and logarithm are the three shapes you need first. |

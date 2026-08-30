@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-30
-**Chapters complete:** 20 of 121
-**Next to build:** **03-03 · Uncertainty: error bars by resampling**
-(`notebooks/03_math_foundations/03-03_uncertainty.ipynb`).
+**Chapters complete:** 21 of 121
+**Next to build:** **03-04 · Probability and conditional probability, with counts**
+(`notebooks/03_math_foundations/03-04_probability.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,8 +17,9 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-30, **42/42 passed** (twenty chapters, their twenty solutions notebooks,
-and the module 02 assessment with its solutions). The notebook template also executes cleanly.
+Last full run: 2026-08-30, **44/44 passed** (twenty-one chapters, their twenty-one solutions
+notebooks, and the module 02 assessment with its solutions). The notebook template also executes
+cleanly. Notebooks are committed without stored outputs (D-15).
 
 ## Status by module
 
@@ -27,7 +28,7 @@ and the module 02 assessment with its solutions). The notebook template also exe
 | 00 Orientation | 4 | **4** | complete and validated |
 | 01 Python bridge | 6 | **6** | complete and validated |
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
-| 03 Math foundations | 8 | 2 | 03-01, 03-02 done |
+| 03 Math foundations | 8 | 3 | 03-01 to 03-03 done |
 | 04 Workflow | 8 | 0 | the spine of the course |
 | 05 Regression | 12 | 0 | |
 | 06 Classification | 12 | 0 | |
@@ -62,6 +63,34 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (23)** - Chapter 03-03 (error bars from the data you actually have) and its solutions.
+The bootstrap in four lines, checked against a truth we still hold: resampling one week of seven
+mornings gives a standard error of 1.6483 against the 1.6048 that 03-02 needed a million-row
+population to compute. Stresses that the bootstrap distribution centres on the sample's own estimate,
+4.75, not on the truth, 6.01 - it measures precision and can never detect bias. Failure lab one
+measures what "95% confidence" delivers: coverage is 0.859 at n = 7, 0.933 at n = 30 and only reaches
+0.948 at n = 300, because resamples of a small sample under-represent the tail, so the interval you
+can compute is too narrow exactly when you need it. Forty intervals plotted against the truth, 37
+containing it. Failure lab two is the total one: bootstrap intervals for a maximum have coverage
+0.000 at every sample size, and the width shrinks from 0.961 to 0.030 as n grows, so the method
+becomes more confident while staying wrong - a resample cannot contain a value the sample did not
+have. Closes with the reason to learn it: intervals for a difference between two groups (2.190, CI
+0.999 to 3.420, true value 1.502) and for a ratio (0.6242, CI 0.4735 to 0.8110), the latter visibly
+asymmetric and having no simple formula. Solutions E12 is worse than the exercise implies - naive
+resampling of an autocorrelated series gives an interval of -0.0081 to 0.0077 for a slope whose
+observed value is 0.0482, so it is not merely 1.8x too narrow but centred on zero and excluding the
+estimate. E16 builds an interval for the maximum that works, with coverage 0.955/0.951/0.952, and
+draws the general trade: assumptions buy extrapolation and fail quietly, while the bootstrap assumes
+almost nothing and fails loudly.
+
+**2026-08-30 (24)** - Repository consistency fix, no new content. Chapters 02-07 onward had been
+committed with stored notebook outputs, which every earlier chapter did not have: 02-07 and 02-08
+were 328 KB and 288 KB against roughly 29 KB for comparable chapters, almost all of it base64 PNG.
+Stripped outputs and execution counts from all ten affected notebooks, re-validated the whole course
+at 44/44, and wrote the convention down as D-15 so it does not recur - notebooks are verified by
+execution and committed clean, because the learner should run them rather than read them, and because
+a one-word prose fix should not appear as a hundred lines of changed image data.
 
 **2026-08-30 (22)** - Chapter 03-02 (why two samples never agree) and its solutions. Invents a
 population of a million bus mornings so the truth is knowable - true mean 6.0064, sd 4.2460 - and
