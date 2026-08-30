@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-30
-**Chapters complete:** 33 of 121
-**Next to build:** **04-08 · Reproducibility, seeds, and trustworthy experiment records**
-(`notebooks/04_workflow/04-08_reproducibility.ipynb`) - the last chapter of module 04.
+**Chapters complete:** 34 of 121
+**Next to build:** the **module 04 assessment** (`assessments/module_04_assessment.ipynb`), then
+**05-01 · The simplest possible predictor** (`notebooks/05_regression/05-01_simplest_predictor.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-30, **70/70 passed** (thirty-three chapters, their thirty-three solutions
+Last full run: 2026-08-30, **72/72 passed** (thirty-four chapters, their thirty-four solutions
 notebooks, and the module 02 and 03 assessments with their solutions). The notebook template also executes
 cleanly. Notebooks are committed without stored outputs (D-15).
 
@@ -29,7 +29,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 01 Python bridge | 6 | **6** | complete and validated |
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
 | 03 Math foundations | 8 | **8** | complete and validated, assessment written |
-| 04 Workflow | 8 | 7 | the spine of the course; 04-01 to 04-07 done |
+| 04 Workflow | 8 | **8** | complete and validated, assessment still to write |
 | 05 Regression | 12 | 0 | |
 | 06 Classification | 12 | 0 | |
 | 07 Evaluation | 7 | 0 | |
@@ -63,6 +63,38 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (39)** - Chapter 04-08 (reproducibility) and its solutions, 6 figures, finishing module 04.
+
+Frames reproducibility as five levels - seeds, code, data, environment, hardware - and measures which of
+them actually moves a number. **The split seed produces 5.2 times the spread of the model seed** (sd
+0.0487 against 0.0094), and varying both is indistinguishable from varying the split alone. The chapter's
+sharpest point falls out of that: `random_state=0` happens to be a hard split here and reports 1.0032
+where the average split gives 0.8809 - **14% pessimistic, permanently, by accident**. A seed makes a
+number stable; it does not make it representative, and those are different problems.
+
+Below the seed: floating-point addition is not associative, and the same 100,000 values summed in two
+orders differ by one part in 10^15. Put on one log axis with the seed effects, the sources span thirteen
+orders of magnitude - and the library-version bar has no measurable size at all, which is why it is the
+one that actually breaks a result a year later.
+
+The experiment record pulls the whole module together: every field in it (baseline, spread, split rule,
+settings, environment, and *why*) was argued for by an earlier chapter.
+
+Exercise results. **E9 is the chapter's real conclusion**: ridge has no randomness of its own, so its
+model-seed spread is zero to 2e-16 - and its split-seed spread is 0.0513, essentially the forest's 0.0487.
+A deterministic model does not give a deterministic result; it gives a deterministic result *per split*.
+**E12**: the same forest with the same `random_state` but different `n_jobs` gives predictions differing
+by about 1e-15, because the order in which 200 tree predictions are averaged changes with the thread
+split. **E20** builds a regression test for a *result* - recorded, matched, and caught when tampered with -
+which almost no project has and most want.
+
+Fixed after executing: the no-seed demonstration prints different values on every run by construction, so
+the prose that quoted them was rewritten to quote none; and a `\n` inside a non-raw patch string became a
+real newline and broke a figure's string literal.
+
+**Module 04 is complete** - eight chapters, 51 figures, every one of them about something that happens
+before or around the model rather than inside it.
 
 **2026-08-30 (38)** - Chapter 04-07 (pipelines and cross-validation) and its solutions, 6 figures. First
 chapter in module 04 on a real dataset: California housing, with a `region` column derived from latitude
