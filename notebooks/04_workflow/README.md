@@ -2,7 +2,7 @@
 
 > The spine of the course - framing, splitting, leakage, pipelines.
 
-**1 of 8 chapters complete** · ~7 learner-hours · Core
+**2 of 8 chapters complete** · ~7 learner-hours · Core
 
 ---
 
@@ -29,7 +29,7 @@ Nine of the later modules name a chapter from here as a prerequisite. If you ski
 | | Chapter | Level | Time | The one idea |
 |---|---|---|---|---|
 | `[x]` | **[04-01](04-01_framing.ipynb)** Framing: unit of observation, target, prediction time, horizon | Core | 55m | Unit, target, prediction time and horizon - the contract that has to exist before any model. |
-| `[ ]` | **04-02** Baselines first, always | Core | 45m | The number your model must beat, computed before your model exists. |
+| `[x]` | **[04-02](04-02_baselines.ipynb)** Baselines first, always | Core | 45m | The number your model must beat, computed before your model exists. |
 | `[ ]` | **04-03** Splitting I: train, validation, test; random and stratified | Core | 55m | Held-out data is the only evidence, and stratification protects the rare class. |
 | `[ ]` | **04-04** Splitting II: grouped and chronological | Core | 55m | When rows share an entity or a timeline, a random split is a lie. |
 | `[ ]` | **04-05** Leakage lab: target, temporal, duplicate, preprocessing | Core | 60m | Four ways the future gets into your features, each one producing a suspiciously good score. |

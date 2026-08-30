@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-30
-**Chapters complete:** 27 of 121
-**Next to build:** **04-02 · Baselines first, always**
-(`notebooks/04_workflow/04-02_baselines.ipynb`).
+**Chapters complete:** 28 of 121
+**Next to build:** **04-03 · Splitting I: train, validation, test**
+(`notebooks/04_workflow/04-03_splitting_basics.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-30, **58/58 passed** (twenty-seven chapters, their twenty-seven solutions
+Last full run: 2026-08-30, **60/60 passed** (twenty-eight chapters, their twenty-eight solutions
 notebooks, and the module 02 and 03 assessments with their solutions). The notebook template also executes
 cleanly. Notebooks are committed without stored outputs (D-15).
 
@@ -29,7 +29,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 01 Python bridge | 6 | **6** | complete and validated |
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
 | 03 Math foundations | 8 | **8** | complete and validated, assessment written |
-| 04 Workflow | 8 | 1 | the spine of the course; 04-01 done |
+| 04 Workflow | 8 | 2 | the spine of the course; 04-01 and 04-02 done |
 | 05 Regression | 12 | 0 | |
 | 06 Classification | 12 | 0 | |
 | 07 Evaluation | 7 | 0 | |
@@ -63,6 +63,28 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (32)** - Chapter 04-02 (baselines) and its solutions. Predicts next month's visits on the
+same gym panel, split chronologically at month 16. The result the chapter is built on: **both models lose
+to a one-line baseline.** Per-member running mean MAE **2.3640**; linear regression 2.3992 (-1.49%);
+random forest with 200 trees 2.4353 (-3.02%), and -1.95% and -7.10% on squared error too, so it is not a
+metric artefact. Eight hundred trees reaches 2.4338 and never arrives, so it is not capacity either. The
+mechanism is that fitted coefficients carry sampling noise and a rule with no parameters cannot.
+
+Second surprise, and a good one: **persistence (3.0482) is worse than a constant (2.9688)**, because each
+month's visits are a noisy count and one draw is a worse estimate of a member's rate than twelve - 03-02's
+square-root law turning up where nobody expects it. E9 confirms the same effect from the other side: a
+three-month window scores 2.5444 and longer windows keep improving to the full history.
+
+The same forest shows **+17.97%** skill against the global median, which is the chapter's central warning
+about choosing which baseline to quote.
+
+Three exercise answers contradict the obvious prediction and are worth keeping. E11: the per-member
+*median* loses to the mean (2.4024 vs 2.3640) even though the metric is absolute error, because 03-01 is
+about summarising data you have, not predicting a future draw. E10: removing columns helps the linear
+model and hurts the forest, so neither "more features" nor "fewer features" is a rule. E20: the learning
+curve flattens above the baseline rather than towards it, and the 100% point moved by 0.0065 from row
+order alone - a useful calibration for how much of the fourth decimal to believe.
 
 **2026-08-30 (31)** - Chapter 04-01 (framing) and its solutions, opening module 04. Turns "predict who
 will churn" into a five-question contract on 9,059 member-months of a synthetic gym panel. The unit of

@@ -73,7 +73,7 @@ modules:
     assessment: assessments/04_workflow_assessment.ipynb
     chapters:
       - {id: "04-01", title: "Framing: unit of observation, target, prediction time, horizon", path: notebooks/04_workflow/04-01_framing.ipynb, level: core, minutes: 55, prereqs: ["02-08", "03-01"], concepts: [prediction contract, target definition, horizon, availability at prediction time], dataset: synthetic, status: complete}
-      - {id: "04-02", title: "Baselines first, always", path: notebooks/04_workflow/04-02_baselines.ipynb, level: core, minutes: 45, prereqs: ["04-01"], concepts: [dummy predictor, skill vs accuracy, cost of complexity], dataset: synthetic, status: planned}
+      - {id: "04-02", title: "Baselines first, always", path: notebooks/04_workflow/04-02_baselines.ipynb, level: core, minutes: 45, prereqs: ["04-01"], concepts: [dummy predictor, skill vs accuracy, cost of complexity], dataset: synthetic, status: complete}
       - {id: "04-03", title: "Splitting I: train, validation, test; random and stratified", path: notebooks/04_workflow/04-03_splitting_basics.ipynb, level: core, minutes: 55, prereqs: ["04-02"], concepts: [generalisation, holdout, stratification], dataset: synthetic, status: planned}
       - {id: "04-04", title: "Splitting II: grouped and chronological", path: notebooks/04_workflow/04-04_splitting_group_time.ipynb, level: core, minutes: 55, prereqs: ["04-03"], concepts: [group leakage, GroupKFold, time-based split], dataset: synthetic, status: planned}
       - {id: "04-05", title: "Leakage lab: target, temporal, duplicate, preprocessing", path: notebooks/04_workflow/04-05_leakage.ipynb, level: core, minutes: 60, prereqs: ["04-04"], concepts: [leakage types, too-good-to-be-true scores, detection], dataset: synthetic, status: planned}
