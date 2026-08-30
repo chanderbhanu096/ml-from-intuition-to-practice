@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-30
-**Chapters complete:** 18 of 121
-**Next to build:** **03-01 · Notation you can read**
-(`notebooks/03_math_foundations/03-01_notation.ipynb`), opening module 03.
+**Chapters complete:** 19 of 121
+**Next to build:** **03-02 · Distributions and sampling: why two samples never agree**
+(`notebooks/03_math_foundations/03-02_sampling.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-30, **38/38 passed** (eighteen chapters, their eighteen solutions
+Last full run: 2026-08-30, **40/40 passed** (nineteen chapters, their nineteen solutions
 notebooks, and the module 02 assessment with its solutions). The notebook template also executes
 cleanly.
 
@@ -28,7 +28,7 @@ cleanly.
 | 00 Orientation | 4 | **4** | complete and validated |
 | 01 Python bridge | 6 | **6** | complete and validated |
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
-| 03 Math foundations | 8 | 0 | |
+| 03 Math foundations | 8 | 1 | 03-01 done |
 | 04 Workflow | 8 | 0 | the spine of the course |
 | 05 Regression | 12 | 0 | |
 | 06 Classification | 12 | 0 | |
@@ -63,6 +63,28 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (21)** - Chapter 03-01 (summaries: the arithmetic behind typical and spread) and its
+solutions, opening module 03. Seven bus-lateness values chosen so every hand calculation comes out
+whole: sum 42, mean 6, median 5, deviations summing to zero, sum of squares 84, variance 12 or 14.
+The chapter's spine is that the mean minimises total squared error and the median minimises total
+absolute error - shown by grid search, with the squared-error minimum landing on 84, the same number
+computed by hand - which is the same fork as RMSE against MAE in module 07 and least squares against
+least absolute deviation in 05. Failure lab: np.var returns 12.0 and pd.Series.var returns 14.0 on
+identical data with no warning, a 16.7% difference in variance and 8% in standard deviation, because
+numpy defaults to ddof=0 and pandas to ddof=1. Why n-1 is then measured rather than derived: over
+200,000 samples of size 5 from a population with variance exactly 1, the /n formula averages 0.8017
+against the predicted (n-1)/n = 0.8000, and /(n-1) averages 1.0022. Second failure lab: numpy has
+thirteen quantile methods and on seven values they give six distinct IQRs from 5.0 to 6.0, so a
+quartile on a small sample is a convention. Breakdown demonstrated - one value moved from 12 to 1000
+takes the mean from 6.00 to 147.14 while the median stays at exactly 5.0 - with the caution that
+robustness would have hidden 02-05's festivals. Closes with the weighted mean: three bus routes
+average 12.00 minutes unweighted and 5.70 weighted. Solutions E16 is the payoff - minimising the sum
+of errors raised to power p gives the median at 1, the mean at 2, and the midrange (7.0) as p grows,
+so all three familiar summaries are one family indexed by how much a large error should hurt. E8
+confirms the n-1 correction is exact on an exponential population too, so it is not a normality
+result. E9 catches a real wrinkle: a 10% trim on seven values drops floor(0.7) = 0 points and is
+silently identical to the mean.
 
 **2026-08-30 (20)** - Module 02 cumulative assessment and its solutions, the first assessment in
 the course. 40 marks in three parts: ten recall questions, eight computed quantities, three judgement

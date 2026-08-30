@@ -27,7 +27,7 @@ ONE_IDEA = {
     "02-07": "Every number on the slide is true and the impression is still wrong; and the arrow is not in the data.",
     "02-08": "The whole module applied to one real dataset, ending in a written data dictionary.",
 
-    "03-01": "Centre and spread answer different questions, and robustness is a tool rather than a virtue.",
+    "03-01": "Mean and median are answers to two different questions, and numpy and pandas disagree about variance.",
     "03-02": "Two samples from one population never agree, and knowing how much they disagree is the job.",
     "03-03": "Resampling turns a single number into an honest interval, with no formula to memorise.",
     "03-04": "Conditional probability is counting in a restricted world, and base rates decide everything.",

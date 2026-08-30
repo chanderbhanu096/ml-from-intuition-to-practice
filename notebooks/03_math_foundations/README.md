@@ -2,7 +2,7 @@
 
 > The maths actually used, on a ladder from counting to gradients.
 
-**0 of 8 chapters complete** · ~7 learner-hours · Core
+**1 of 8 chapters complete** · ~7 learner-hours · Core
 
 ---
 
@@ -22,7 +22,7 @@ That repetition is deliberate. A single maths block early is the most reliable w
 
 | | Chapter | Level | Time | The one idea |
 |---|---|---|---|---|
-| `[ ]` | **03-01** Summaries: mean, median, quantiles, variance, sd | Core | 45m | Centre and spread answer different questions, and robustness is a tool rather than a virtue. |
+| `[x]` | **[03-01](03-01_summaries.ipynb)** Summaries: the arithmetic behind typical and spread | Core | 45m | Mean and median are answers to two different questions, and numpy and pandas disagree about variance. |
 | `[ ]` | **03-02** Distributions and sampling: why two samples never agree | Core | 50m | Two samples from one population never agree, and knowing how much they disagree is the job. |
 | `[ ]` | **03-03** Uncertainty: error bars by resampling | Core | 50m | Resampling turns a single number into an honest interval, with no formula to memorise. |
 | `[ ]` | **03-04** Probability and conditional probability, with counts | Core | 50m | Conditional probability is counting in a restricted world, and base rates decide everything. |

@@ -57,7 +57,7 @@ modules:
     goal: The maths actually used, on a ladder from counting to gradients.
     assessment: assessments/03_math_foundations_assessment.ipynb
     chapters:
-      - {id: "03-01", title: "Summaries: mean, median, quantiles, variance, sd", path: notebooks/03_math_foundations/03-01_summaries.ipynb, level: core, minutes: 45, prereqs: ["02-05"], concepts: [centre, spread, quantile, robustness], dataset: tiny, status: planned}
+      - {id: "03-01", title: "Summaries: the arithmetic behind typical and spread", path: notebooks/03_math_foundations/03-01_summaries.ipynb, level: core, minutes: 45, prereqs: ["02-05"], concepts: [mean minimises squared error, median minimises absolute error, ddof, why n-1, variance units, quantile conventions, breakdown point, weighted mean], dataset: tiny, status: complete}
       - {id: "03-02", title: "Distributions and sampling: why two samples never agree", path: notebooks/03_math_foundations/03-02_sampling.ipynb, level: core, minutes: 50, prereqs: ["03-01"], concepts: [population vs sample, sampling distribution, standard error], dataset: synthetic, status: planned}
       - {id: "03-03", title: "Uncertainty: error bars by resampling", path: notebooks/03_math_foundations/03-03_uncertainty.ipynb, level: core, minutes: 50, prereqs: ["03-02"], concepts: [bootstrap, confidence interval, interval interpretation], dataset: synthetic, status: planned}
       - {id: "03-04", title: "Probability and conditional probability, with counts", path: notebooks/03_math_foundations/03-04_probability.ipynb, level: core, minutes: 50, prereqs: ["03-02"], concepts: [probability, joint, conditional, independence], dataset: tiny, status: planned}
