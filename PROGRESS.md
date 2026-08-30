@@ -2,8 +2,8 @@
 
 **Last updated:** 2026-08-30
 **Chapters complete:** 34 of 121
-**Next to build:** the **module 04 assessment** (`assessments/module_04_assessment.ipynb`), then
-**05-01 · The simplest possible predictor** (`notebooks/05_regression/05-01_simplest_predictor.ipynb`).
+**Next to build:** **05-01 · The simplest possible predictor**
+(`notebooks/05_regression/05-01_simplest_predictor.ipynb`) - the start of module 05.
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,8 +17,8 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-30, **72/72 passed** (thirty-four chapters, their thirty-four solutions
-notebooks, and the module 02 and 03 assessments with their solutions). The notebook template also executes
+Last full run: 2026-08-30, **74/74 passed** (thirty-four chapters, their thirty-four solutions
+notebooks, and the module 02, 03 and 04 assessments with their solutions). The notebook template also executes
 cleanly. Notebooks are committed without stored outputs (D-15).
 
 ## Status by module
@@ -29,7 +29,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 01 Python bridge | 6 | **6** | complete and validated |
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
 | 03 Math foundations | 8 | **8** | complete and validated, assessment written |
-| 04 Workflow | 8 | **8** | complete and validated, assessment still to write |
+| 04 Workflow | 8 | **8** | complete and validated, assessment written |
 | 05 Regression | 12 | 0 | |
 | 06 Classification | 12 | 0 | |
 | 07 Evaluation | 7 | 0 | |
@@ -63,6 +63,30 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (40)** - Module 04 assessment and its solutions. 40 marks over recall, doing and judgement,
+on 2,041 synthetic support tickets from 300 customers over 18 months. Built so that the workflow's lessons
+are *measurable* rather than merely recalled: 293 of the 300 customers appear more than once (so grouping
+is a live question), 15.97% of `description_length` is missing, and `customer_lifetime_tickets` is a
+whole-history aggregate that cannot be known at prediction time.
+
+The eight Part B tasks cover all eight chapters and mark themselves against salted digests; the checker was
+tested to accept every correct value and to reject B4's answer offered for B3.
+
+The leak is the centrepiece. Adding `customer_lifetime_tickets` improves MAE from 3.5837 to **3.0185**, and
+- the stronger evidence - **that column alone scores 3.2158, beating all five legitimate features together
+(3.5837)**. A one-feature model should not beat a five-feature one unless the one feature has seen the
+answer.
+
+C1 hands the learner a histogram of thirty random splits and a colleague's "MAE 3.34", which turns out to
+be **the best of the thirty, 2.92 standard deviations below the mean of 3.6062**. C3 makes the point the
+module has been building to twice over: the grouped estimate (3.5954) is the honest one for a deployment
+that serves unseen customers, *and* it differs from the random-split estimate by only 0.01 - about a ninth
+of the split-to-split spread. On 04-04's gym data the same comparison was worth +0.0957 and reversed a
+model ranking. The size of the effect is a property of the data, and measuring it is the only way to know.
+
+**Module 04 is closed**: eight chapters, 51 figures, an assessment, and every chapter validated from a
+fresh kernel.
 
 **2026-08-30 (39)** - Chapter 04-08 (reproducibility) and its solutions, 6 figures, finishing module 04.
 

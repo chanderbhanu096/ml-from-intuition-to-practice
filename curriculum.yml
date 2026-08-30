@@ -70,7 +70,7 @@ modules:
     name: A reliable ML workflow
     dir: notebooks/04_workflow
     goal: The spine of the course - framing, splitting, leakage, pipelines.
-    assessment: assessments/04_workflow_assessment.ipynb
+    assessment: assessments/module_04_assessment.ipynb
     chapters:
       - {id: "04-01", title: "Framing: unit of observation, target, prediction time, horizon", path: notebooks/04_workflow/04-01_framing.ipynb, level: core, minutes: 55, prereqs: ["02-08", "03-01"], concepts: [prediction contract, target definition, horizon, availability at prediction time], dataset: synthetic, status: complete}
       - {id: "04-02", title: "Baselines first, always", path: notebooks/04_workflow/04-02_baselines.ipynb, level: core, minutes: 45, prereqs: ["04-01"], concepts: [dummy predictor, skill vs accuracy, cost of complexity], dataset: synthetic, status: complete}
