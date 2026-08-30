@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-30
-**Chapters complete:** 23 of 121
-**Next to build:** **03-06 · Functions, lines, slopes, logarithms**
-(`notebooks/03_math_foundations/03-06_functions_lines_logs.ipynb`).
+**Chapters complete:** 24 of 121
+**Next to build:** **03-07 · Vectors, distance, norms, dot products, matrices, shapes**
+(`notebooks/03_math_foundations/03-07_vectors_matrices.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-30, **48/48 passed** (twenty-three chapters, their twenty-three solutions
+Last full run: 2026-08-30, **50/50 passed** (twenty-four chapters, their twenty-four solutions
 notebooks, and the module 02 assessment with its solutions). The notebook template also executes
 cleanly. Notebooks are committed without stored outputs (D-15).
 
@@ -28,7 +28,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 00 Orientation | 4 | **4** | complete and validated |
 | 01 Python bridge | 6 | **6** | complete and validated |
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
-| 03 Math foundations | 8 | 5 | 03-01 to 03-05 done |
+| 03 Math foundations | 8 | 6 | 03-01 to 03-06 done |
 | 04 Workflow | 8 | 0 | the spine of the course |
 | 05 Regression | 12 | 0 | |
 | 06 Classification | 12 | 0 | |
@@ -63,6 +63,29 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (27)** - Chapter 03-06 (lines, slopes, and logarithms) and its solutions, the
+vocabulary chapter for module 05. Six exact data points - rentals rising 45 per 3 degrees - give a
+slope of exactly 15 and an intercept of exactly 0, which sets up the first failure lab: the fit is
+perfect on all six days and the intercept describes 0 degrees, four degrees below anything observed.
+Centring moves the intercept to 292.5, which is exactly the mean rentals, at no cost to the slope.
+Re-measuring in Fahrenheit gives 8.3333 and -266.6667 for the same relationship, both predicting 300
+rentals for the same day, which is the argument against comparing raw coefficients across features.
+Logarithms introduced as counting multiplications: a fleet growing 25% a month adds 10, then 12.5,
+then 15.6, while always multiplying by 1.25, and a straight line fitted to its log recovers exactly
+0.22314 = ln(1.25) and exp(intercept) = 40.00, with a doubling time of 3.11 months. The four forms of
+the line are tabulated with a worked example of each, including y ~ log(x) adding exactly 3 ln 2 =
+2.0794 per doubling and a log-log fit whose slope is exactly the exponent -0.4000. Second failure lab
+is the percentage conversion: a coefficient of 0.70 on a logged outcome is 101.38%, not 70%, and 1.00
+is 171.83%. Solutions E8 fits a straight line to noisy exponential growth and finds the failure
+visible in the residuals a year before it matters - a clean U shape, and a month-24 prediction of 960
+against a truth of 8,470. E9 shows a log-log fit returning 1.1683 instead of 1.5 once an additive
+constant of 20 is present. E16 compares all four forms on held-out data with the error computed on the
+original scale, where log-log wins at 8.699 and the logged-outcome form is worst at 50.765, and draws
+the rule that transformed fits must be brought back to the original units before any comparison.
+Added `scripts/check_outputs.py`, a linter over an executed notebook's outputs that catches literal
+'%%' from a print with no format operator, numpy scalar reprs, negative zeros and nan/inf - three of
+which had each slipped through at least once.
 
 **2026-08-30 (26)** - Chapter 03-05 (Bayes' rule you can do on paper) and its solutions. Teaches
 the natural-frequency method first - invent 100,000 people, turn every rate into a count, fill four

@@ -32,7 +32,7 @@ ONE_IDEA = {
     "03-03": "Four lines give an error bar for any statistic - and it fails completely on some of them.",
     "03-04": "The same 36 bikes give 0.90 or 0.27 depending on the denominator, and multiplying is an assumption.",
     "03-05": "Turn rates into counts and the hard part disappears - then two positives mean 83% or 5%.",
-    "03-06": "A model is a function; slope, intercept and logarithm are the three shapes you need first.",
+    "03-06": "A coefficient without its units is a rumour, and 0.70 on a logged outcome is 101%.",
     "03-07": "Distance, dot product and shape are the vocabulary every model after this is written in.",
     "03-08": "A loss turns 'better' into a number, and a gradient says which way to step.",
 

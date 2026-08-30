@@ -2,7 +2,7 @@
 
 > The maths actually used, on a ladder from counting to gradients.
 
-**5 of 8 chapters complete** · ~7 learner-hours · Core
+**6 of 8 chapters complete** · ~7 learner-hours · Core
 
 ---
 
@@ -27,7 +27,7 @@ That repetition is deliberate. A single maths block early is the most reliable w
 | `[x]` | **[03-03](03-03_uncertainty.ipynb)** Error bars from the data you actually have | Core | 50m | Four lines give an error bar for any statistic - and it fails completely on some of them. |
 | `[x]` | **[03-04](03-04_probability.ipynb)** Probability, by counting | Core | 50m | The same 36 bikes give 0.90 or 0.27 depending on the denominator, and multiplying is an assumption. |
 | `[x]` | **[03-05](03-05_bayes.ipynb)** Bayes' rule you can do on paper | Core | 45m | Turn rates into counts and the hard part disappears - then two positives mean 83% or 5%. |
-| `[ ]` | **03-06** Functions, lines, slopes, logarithms | Core | 45m | A model is a function; slope, intercept and logarithm are the three shapes you need first. |
+| `[x]` | **[03-06](03-06_functions_lines_logs.ipynb)** Lines, slopes, and logarithms | Core | 45m | A coefficient without its units is a rumour, and 0.70 on a logged outcome is 101%. |
 | `[ ]` | **03-07** Vectors, distance, norms, dot products, matrices, shapes | Core | 55m | Distance, dot product and shape are the vocabulary every model after this is written in. |
 | `[ ]` | **03-08** Loss, finite differences, gradients, optimisation | Core | 60m | A loss turns 'better' into a number, and a gradient says which way to step. |
 
