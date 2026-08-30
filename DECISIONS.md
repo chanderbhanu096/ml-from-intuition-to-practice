@@ -84,6 +84,25 @@ causality half needs a failure lab of its own - it is the most expensive confusi
 ML. Split into 00-03 (the families of learning plus the lifecycle map) and 00-04 (prediction,
 explanation, cause). Module 00 is now 4 chapters; the course is 121.
 
+**D-16 - Every chapter carries a picture of the mechanism and a page of arithmetic.** (2026-08-30)
+From 03-08 onwards a chapter is not finished until it contains, in addition to whatever plots the data
+needs: at least one figure that draws the *mechanism* rather than the data - a loss surface with the
+optimiser's path on it, a decision boundary moving, a tree's splits carving the plane - and at least one
+table of numbers whose pattern the reader is asked to spot before it is explained. Exercise sets lead with
+hand calculation on three or four rows, small enough to do on paper and check in one cell.
+
+Why. The two things a beginner most often lacks are a mental image of what the algorithm is doing and the
+confidence that the arithmetic is arithmetic. A scatter plot of the data supplies neither. 03-08's contour
+maps make "badly conditioned" a picture of stripes rather than a definition, and its derivative table makes
+the second difference a constant the reader notices themselves - after which Newton's method needs no
+motivation. The cost is roughly a third more content per chapter and a slower build; the chapters already
+written are not being retrofitted, because the budget is better spent on the 95 not yet built.
+
+Consequence: the figures are checked by eye during authoring, not only executed. A plot that runs without
+error can still be unreadable - 03-08's first valley contour was drawn on a window where the valley was
+invisible, and its first learning-rate panel had a y-limit that flattened the bowl to a line. Both passed
+execution and both were useless.
+
 **D-15 - Notebooks are committed without stored outputs.** (2026-08-30)
 Every `.ipynb` here is committed with empty `outputs` and null `execution_count`. Notebooks are
 executed to verify them; the execution artefacts are not kept. Three reasons. The learner should run

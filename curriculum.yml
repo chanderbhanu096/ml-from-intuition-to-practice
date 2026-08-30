@@ -64,7 +64,7 @@ modules:
       - {id: "03-05", title: "Bayes' rule you can do on paper", path: notebooks/03_math_foundations/03-05_bayes.ipynb, level: core, minutes: 45, prereqs: ["03-04"], concepts: [prior, likelihood, posterior, base rate, natural frequencies, odds form, likelihood ratio, sequential updating, correlated evidence], dataset: tiny, status: complete}
       - {id: "03-06", title: "Lines, slopes, and logarithms", path: notebooks/03_math_foundations/03-06_functions_lines_logs.ipynb, level: core, minutes: 45, prereqs: ["03-01"], concepts: [slope with units, intercept and extrapolation, centring, log scale, the four log forms, elasticity, exp(b)-1], dataset: tiny, status: complete}
       - {id: "03-07", title: "Vectors, distance, and shapes", path: notebooks/03_math_foundations/03-07_vectors_matrices.ipynb, level: core, minutes: 55, prereqs: ["03-06"], concepts: [vector as a point, Euclidean distance, why scaling decides the answer, L1 vs L2, dot product as prediction, cosine similarity, matrix shapes, curse of dimensionality], dataset: tiny, status: complete}
-      - {id: "03-08", title: "Loss, finite differences, gradients, optimisation", path: notebooks/03_math_foundations/03-08_loss_and_gradients.ipynb, level: core, minutes: 60, prereqs: ["03-07"], concepts: [loss function, derivative, gradient, minimisation], dataset: synthetic, status: planned}
+      - {id: "03-08", title: "Loss, finite differences, gradients, optimisation", path: notebooks/03_math_foundations/03-08_loss_and_gradients.ipynb, level: core, minutes: 60, prereqs: ["03-07"], concepts: [loss function, derivative, gradient, minimisation], dataset: synthetic, status: complete}
 
   - id: "04"
     name: A reliable ML workflow

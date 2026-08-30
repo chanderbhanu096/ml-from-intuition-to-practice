@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-30
-**Chapters complete:** 25 of 121
-**Next to build:** **03-08 · Loss, finite differences, gradients, optimisation**
-(`notebooks/03_math_foundations/03-08_loss_and_gradients.ipynb`) - the last chapter of module 03.
+**Chapters complete:** 26 of 121
+**Next to build:** the **module 03 assessment** (`assessments/module_03_assessment.ipynb`), then
+**04-01 · Framing a problem** (`notebooks/04_workflow/04-01_framing.ipynb`) - the start of module 04.
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-30, **52/52 passed** (twenty-five chapters, their twenty-five solutions
+Last full run: 2026-08-30, **54/54 passed** (twenty-six chapters, their twenty-six solutions
 notebooks, and the module 02 assessment with its solutions). The notebook template also executes
 cleanly. Notebooks are committed without stored outputs (D-15).
 
@@ -28,7 +28,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 00 Orientation | 4 | **4** | complete and validated |
 | 01 Python bridge | 6 | **6** | complete and validated |
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
-| 03 Math foundations | 8 | 7 | 03-01 to 03-07 done |
+| 03 Math foundations | 8 | **8** | complete and validated, assessment still to write |
 | 04 Workflow | 8 | 0 | the spine of the course |
 | 05 Regression | 12 | 0 | |
 | 06 Classification | 12 | 0 | |
@@ -63,6 +63,23 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (29)** - Chapter 03-08 (loss, gradients, and how a model is fitted) and its solutions
+built and validated, finishing module 03 and the mathematics. Gradient descent in five lines recovers
+`np.polyfit`'s answer to four decimals. Two failure labs: the learning rate (0.001 sits at 24,582 against
+a best of 431.78; 1.01 climbs to 9.09e+11) and unscaled features (**115 steps standardised against 21,769
+raw**, condition number 5,482 against 1). New in this chapter, following the request for more visuals and
+more arithmetic: a tangent-line plot, five snapshots of the line swinging into place, contour maps of the
+loss with the descent path drawn on them (circles against stripes), and a three-panel picture of a step
+that is too small, right, and too large. The derivative table shows the second difference is a constant
+849.61, so one division lands on the bottom exactly - Newton's method, introduced and then rejected on the
+8-terabyte curvature matrix a million-parameter model would need. Distance to the optimum was measured
+shrinking by exactly `1 - 2 x learning_rate` per step. Exercises expanded to 28, most of them hand
+arithmetic. Two things executing changed: the divergence verdict was misreporting 9.09e+11 as "still
+descending" because it was finite, and **E23's premise was wrong** - I claimed a too-large rate makes the
+loss curve oscillate where a sign error makes it monotone, and the two curves turn out to be *identical to
+every decimal place*, so the answer was rewritten around the parameter trajectory, which does separate
+them.
 
 **2026-08-30 (28)** - Chapter 03-07 (vectors, distance, and shapes) and its solutions. Five flats,
 three columns, and a failure lab that changes how the rest of the course treats data: asked for the
