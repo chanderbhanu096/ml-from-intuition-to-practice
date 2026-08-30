@@ -44,6 +44,48 @@ exists, the notebook states it rather than quietly using the data.
 
 ---
 
+## 3a. California housing (1990 US census) - used in 02-08
+
+**Status:** fetched by `sklearn.datasets.fetch_california_housing`, cached in `~/scikit_learn_data`
+(about 360 KB). **Not committed to this repository.** The first call needs a network connection;
+later calls are offline.
+
+| Field | Value |
+|---|---|
+| **Source** | StatLib, Carnegie Mellon: `https://lib.stat.cmu.edu/datasets/houses.zip` |
+| **Reference** | Pace, R. Kelley and Ronald Barry, *Sparse Spatial Autoregressions*, Statistics and Probability Letters 33:291-297, 1997 |
+| **Origin** | Derived from the 1990 United States census |
+| **Licence** | **Not stated.** No licence accompanies the file. The underlying 1990 census aggregates are US federal government output; the derived file's terms are unknown. Verify before any use outside coursework |
+| **Unit of observation** | One census block group - the smallest area for which the Census Bureau publishes sample data, typically 600-3,000 people |
+| **Rows / columns** | 20,640 rows, 8 features and 1 target, all numeric |
+| **Target** | `MedHouseVal` - median house value for the block group, in hundreds of thousands of dollars |
+| **Time meaning** | None. A single 1990 snapshot; no dates, no seasonality, no ordering |
+| **Retrieval** | `fetch_california_housing(as_frame=True).frame` |
+
+**Verified limitations** (each one established by executed code in 02-08, not assumed):
+
+1. A row is a block group, not a house or a household. The target is already a median over houses,
+   so a model fitted here predicts an area's median and never a house price.
+2. Three different denominators appear in one row: per block group (`Population`), per household
+   (`MedInc`, `AveRooms`, `AveBedrms`, `AveOccup`), per house (`MedHouseVal`).
+3. `MedHouseVal` is censored at $500,001 - 965 rows, 4.68% - and the censored rows are the richest
+   block groups (mean `MedInc` 7.83 against 3.68). No model trained here can predict above the cap,
+   and any mean of the target is an underestimate.
+4. `HouseAge` is censored at 52 (1,273 rows, 6.17%); `MedInc` at 15.0001 (49 rows).
+5. 79 rows have `AveRooms > 20` or `AveOccup > 20`, produced by block groups with very few
+   households or by group quarters. Leaving them in suppresses two relationships: r(`AveOccup`,
+   target) is -0.024 with them and -0.242 without; r(`AveRooms`, target) is 0.152 and 0.274.
+6. No city or region column. Pooled correlations can reverse within regions: r(`HouseAge`, target) is
+   +0.106 statewide but negative in six of eight geographic clusters.
+7. No missing values and no duplicate rows. This is stated because it is true and because it is not
+   reassuring - every defect above survives both checks.
+8. The documentation does not say how house value was measured (self-reported, assessed, or from
+   sales).
+9. 1990, California only. Geographic patterns in US housing value of this era reflect historical
+   policy including mortgage redlining; module 13 returns to what that means for building on it.
+
+---
+
 ## 4. Named public datasets - chosen per chapter
 
 **Policy (D-14):** each chapter uses whichever dataset shows its idea most clearly. There is no

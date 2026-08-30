@@ -7,3 +7,4 @@ data/raw/*
 *.pkl
 *.joblib
 .env
+data_dictionary_draft.md

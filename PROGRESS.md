@@ -1,10 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-30
-**Chapters complete:** 17 of 121
-**Next chapter to build:** **02-08 · A full exploratory analysis and a written data dictionary**
-(`notebooks/02_data_literacy/02-08_applied_eda.ipynb`). It closes module 02 and is followed by the
-module's cumulative assessment - the first one in the course.
+**Chapters complete:** 18 of 121
+**Next to build:** the **module 02 cumulative assessment** (`assessments/`), the first in the
+course, then **03-01 · Notation you can read** (`notebooks/03_math_foundations/03-01_notation.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -18,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-30, **34/34 passed** (seventeen chapters and their seventeen solutions
+Last full run: 2026-08-30, **36/36 passed** (eighteen chapters and their eighteen solutions
 notebooks). The notebook template also executes cleanly.
 
 ## Status by module
@@ -27,7 +26,7 @@ notebooks). The notebook template also executes cleanly.
 |---|---|---|---|
 | 00 Orientation | 4 | **4** | complete and validated |
 | 01 Python bridge | 6 | **6** | complete and validated |
-| 02 Data literacy | 8 | 7 | 02-01 to 02-07 done; 02-08 picks its dataset under D-14 |
+| 02 Data literacy | 8 | **8** | complete and validated; assessment still to write |
 | 03 Math foundations | 8 | 0 | |
 | 04 Workflow | 8 | 0 | the spine of the course |
 | 05 Regression | 12 | 0 | |
@@ -63,6 +62,31 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (19)** - Chapter 02-08 (a full exploratory analysis and the document it produces) and
+its solutions, closing module 02. First chapter on a real dataset: California housing, 20,640 census
+block groups from 1990, fetched from scikit-learn and not committed (D-14). It has no missing values
+and no duplicate rows and is misleading in four ways, which is the chapter's spine. Verified findings:
+household counts recover exactly from Population/AveOccup (largest deviation from a whole number
+0.00000000 across all 20,640 rows), which explains the impossible averages - the worst row is 6
+households and 7,460 residents, giving AveOccup 1243.33; the 79 rows with AveRooms > 20 or AveOccup >
+20 are 0.38% of the data and were suppressing two real relationships, r(AveOccup, target) -0.024 with
+them and -0.242 without, r(AveRooms, target) 0.152 and 0.274; three ceilings found by counting rows
+at the maximum rather than reading it - 965 rows at $500,001 (4.68%), 1,273 at HouseAge 52, 49 at
+MedInc 15.0001; the censored rows are the richest (mean MedInc 7.83 against 3.68) and the cap moves a
+one-column slope from 0.4179 to 0.3999. Chapter ends by writing a data dictionary and a limitations
+section to a file, each limitation naming a conclusion it forbids. Solutions E7 is the strongest
+aggregation result in the module and it is real: r(HouseAge, value) is +0.106 statewide but negative
+in six of eight k-means regions (-0.335, -0.324, -0.278), while r(MedInc, value) holds at 0.51 to
+0.75 everywhere - one relationship survives disaggregation and one does not. E11 was rewritten after
+checking it: a whole-frame three-sigma sweep removes 846 rows, flags nothing at all on the target
+(its cut-off, 5.530, sits above the censored maximum of 5.00001), catches 77 of the 79 artefacts at a
+cost of 769 ordinary rows, and deletes the expensive end of the market (mean target 3.07 removed
+against 2.03 kept). Dataset fully documented in data/README.md including that no licence accompanies
+the file. Also fixed by executing: MedInc has 49 rows at the exact ceiling, not the 51 an earlier
+`>= 15` probe suggested; two slope figures and one correlation quoted from a probe that used a train
+split rather than the notebook's full fit; and a city name that had not been verified from the
+coordinates, replaced with the coordinates.
 
 **2026-08-30 (18)** - Chapter 02-07 (showing what you found, without saying more than you found)
 and its solutions. Three demonstrations, all executed. A bar chart of two docking-rack averages is
