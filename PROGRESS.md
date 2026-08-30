@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-30
-**Chapters complete:** 31 of 121
-**Next to build:** **04-06 · Preprocessing: imputation, encoding, scaling, transforms**
-(`notebooks/04_workflow/04-06_preprocessing.ipynb`).
+**Chapters complete:** 32 of 121
+**Next to build:** **04-07 · Pipelines and cross-validation without leaking**
+(`notebooks/04_workflow/04-07_pipelines_cv.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-30, **66/66 passed** (thirty-one chapters, their thirty-one solutions
+Last full run: 2026-08-30, **68/68 passed** (thirty-two chapters, their thirty-two solutions
 notebooks, and the module 02 and 03 assessments with their solutions). The notebook template also executes
 cleanly. Notebooks are committed without stored outputs (D-15).
 
@@ -29,7 +29,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 01 Python bridge | 6 | **6** | complete and validated |
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
 | 03 Math foundations | 8 | **8** | complete and validated, assessment written |
-| 04 Workflow | 8 | 5 | the spine of the course; 04-01 to 04-05 done |
+| 04 Workflow | 8 | 6 | the spine of the course; 04-01 to 04-06 done |
 | 05 Regression | 12 | 0 | |
 | 06 Classification | 12 | 0 | |
 | 07 Evaluation | 7 | 0 | |
@@ -63,6 +63,37 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (37)** - Chapter 04-06 (preprocessing) and its solutions, 8 figures. New dataset: 1,200
+synthetic rental listings with twelve administrative district codes, 13% of `area_m2` missing at random
+and 13% of `age_years` missing **because the building is old** - so one column's missingness is
+informative and the other's is not, by construction.
+
+Four decisions, each measured. **Imputation:** the age gap is 32.8 EUR at 2.38 standard errors, area's is
+13.5 at 1.11, and the missing indicator earns 0.61 EUR for age and nothing for area - exactly as the test
+predicts. **Encoding:** an arbitrary ordinal order recovers **9.5%** of what the district column is worth
+(75.92 against one-hot's 58.50 and 77.75 for dropping it). **Scaling:** kNN pays 15.65 EUR unscaled;
+ridge and the random forest pay -0.01. **Transforms:** logging the target costs 0.75 EUR and
+under-predicts the mean by 5.6, because exp of a mean of logs is a geometric mean; Duan's smearing
+correction (1.0248) repairs the level and slightly worsens the MAE.
+
+The trap the chapter is built around: dropping incomplete rows scores **51.41** against 58.50 for
+imputing, which looks decisive until you notice it is measured on different rows. On the same 915
+complete rows both score 51.41 - identical, because there is nothing left to impute. The discarded rows
+rent for 336 against 365, so dropping them made the *question* easier. Same shape as 04-04's E10.
+
+Two exercise answers push back on the chapter's own moral. **E9:** `KNNImputer` beats the mean by 3.39
+EUR - five times what the indicator was worth - because `area_m2` is MAR and well predicted by rooms and
+district, so "the mean is usually fine" is wrong here and the honest advice is to measure. **E10:**
+ordering the ordinal code by training-fold mean rent recovers **94%** of one-hot's value in a single
+column, so the chapter's 9.5% is a fact about alphabetical codes, not about ordinal encoding - and what
+E10 re-invents is target encoding, which is why it must be fitted inside the fold.
+
+Fixed after executing: E8's informativeness threshold was a quarter of the target's standard deviation,
+which flagged neither column - replaced with 03-03's standard error of a difference, which flags age and
+clears area. E11's two pipelines were not like for like (one had an indicator), inflating a difference the
+prose called negligible; corrected to 58.50 against 58.54. Six figure titles had a doubled backslash and
+rendered a literal `\n`.
 
 **2026-08-30 (36)** - Visual pass over module 04, after a second request for more visual learning
 (D-17: six to ten figures per chapter, and a figure per *idea* rather than per chapter). 04-01 went from 3
