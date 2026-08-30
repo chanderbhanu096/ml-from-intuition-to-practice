@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-30
-**Chapters complete:** 30 of 121
-**Next to build:** **04-05 · Leakage lab: target, temporal, duplicate, preprocessing**
-(`notebooks/04_workflow/04-05_leakage.ipynb`).
+**Chapters complete:** 31 of 121
+**Next to build:** **04-06 · Preprocessing: imputation, encoding, scaling, transforms**
+(`notebooks/04_workflow/04-06_preprocessing.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-30, **64/64 passed** (thirty chapters, their thirty solutions
+Last full run: 2026-08-30, **66/66 passed** (thirty-one chapters, their thirty-one solutions
 notebooks, and the module 02 and 03 assessments with their solutions). The notebook template also executes
 cleanly. Notebooks are committed without stored outputs (D-15).
 
@@ -29,7 +29,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 01 Python bridge | 6 | **6** | complete and validated |
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
 | 03 Math foundations | 8 | **8** | complete and validated, assessment written |
-| 04 Workflow | 8 | 4 | the spine of the course; 04-01 to 04-04 done |
+| 04 Workflow | 8 | 5 | the spine of the course; 04-01 to 04-05 done |
 | 05 Regression | 12 | 0 | |
 | 06 Classification | 12 | 0 | |
 | 07 Evaluation | 7 | 0 | |
@@ -63,6 +63,52 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (36)** - Visual pass over module 04, after a second request for more visual learning
+(D-17: six to ten figures per chapter, and a figure per *idea* rather than per chapter). 04-01 went from 3
+figures to 6, 04-02 from 2 to 5, 04-03 from 4 to 6, and 04-05 from 5 to 7. Seven new figures in total, all
+checked by eye and three of them redrawn after looking: a target-encoding schematic that had picked an
+all-zero category so its average was uninformative, a one-rule chart whose point labels collided with its
+legend, and a baselines ladder whose reference label sat on top of a bar.
+
+The additions worth naming, because they show what "a figure per idea" buys: the **framing funnel** (600
+members to 521 eligible to 70 positive - framing as row selection); **paired histograms** of the leaky and
+the honest feature, where the leak's perfect separation at month 18.5 is visible rather than asserted;
+**predicted-versus-actual panels** in which the forest visibly spreads without moving closer to the
+diagonal; the **correlation histogram** of 5,000 noise columns with the selector's tail highlighted,
+against E5's predicted maximum of 0.255 (measured: 0.3049); **error bars that shrink while the dot stays
+still** for the test-size trade-off; and two closing summary cards - the filled-in eight-line prediction
+contract, and every predictor in 04-02 on one axis with the free bar drawn across it.
+
+**2026-08-30 (35)** - Chapter 04-05 (the leakage lab) and its solutions. Puts all four kinds on one
+scale and ranks them, and the ranking contradicts the folklore.
+
+**Fitting a scaler and a mean-imputer on the whole dataset costs +0.0005** - measured over 30 datasets,
+standard deviation 0.0048, and the leaky version wins in only 37% of them. It is not a small effect, it is
+undetectable. **Feature selection fitted on the whole dataset gives 79.5% accuracy at predicting a coin
+flip** from 5,000 columns of pure noise, five-fold cross-validated with folds agreeing to within 0.05.
+Target-encoding a 149-category column on a coin-flip target gives AUC 0.7659.
+
+That gives the chapter a principle instead of a list: **severity is proportional to how much the fitted
+step learned about `y`.** A scaler learns two numbers per column and never sees the target; a selector
+learns which columns correlate with it. The full ranking spans a factor of 700, from 0.0005 to 0.3641.
+
+Nine figures including three schematics: the four-kind taxonomy, the inflation-versus-search-width curve,
+the ranked bar chart of every leak in module 04, and the three-symptom checklist.
+
+Exercise findings worth keeping. E9: keeping **more** pre-selected noise columns makes it worse, not
+better - 96.5% accuracy on a coin flip with k=100, because a hundred weak illegitimate associations stack.
+E10: smoothing a target encoding does **not** fix it (0.7659 to 0.7503 at heavy smoothing) - smoothing
+addresses variance, and the leak is about whose labels went in. E11: dissection shows only the *selector*
+matters - moving the imputer and scaler outside changes 0.5550 to 0.5600, moving the selector out gives
+0.8150.
+
+E12 was rewritten after executing it. I had claimed drop-one-feature would identify `months_on_file`; it
+ranks the innocent `tenure_months` first (0.0492 against 0.0252), because drop-one is confounded by
+redundancy - `visits_lifetime` can stand in for `months_on_file`, so dropping it costs little, while
+`tenure_months` is the only decoder for the pair. The "score from it alone" column fingers the culprits
+correctly at 0.9323 and 0.9153. The two diagnostics answer different questions and only the second is the
+leakage one.
 
 **2026-08-30 (34)** - Chapter 04-04 (grouped and chronological splitting) and its solutions, built to
 the new D-17 visual standard: **nine figures**, including three pure schematics that carry no data.

@@ -102,6 +102,20 @@ Every figure keeps D-16's requirement to be checked by eye. The cost is real - r
 time of a chapter is now figures - and it is accepted deliberately: the learner is a near-beginner, and
 for a near-beginner an unreadable paragraph and a clear diagram are not close substitutes.
 
+Chapters written before this decision were below the bar - 04-01 had 3 figures, 04-02 had 2, 04-03 had 4 -
+and were given a visual pass on the day D-17 was written, since module 04 is the spine of the course. They
+now stand at **04-01 (6), 04-02 (5), 04-03 (6), 04-04 (7), 04-05 (7)**, alongside 03-08's 8. The
+pre-03-08 chapters stay as built.
+
+What the pass added, as a guide to what "a figure per idea" means in practice: a **funnel** showing 600
+members reduced to 521 eligible and 70 positive, because framing is mostly a decision about which rows do
+not participate; the leaky feature and an honest one as **paired histograms**, so "it separates perfectly"
+is something you see rather than read; **predicted-versus-actual panels** for a constant, a baseline and a
+model, where the model visibly spreads without getting closer to the diagonal; the three-way split as a
+**labelled bar with viewing budgets on it**; the test-size trade-off as **error bars that shrink while the
+dot stays put**; and two **closing summary cards** - the filled-in prediction contract, and every
+predictor in the baselines chapter on one axis with the free bar drawn across it.
+
 **D-16 - Every chapter carries a picture of the mechanism and a page of arithmetic.** (2026-08-30)
 From 03-08 onwards a chapter is not finished until it contains, in addition to whatever plots the data
 needs: at least one figure that draws the *mechanism* rather than the data - a loss surface with the
