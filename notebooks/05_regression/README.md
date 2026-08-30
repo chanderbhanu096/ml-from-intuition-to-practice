@@ -2,7 +2,7 @@
 
 > Predict a number, understand the errors, and know when complexity pays.
 
-**0 of 12 chapters complete** · ~12 learner-hours · Applied, Core
+**1 of 12 chapters complete** · ~12 learner-hours · Applied, Core
 
 ---
 
@@ -34,7 +34,7 @@ The order is capability, then cost: fit a line, read the errors, add capacity, w
 
 | | Chapter | Level | Time | The one idea |
 |---|---|---|---|---|
-| `[ ]` | **05-01** Predicting a number: mean and median baselines | Core | 45m | The constant that minimises MAE is the median, not the mean - and both are baselines. |
+| `[x]` | **[05-01](05-01_baselines.ipynb)** Predicting a number: mean and median baselines | Core | 45m | The constant that minimises MAE is the median, not the mean - and both are baselines. |
 | `[ ]` | **05-02** Simple linear regression, fitted by hand | Core | 60m | A line fitted by hand, so least squares is arithmetic before it is a library call. |
 | `[ ]` | **05-03** Multiple linear regression and what a coefficient means | Core | 60m | A coefficient means 'holding the others constant', which is a claim about the data you have. |
 | `[ ]` | **05-04** Metrics: MAE, MSE, RMSE, MAPE's trouble, R-squared | Core | 50m | Each error measure encodes a different belief about what mistakes cost. |

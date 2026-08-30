@@ -1,9 +1,9 @@
 # Progress
 
-**Last updated:** 2026-08-30
-**Chapters complete:** 34 of 121
-**Next to build:** **05-01 · The simplest possible predictor**
-(`notebooks/05_regression/05-01_simplest_predictor.ipynb`) - the start of module 05.
+**Last updated:** 2026-08-31
+**Chapters complete:** 35 of 121
+**Next to build:** **05-02 · Simple linear regression, fitted by hand**
+(`notebooks/05_regression/05-02_simple_linear.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-30, **74/74 passed** (thirty-four chapters, their thirty-four solutions
+Last full run: 2026-08-31, **76/76 passed** (thirty-five chapters, their thirty-five solutions
 notebooks, and the module 02, 03 and 04 assessments with their solutions). The notebook template also executes
 cleanly. Notebooks are committed without stored outputs (D-15).
 
@@ -30,7 +30,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
 | 03 Math foundations | 8 | **8** | complete and validated, assessment written |
 | 04 Workflow | 8 | **8** | complete and validated, assessment written |
-| 05 Regression | 12 | 0 | |
+| 05 Regression | 12 | 1 | 05-01 done |
 | 06 Classification | 12 | 0 | |
 | 07 Evaluation | 7 | 0 | |
 | 08 Unsupervised | 8 | 0 | |
@@ -63,6 +63,34 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-31 (1)** - Chapter 05-01 (the best constant) and its solutions, opening module 05. Seven
+figures on fifteen delivery times, small enough to print and check by hand.
+
+The chapter's thesis: **a metric is not a way of scoring a model, it is a specification of what to
+predict.** Four metrics on one dataset give four different best constants - **31.0 (MAPE), 34.0
+(absolute error, the median), 36.4 (squared error, the mean), 52.0 (pinball at q=0.9)** - spread over 21
+minutes on data whose middle is 34. The baseline module 05 now has to beat is stated precisely: **8.00
+minutes of MAE, or 99.17 of MSE.**
+
+Derivations rather than assertions: absolute error is piecewise linear with a kink at every observation
+and slope "points below minus points above", so it turns at the median; squared error is a parabola whose
+minimum is where the average residual is zero, so it sits at the mean. One stuck driver at 195 minutes
+moves the mean 9.91 and the median 1.00. Pinball loss generalises both, and its minimiser is verified to
+be the `ceil(q*n)`-th smallest value on all five quantiles.
+
+Two exercise results argue against the chapter's own surface reading. **E9**: as the outlier grows through
+60, 100, 200, 500, 1000, the mean's movement is exactly linear while **the median moves 1.00 every time** -
+robustness is not a tendency, it is a bound. **E12**: over 1,000 samples the median's sampling spread
+(3.3831) is *larger* than the mean's (2.9399). Robustness and efficiency are different properties, and the
+median trades the second for the first - so the reason to use it is that it is optimal for absolute error,
+not a vague belief that it is safer.
+
+E20 was rewritten after executing: I claimed the ceiling rule held in every case and the test said 95%.
+All nine disagreements have `q*n` an exact integer, and in every one the rule's value is still optimal -
+the minimiser is simply not unique there. The exercise now tests optimality rather than point equality,
+and reports 180/180 optimal, 171/180 identical.
+
 
 **2026-08-30 (40)** - Module 04 assessment and its solutions. 40 marks over recall, doing and judgement,
 on 2,041 synthetic support tickets from 300 customers over 18 months. Built so that the workflow's lessons
