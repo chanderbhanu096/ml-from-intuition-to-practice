@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-30
-**Chapters complete:** 21 of 121
-**Next to build:** **03-04 · Probability and conditional probability, with counts**
-(`notebooks/03_math_foundations/03-04_probability.ipynb`).
+**Chapters complete:** 22 of 121
+**Next to build:** **03-05 · Bayes' rule you can do on paper**
+(`notebooks/03_math_foundations/03-05_bayes.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-30, **44/44 passed** (twenty-one chapters, their twenty-one solutions
+Last full run: 2026-08-30, **46/46 passed** (twenty-two chapters, their twenty-two solutions
 notebooks, and the module 02 assessment with its solutions). The notebook template also executes
 cleanly. Notebooks are committed without stored outputs (D-15).
 
@@ -28,7 +28,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 00 Orientation | 4 | **4** | complete and validated |
 | 01 Python bridge | 6 | **6** | complete and validated |
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
-| 03 Math foundations | 8 | 3 | 03-01 to 03-03 done |
+| 03 Math foundations | 8 | 4 | 03-01 to 03-04 done |
 | 04 Workflow | 8 | 0 | the spine of the course |
 | 05 Regression | 12 | 0 | |
 | 06 Classification | 12 | 0 | |
@@ -63,6 +63,27 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (25)** - Chapter 03-04 (probability, by counting) and its solutions. Level 0
+mathematics: every probability in the chapter is one count divided by another, from a four-cell table
+of 1,000 inspected bikes - 36 cracked-and-alarmed, 4 missed, 96 false alarms, 864 quiet and sound.
+The first failure lab is confusing the inverse: P(alarm given cracked) is 0.9000 and P(cracked given
+alarm) is 0.2727 from the same 36 bikes, a factor of 3.30, because 960 sound bikes produce 96 false
+alarms while 40 cracked ones produce 36 true ones. Holding the sensor fixed and varying only the base
+rate moves P(cracked given alarm) from 0.0089 to 0.9310, which is the chapter's central point - a
+detector's usefulness is not a property of the detector. Both quantities are then named as recall and
+precision, so module 07's metrics arrive as two denominators rather than two definitions. Independence
+shown two ways on a colour table that is exactly independent (expected counts 16, 384, 24, 576, all
+matching observed) against the sensor table where independence predicts 5.3 and observes 36. Second
+failure lab: two brake cables whose individual failure rate is 0.998% either way, but which fail
+together 1 in 247 rather than 1 in 10,040 when they share a batch - 40.7 times the independent
+calculation, confirmed by simulating ten million bikes, with P(second fails given first failed) at
+0.4082 against 0.00997. Solutions E6 extends it to three and four cables, where the ratio reaches
+1,833 and 82,672, so redundancy buys least exactly where it is claimed to buy most. E9 builds a table
+that is dependent in each of two workshops in opposite directions and exactly independent when pooled,
+which is 02-06's Simpson's paradox in probability notation. E10's screening calculation gives 4.7%,
+and E16 shows the batch dependence is detectable from failures alone at a fleet of only 200. Notebook
+executed to a scratchpad copy rather than in place, per D-15.
 
 **2026-08-30 (23)** - Chapter 03-03 (error bars from the data you actually have) and its solutions.
 The bootstrap in four lines, checked against a truth we still hold: resampling one week of seven
