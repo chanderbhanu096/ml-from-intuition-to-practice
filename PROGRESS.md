@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-30
-**Chapters complete:** 19 of 121
-**Next to build:** **03-02 · Distributions and sampling: why two samples never agree**
-(`notebooks/03_math_foundations/03-02_sampling.ipynb`).
+**Chapters complete:** 20 of 121
+**Next to build:** **03-03 · Uncertainty: error bars by resampling**
+(`notebooks/03_math_foundations/03-03_uncertainty.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,9 +17,8 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-30, **40/40 passed** (nineteen chapters, their nineteen solutions
-notebooks, and the module 02 assessment with its solutions). The notebook template also executes
-cleanly.
+Last full run: 2026-08-30, **42/42 passed** (twenty chapters, their twenty solutions notebooks,
+and the module 02 assessment with its solutions). The notebook template also executes cleanly.
 
 ## Status by module
 
@@ -28,7 +27,7 @@ cleanly.
 | 00 Orientation | 4 | **4** | complete and validated |
 | 01 Python bridge | 6 | **6** | complete and validated |
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
-| 03 Math foundations | 8 | 1 | 03-01 done |
+| 03 Math foundations | 8 | 2 | 03-01, 03-02 done |
 | 04 Workflow | 8 | 0 | the spine of the course |
 | 05 Regression | 12 | 0 | |
 | 06 Classification | 12 | 0 | |
@@ -63,6 +62,27 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (22)** - Chapter 03-02 (why two samples never agree) and its solutions. Invents a
+population of a million bus mornings so the truth is knowable - true mean 6.0064, sd 4.2460 - and
+then reopens 03-01's answer: across 100,000 weeks of seven mornings the sample means centre correctly
+on 6.0031 but 95% of them fall between 3.27 and 9.57, so "6 minutes late" was correct with imaginary
+precision. Standard error verified against sd/sqrt(n) at four sample sizes, with the relative column
+landing on 1.000, 0.500, 0.249, 0.124 - quadruple the data to halve the error. First failure lab is
+sd against se: the sample sd climbs from 3.91 to 4.24 and stops, while the se falls from 1.60 to
+0.20, with an honest footnote that ddof=1 makes the variance unbiased and not its square root.
+Central limit theorem measured rather than asserted - skewness of the sampling distribution 1.399,
+0.991, 0.625, 0.250, 0.146 at n = 1, 2, 5, 30, 100 - so "n = 30 is enough" is folklore with a rate
+attached. Second failure lab: two arms drawn from the same population, 100 mornings each, produce a
+13.3% "winner"; across 40,000 such trials the typical apparent gap is 6.76% and 61.6% exceed 5%. The
+spread of the difference comes out 0.6030 against the predicted se x sqrt(2) = 0.6005, which is the
+variances-add fact 03-01 promised. Closes by reversing the robustness story: on the moderately skewed
+population the median is 13% less precise than the mean, and on a population where 3% of mornings are
+breakdowns it is five times more precise. Solutions E8 is the uncomfortable one - the standard error
+you can compute from your own sample of 7 averages 1.4878 against a truth of 1.6086, biased low by
+7.5%, with 64.2% of samples understating their own uncertainty. E15 shows the sqrt(n) law is a fact
+about averages only: the se of the maximum falls by a factor of 1.25 while the se of the mean falls
+by 32, and the average maximum grows without limit.
 
 **2026-08-30 (21)** - Chapter 03-01 (summaries: the arithmetic behind typical and spread) and its
 solutions, opening module 03. Seven bus-lateness values chosen so every hand calculation comes out

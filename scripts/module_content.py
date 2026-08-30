@@ -28,7 +28,7 @@ ONE_IDEA = {
     "02-08": "The whole module applied to one real dataset, ending in a written data dictionary.",
 
     "03-01": "Mean and median are answers to two different questions, and numpy and pandas disagree about variance.",
-    "03-02": "Two samples from one population never agree, and knowing how much they disagree is the job.",
+    "03-02": "The same number computed twice never matches, and how far it moves is predictable.",
     "03-03": "Resampling turns a single number into an honest interval, with no formula to memorise.",
     "03-04": "Conditional probability is counting in a restricted world, and base rates decide everything.",
     "03-05": "Bayes' rule is arithmetic on counts before it is a formula about beliefs.",

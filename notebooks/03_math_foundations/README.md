@@ -2,7 +2,7 @@
 
 > The maths actually used, on a ladder from counting to gradients.
 
-**1 of 8 chapters complete** · ~7 learner-hours · Core
+**2 of 8 chapters complete** · ~7 learner-hours · Core
 
 ---
 
@@ -23,7 +23,7 @@ That repetition is deliberate. A single maths block early is the most reliable w
 | | Chapter | Level | Time | The one idea |
 |---|---|---|---|---|
 | `[x]` | **[03-01](03-01_summaries.ipynb)** Summaries: the arithmetic behind typical and spread | Core | 45m | Mean and median are answers to two different questions, and numpy and pandas disagree about variance. |
-| `[ ]` | **03-02** Distributions and sampling: why two samples never agree | Core | 50m | Two samples from one population never agree, and knowing how much they disagree is the job. |
+| `[x]` | **[03-02](03-02_sampling.ipynb)** Why two samples never agree | Core | 50m | The same number computed twice never matches, and how far it moves is predictable. |
 | `[ ]` | **03-03** Uncertainty: error bars by resampling | Core | 50m | Resampling turns a single number into an honest interval, with no formula to memorise. |
 | `[ ]` | **03-04** Probability and conditional probability, with counts | Core | 50m | Conditional probability is counting in a restricted world, and base rates decide everything. |
 | `[ ]` | **03-05** Bayes' rule you can do on paper | Core | 45m | Bayes' rule is arithmetic on counts before it is a formula about beliefs. |
