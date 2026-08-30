@@ -2,7 +2,7 @@
 
 > The spine of the course - framing, splitting, leakage, pipelines.
 
-**6 of 8 chapters complete** · ~7 learner-hours · Core
+**7 of 8 chapters complete** · ~7 learner-hours · Core
 
 ---
 
@@ -34,7 +34,7 @@ Nine of the later modules name a chapter from here as a prerequisite. If you ski
 | `[x]` | **[04-04](04-04_splitting_group_time.ipynb)** Splitting II: grouped and chronological | Core | 55m | When rows share an entity or a timeline, a random split is a lie. |
 | `[x]` | **[04-05](04-05_leakage.ipynb)** Leakage lab: target, temporal, duplicate, preprocessing | Core | 60m | Four ways the future gets into your features, each one producing a suspiciously good score. |
 | `[x]` | **[04-06](04-06_preprocessing.ipynb)** Preprocessing: imputation, encoding, scaling, transforms | Core | 55m | Every transformation is fitted on training rows only, or the test set has already leaked. |
-| `[ ]` | **04-07** Pipelines and cross-validation without leaking | Core | 60m | A pipeline makes leakage-free preprocessing the default rather than a discipline. |
+| `[x]` | **[04-07](04-07_pipelines_cv.ipynb)** Pipelines and cross-validation without leaking | Core | 60m | A pipeline makes leakage-free preprocessing the default rather than a discipline. |
 | `[ ]` | **04-08** Reproducibility, seeds, and trustworthy experiment records | Core | 45m | A result nobody can reproduce is a rumour; seeds are necessary and not sufficient. |
 
 ## Data used

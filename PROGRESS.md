@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-30
-**Chapters complete:** 32 of 121
-**Next to build:** **04-07 · Pipelines and cross-validation without leaking**
-(`notebooks/04_workflow/04-07_pipelines_cv.ipynb`).
+**Chapters complete:** 33 of 121
+**Next to build:** **04-08 · Reproducibility, seeds, and trustworthy experiment records**
+(`notebooks/04_workflow/04-08_reproducibility.ipynb`) - the last chapter of module 04.
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-30, **68/68 passed** (thirty-two chapters, their thirty-two solutions
+Last full run: 2026-08-30, **70/70 passed** (thirty-three chapters, their thirty-three solutions
 notebooks, and the module 02 and 03 assessments with their solutions). The notebook template also executes
 cleanly. Notebooks are committed without stored outputs (D-15).
 
@@ -29,7 +29,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 01 Python bridge | 6 | **6** | complete and validated |
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
 | 03 Math foundations | 8 | **8** | complete and validated, assessment written |
-| 04 Workflow | 8 | 6 | the spine of the course; 04-01 to 04-06 done |
+| 04 Workflow | 8 | 7 | the spine of the course; 04-01 to 04-07 done |
 | 05 Regression | 12 | 0 | |
 | 06 Classification | 12 | 0 | |
 | 07 Evaluation | 7 | 0 | |
@@ -63,6 +63,33 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (38)** - Chapter 04-07 (pipelines and cross-validation) and its solutions, 6 figures. First
+chapter in module 04 on a real dataset: California housing, with a `region` column derived from latitude
+and holes punched into `MedInc` and `HouseAge` so the pipeline has genuine work to do.
+
+The chapter's centre turned out to be a correction to my own draft. I had written that `best_score_` is
+optimistic by 0.024 "because it is the maximum of fourteen noisy numbers" - 04-03's selection premium
+arriving on schedule. Executing the decomposition showed that is **wrong**: nested cross-validation
+returns *exactly* what plain 5-fold cross-validation of the chosen settings returns (**premium
++0.0000**), and the entire 0.024 is the inner loop being 4-fold, so training on 3/4 of the rows instead of
+4/5. The four-row table A/B/C/D that separates them is now the heart of the chapter, and it is the third
+time in module 04 that a comparison changed two things at once - after 04-04's stricter-but-smaller split
+and 04-06's row-dropping.
+
+E20 confirms it at scale: with the fold counts matched, the premium is **+0.0000 at 2, 6, 14 and 30
+candidates and +0.0001 at 60**, against 04-03's 0.12 from forty. The reconciliation is that the premium
+counts *effectively independent* candidates - sixty ridge alphas trace one smooth curve with one minimum,
+while 04-03's forty random four-column subsets were genuinely different and mostly worthless.
+
+Other measured results: the manual workflow's optimism against a pipeline is +0.0181 on 400 rows and
++0.0109 on 4,000, against 0.25 on pure noise in 04-05 - same code, different data. Nesting costs about
+five times the compute. **E9 contradicts 04-06 and is right to**: logging this target helps by 16%
+(0.5585 against 0.6615) where logging the rents hurt, because California house values really are
+multiplicative and the synthetic rents were built additively - and skew alone cannot tell you which you
+have. E12: the random forest has the largest train-test gap (0.222) and is not the worst model; ridge has
+the smallest (0.105) and is by far the worst, because a small gap can mean "underfits equally badly on
+both".
 
 **2026-08-30 (37)** - Chapter 04-06 (preprocessing) and its solutions, 8 figures. New dataset: 1,200
 synthetic rental listings with twelve administrative district codes, 13% of `area_m2` missing at random

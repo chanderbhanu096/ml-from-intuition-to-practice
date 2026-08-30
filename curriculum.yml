@@ -78,7 +78,7 @@ modules:
       - {id: "04-04", title: "Splitting II: grouped and chronological", path: notebooks/04_workflow/04-04_splitting_group_time.ipynb, level: core, minutes: 55, prereqs: ["04-03"], concepts: [group leakage, GroupKFold, time-based split], dataset: synthetic, status: complete}
       - {id: "04-05", title: "Leakage lab: target, temporal, duplicate, preprocessing", path: notebooks/04_workflow/04-05_leakage.ipynb, level: core, minutes: 60, prereqs: ["04-04"], concepts: [leakage types, too-good-to-be-true scores, detection], dataset: synthetic, status: complete}
       - {id: "04-06", title: "Preprocessing: imputation, encoding, scaling, transforms", path: notebooks/04_workflow/04-06_preprocessing.ipynb, level: core, minutes: 55, prereqs: ["04-05"], concepts: [fit on train only, one-hot, scaling, target transform], dataset: synthetic, status: complete}
-      - {id: "04-07", title: "Pipelines and cross-validation without leaking", path: notebooks/04_workflow/04-07_pipelines_cv.ipynb, level: core, minutes: 60, prereqs: ["04-06"], concepts: [Pipeline, ColumnTransformer, KFold, cross_val_score], dataset: sklearn, status: planned}
+      - {id: "04-07", title: "Pipelines and cross-validation without leaking", path: notebooks/04_workflow/04-07_pipelines_cv.ipynb, level: core, minutes: 60, prereqs: ["04-06"], concepts: [Pipeline, ColumnTransformer, KFold, cross_val_score], dataset: sklearn, status: complete}
       - {id: "04-08", title: "Reproducibility, seeds, and trustworthy experiment records", path: notebooks/04_workflow/04-08_reproducibility.ipynb, level: core, minutes: 45, prereqs: ["04-07"], concepts: [seed, environment, experiment log, versioning], dataset: synthetic, status: planned}
 
   - id: "05"
