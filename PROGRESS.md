@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-30
-**Chapters complete:** 22 of 121
-**Next to build:** **03-05 · Bayes' rule you can do on paper**
-(`notebooks/03_math_foundations/03-05_bayes.ipynb`).
+**Chapters complete:** 23 of 121
+**Next to build:** **03-06 · Functions, lines, slopes, logarithms**
+(`notebooks/03_math_foundations/03-06_functions_lines_logs.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-30, **46/46 passed** (twenty-two chapters, their twenty-two solutions
+Last full run: 2026-08-30, **48/48 passed** (twenty-three chapters, their twenty-three solutions
 notebooks, and the module 02 assessment with its solutions). The notebook template also executes
 cleanly. Notebooks are committed without stored outputs (D-15).
 
@@ -28,7 +28,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 00 Orientation | 4 | **4** | complete and validated |
 | 01 Python bridge | 6 | **6** | complete and validated |
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
-| 03 Math foundations | 8 | 4 | 03-01 to 03-04 done |
+| 03 Math foundations | 8 | 5 | 03-01 to 03-05 done |
 | 04 Workflow | 8 | 0 | the spine of the course |
 | 05 Regression | 12 | 0 | |
 | 06 Classification | 12 | 0 | |
@@ -63,6 +63,27 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (26)** - Chapter 03-05 (Bayes' rule you can do on paper) and its solutions. Teaches
+the natural-frequency method first - invent 100,000 people, turn every rate into a count, fill four
+cells, divide - which gives 4.72% for the screening problem without writing the formula down. The
+formula is then introduced as a name for what was just counted, and checked against it to six
+decimals. Odds form next, because "multiply the odds by 99" is doable in your head where the
+percentage form is not, and because it exposes the asymmetry: a positive multiplies the odds by 99 to
+reach 1 in 21, while a negative multiplies by 0.0101 and reaches 1 in 197,902. Sequential updating
+gives 4.72%, 83.06% and 99.79% for one, two and three positives. The failure lab then takes that
+apart. Two models of why a test errs - independent noise, or a stable trait in 1% of healthy people -
+produce an identical 1% false-positive rate and are indistinguishable from any measurement of the
+test. Simulated over forty million people, two positives mean 0.8308 under independent errors and
+0.0468 under the stable trait, while the sequential calculation returns 0.8306 in both. Bayes' rule
+is not wrong; the likelihood is, because P(two positives given healthy) is 0.0001 in one world and
+0.01 in the other. This is 03-04's brake cables in a new setting. Closes on where the prior comes
+from, with the same test giving 4.7% under random screening and 91.7% after a specialist referral.
+Solutions E8 answers the question the chapter leaves open by sweeping the share of correlated errors
+while holding the overall false-positive rate pinned at 0.0100: confirmatory value falls from 0.8225
+to 0.0468, and a twentieth of the errors being correlated already halves it. E12 explains naive
+Bayes' saturated probabilities as the same effect, and E16 extends to three hypotheses with a warning
+about exhaustiveness.
 
 **2026-08-30 (25)** - Chapter 03-04 (probability, by counting) and its solutions. Level 0
 mathematics: every probability in the chapter is one count divided by another, from a four-cell table
