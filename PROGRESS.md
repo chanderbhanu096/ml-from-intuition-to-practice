@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-30
-**Chapters complete:** 28 of 121
-**Next to build:** **04-03 · Splitting I: train, validation, test**
-(`notebooks/04_workflow/04-03_splitting_basics.ipynb`).
+**Chapters complete:** 29 of 121
+**Next to build:** **04-04 · Splitting II: grouped and chronological**
+(`notebooks/04_workflow/04-04_splitting_group_time.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -17,7 +17,7 @@ Run from the repository root:
 .venv/bin/python scripts/validate_notebooks.py
 ```
 
-Last full run: 2026-08-30, **60/60 passed** (twenty-eight chapters, their twenty-eight solutions
+Last full run: 2026-08-30, **62/62 passed** (twenty-nine chapters, their twenty-nine solutions
 notebooks, and the module 02 and 03 assessments with their solutions). The notebook template also executes
 cleanly. Notebooks are committed without stored outputs (D-15).
 
@@ -29,7 +29,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 01 Python bridge | 6 | **6** | complete and validated |
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
 | 03 Math foundations | 8 | **8** | complete and validated, assessment written |
-| 04 Workflow | 8 | 2 | the spine of the course; 04-01 and 04-02 done |
+| 04 Workflow | 8 | 3 | the spine of the course; 04-01 to 04-03 done |
 | 05 Regression | 12 | 0 | |
 | 06 Classification | 12 | 0 | |
 | 07 Evaluation | 7 | 0 | |
@@ -63,6 +63,31 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-30 (33)** - Chapter 04-03 (splitting: train, validation, test) and its solutions. Audits the
+two previous chapters: the same logistic regression over **200 random splits** scores anywhere from
+**0.6080 to 0.8185** (sd 0.0425), and the AUC 0.6359 that 04-01 and 04-02 both reported sits at the **3rd
+percentile**. Nothing in those chapters was wrong - every gap they argued about was larger than this noise
+- but the four-decimal single-split number is now properly framed as one draw.
+
+Four demonstrations, each with its own figure: the scissors (unlimited tree depth reaches MAE 0.3453 on
+its own rows and 3.4772 on unseen ones, best depth 3); the split lottery histogram; stratification
+(held-out base rate exactly 13.38% every time against a plain range of 7.01% to 22.29%, or 11 to 35
+cancellers); and the selection premium - best of 40 candidates scores 0.7532 on the set that chose it and
+0.6366 on the set that did not.
+
+The premium curve was rebuilt after executing it. A single realisation was non-monotone and unusable, so
+it now averages 200 draws at each size: the reported score climbs 0.7121 to 0.7422 from ten to eighty
+candidates while the delivered score goes 0.6342 to 0.6223. Past about ten candidates the search buys no
+real performance at all.
+
+Three exercise answers push back on the tidy lesson. E9: stratification does **not** narrow the AUC spread
+here - sd 0.0425 either way - because it fixes the base rate and not which members are held out, so its
+justification is comparability rather than variance. E8: the model and 04-02's one-rule threshold are
+indistinguishable even paired (+0.0074, sd 0.0339, logistic wins 58% of splits). E20 was rewritten
+entirely: I predicted a log-shaped premium curve and it saturates instead, and the k=1 point is a 0.0281
+offset that is not selection at all but the test set being harder than the validation set - the honest
+decomposition is a constant handicap plus a selection term that arrives early and stays.
 
 **2026-08-30 (32)** - Chapter 04-02 (baselines) and its solutions. Predicts next month's visits on the
 same gym panel, split chronologically at month 16. The result the chapter is built on: **both models lose
