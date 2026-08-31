@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-31
-**Chapters complete:** 41 of 121
-**Next to build:** **05-08 · Bias, variance, and learning curves**
-(`notebooks/05_regression/05-08_bias_variance.ipynb`).
+**Chapters complete:** 42 of 121
+**Next to build:** **05-09 · Regularisation: ridge, lasso, and the coefficient path**
+(`notebooks/05_regression/05-09_regularisation.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -30,7 +30,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
 | 03 Math foundations | 8 | **8** | complete and validated, assessment written |
 | 04 Workflow | 8 | **8** | complete and validated, assessment written |
-| 05 Regression | 12 | 7 | 05-01 to 05-07 done |
+| 05 Regression | 12 | 8 | 05-01 to 05-08 done |
 | 06 Classification | 12 | 0 | |
 | 07 Evaluation | 7 | 0 | |
 | 08 Unsupervised | 8 | 0 | |
@@ -63,6 +63,48 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-31 (8)** - Chapter 05-08 (bias, variance, learning curves) and its solutions, 6 figures in the
+chapter and 3 in the solutions.
+
+**The decomposition is verified rather than asserted.** 400 datasets per degree, and the measured error
+matches `bias² + variance + noise` to within about a tenth on totals from 7 to 49. Bias falls and
+variance rises and they cross: degree 1 is bias² 4.51 / variance 0.42, degree 8 is 0.03 / 46.71, and the
+best total is degree 5 at 3.60. Degree 2's bias² is *higher* than degree 1's (4.5439 against 4.5136),
+which is worth naming - adding capacity does not have to reduce bias if it is the wrong shape.
+
+The spray figure - 25 fits on 25 fresh samples, plus their average against the truth - is the equation as
+a picture: bias is the distance from the average fit to the truth, variance is the width of the spray.
+
+**The learning curve gets three shapes and three verdicts**, all measured. Degree 1: curves meet at 2.6
+with a floor of 1.50, final gap 0.040 - more data is wasted. Degree 5: meet at the floor, gap 0.015 -
+stop. Degree 14: validation starts at **405.4** on twenty rows and reaches 1.522 at 640, gap 0.037 - more
+data did the entire job, and at 640 rows degree 14 is indistinguishable from degree 5.
+
+**The curve is then extrapolated to a number.** Fitting `excess = 70.958 n^-1.264` to the settled part
+predicts 1.509 at 1,200 rows and 1.502 at 5,000 - so eight times the data buys 0.019 RMSE. That is a
+decision rather than an opinion.
+
+**Failure lab: a learning curve that goes up.** The first 300 rows come from one process and everything
+after from a "new supplier" whose target is scaled and shifted; validation RMSE climbs 1.60 -> 3.87 as
+1,700 rows are added. The fix is to discard them, which no amount of tuning would ever reach. Solutions
+E12 supplies the contrast that makes it a principle: rows that are merely four times *noisier* leave the
+curve flat at 1.52. **Noise costs information; a shift costs correctness.**
+
+Solutions E10 runs the curve on California Housing and is deliberately not tidied: validation is 15.30 at
+200 rows and 5.18 at 800, with a non-monotone bump at 8,000, because a linear model on 200 rows
+extrapolates catastrophically on rows with `AveRooms` of 141. The right-hand end is readable - gap
+**-0.006** at 15,480 - and gradient boosting on the same folds reaches **0.4668** against 0.7263, so at
+least 0.26 of the linear model's error is bias rather than noise. The answer is: do not collect more
+block groups.
+
+E11 averages 25 degree-8 fits: variance falls 161.90 -> 7.29 (a factor of 22.2 against an ideal of 25)
+and bias² does not move at all. **E21 corrected its own premise.** The `1/n` half of `variance ~ p/n` is
+exact - `variance x n` is constant within each degree - but the `p` half fails badly for polynomial
+features, where the ratio to `sigma^2 p/n` falls from 5.9 at p=1 to 1.4 at p=6 and the variance stops
+growing after p=2. With independent Gaussian columns the ratio holds at 1.2-1.3 throughout. The
+difference is collinearity: what enters the variance is the number of independent directions, not the
+nominal parameter count.
 
 **2026-08-31 (7)** - Chapter 05-07 (capacity: polynomial features, interactions, under- and
 overfitting) and its solutions, 6 figures in the chapter and 4 in the solutions.
