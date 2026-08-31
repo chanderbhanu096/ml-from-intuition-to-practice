@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-31
-**Chapters complete:** 39 of 121
-**Next to build:** **05-06 · Gradient descent from scratch**
-(`notebooks/05_regression/05-06_gradient_descent.ipynb`).
+**Chapters complete:** 40 of 121
+**Next to build:** **05-07 · Polynomial and interaction features; under/overfitting**
+(`notebooks/05_regression/05-07_capacity.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -30,7 +30,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
 | 03 Math foundations | 8 | **8** | complete and validated, assessment written |
 | 04 Workflow | 8 | **8** | complete and validated, assessment written |
-| 05 Regression | 12 | 5 | 05-01 to 05-05 done |
+| 05 Regression | 12 | 6 | 05-01 to 05-06 done |
 | 06 Classification | 12 | 0 | |
 | 07 Evaluation | 7 | 0 | |
 | 08 Unsupervised | 8 | 0 | |
@@ -63,6 +63,47 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-31 (6)** - Chapter 05-06 (gradient descent from scratch) and its solutions, 6 figures in the
+chapter and 4 in the solutions. 03-08 already built the five-line loop for one parameter and did the
+qualitative learning-rate and scaling failure labs, so this chapter is the quantitative version: the
+full vector gradient, the gradient check, the exact stability bound, batch sizes, momentum, and what
+"converged" is worth.
+
+**The stability bound is derived and then verified as an exact boundary.** `rate < 1 / lambda_max(X'X/n)`
+gives 0.959567 on the standardised design, and the sweep confirms it: 0.50x the limit converges in 5
+steps, 0.80x in 22, 0.95x in 104, 0.99x in 538, and 1.00x never. Approaching the limit is a hundred times
+*slower* than sitting at half of it, so "the largest rate that does not diverge" is bad advice twice.
+
+**The scaling result is the chapter's headline: 1,776,054 steps against 4.** Condition number 365,727
+raw against 1.09 standardised, from one line of preprocessing. Solutions E21 establishes the general
+law - steps/condition is 5.57, 4.98, 4.55 across conditions of 7.9, 77 and 849 - so the payoff from
+better conditioning is linear and predictable before training starts.
+
+**The batch-size comparison was rebuilt twice.** By updates, full batch wins (+0.000000 against
+mini-batch's +1.06). By epochs - the fair unit - the ranking reverses and mini-batch wins (+0.027 against
+full batch's +21.05). Then solutions E11 showed *both* were confounded: holding the learning rate fixed
+across batch sizes compares the pairing, not the size, and scaling the rate with the batch (the linear
+scaling rule) puts batch 500 back at the optimum in 20 updates. The honest conclusion is that "which
+batch size" is not a well-posed question.
+
+**Momentum is given honestly.** On the well-conditioned problem the best beta is 0.30 at 28 steps against
+58, and beta 0.9 costs 215 - nearly four times slower than none. On a ravine built by adding a near-copy
+of `area` (condition 1,630) beta 0.95 gives 439 steps against 8,602. Momentum is worth roughly what the
+conditioning is bad.
+
+**The failure lab was redesigned after the first version's numbers did not exist.** A false "settled" is
+unreachable with an absolute tolerance on this loss scale, but with a *relative* tolerance - the more
+common formulation - a rate of 1e-7 reports `CONVERGED at step 2` at a loss of 159,888 against an optimum
+of 285.88, which is 559 times too high. The gradient norm separates them instantly: 0.00049 against
+799.4.
+
+Solutions E10 found that the standard halve-on-increase schedule is useless here and explains why: on a
+convex quadratic the loss never increases at a stable rate, so the trigger never fires; started above the
+limit it halves to exactly 0.5 against a limit of 0.500017, parking itself in the slowest possible place.
+A bold driver that also grows the rate reaches ~6,700 steps from any start, beating the best fixed rate
+found by hand. E20's figure needed two panels because at 1.01x the limit the distance to the optimum
+*falls* for 32 steps before turning around - a diverging run that looks like a converging one.
 
 **2026-08-31 (5)** - Chapter 05-05 (residuals) and its solutions, 8 figures in the chapter and 5 in the
 solutions. The chapter opens with **four models whose RMSE is 2.4000 to four decimal places** - the data

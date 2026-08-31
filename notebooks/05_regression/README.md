@@ -2,7 +2,7 @@
 
 > Predict a number, understand the errors, and know when complexity pays.
 
-**5 of 12 chapters complete** · ~12 learner-hours · Applied, Core
+**6 of 12 chapters complete** · ~12 learner-hours · Applied, Core
 
 ---
 
@@ -39,7 +39,7 @@ The order is capability, then cost: fit a line, read the errors, add capacity, w
 | `[x]` | **[05-03](05-03_multiple_linear.ipynb)** Multiple linear regression and what a coefficient means | Core | 60m | A coefficient means 'holding the others constant', which is a claim about the data you have. |
 | `[x]` | **[05-04](05-04_metrics.ipynb)** Metrics: MAE, MSE, RMSE, MAPE's trouble, R-squared | Core | 50m | Each error measure encodes a different belief about what mistakes cost. |
 | `[x]` | **[05-05](05-05_residuals.ipynb)** Residuals: reading the errors the model leaves | Core | 50m | The pattern in what a model got wrong tells you what to build next. |
-| `[ ]` | **05-06** Gradient descent from scratch | Core | 60m | Gradient descent from scratch: the learning rate is the whole difference between convergence and divergence. |
+| `[x]` | **[05-06](05-06_gradient_descent.ipynb)** Gradient descent from scratch | Core | 60m | Gradient descent from scratch: the learning rate is the whole difference between convergence and divergence. |
 | `[ ]` | **05-07** Polynomial and interaction features; under/overfitting | Core | 55m | Capacity is the ability to fit any shape, including the noise. |
 | `[ ]` | **05-08** Bias, variance, and learning curves | Core | 60m | Learning curves tell you whether more data or a different model is the answer. |
 | `[ ]` | **05-09** Ridge, Lasso, Elastic Net | Core | 55m | Paying for complexity: shrinkage, sparsity, and why scaling suddenly matters. |
