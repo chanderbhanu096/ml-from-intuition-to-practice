@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-31
-**Chapters complete:** 40 of 121
-**Next to build:** **05-07 · Polynomial and interaction features; under/overfitting**
-(`notebooks/05_regression/05-07_capacity.ipynb`).
+**Chapters complete:** 41 of 121
+**Next to build:** **05-08 · Bias, variance, and learning curves**
+(`notebooks/05_regression/05-08_bias_variance.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -30,7 +30,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
 | 03 Math foundations | 8 | **8** | complete and validated, assessment written |
 | 04 Workflow | 8 | **8** | complete and validated, assessment written |
-| 05 Regression | 12 | 6 | 05-01 to 05-06 done |
+| 05 Regression | 12 | 7 | 05-01 to 05-07 done |
 | 06 Classification | 12 | 0 | |
 | 07 Evaluation | 7 | 0 | |
 | 08 Unsupervised | 8 | 0 | |
@@ -63,6 +63,46 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-31 (7)** - Chapter 05-07 (capacity: polynomial features, interactions, under- and
+overfitting) and its solutions, 6 figures in the chapter and 4 in the solutions.
+
+**Interactions are given the space they deserve**, because they are the one expansion that is usually
+worth it. A shop dataset where a promotion is worth 17.6 on a weekday and 141.1 at the weekend: the
+main-effects model reports **+84.87**, a figure correct for nobody, and contaminates the weekend
+coefficient too (+97.31 against a truth of 40). Its held-out R-squared is **0.8645** - a model can score
+0.86 on unseen data and be wrong about the only question anyone asked. One product column takes it to
+0.9551 and RMSE 23.41 against noise built at sd 25. The non-parallel-lines plot finds this with a
+`groupby` and no model.
+
+The capacity sweep finds degree 3 - the true degree - on held-out RMSE, and degree 1 turns out to be the
+instructive row: its held-out RMSE (5.16) is *better* than its training RMSE (5.61), because a model too
+stiff to fit the noise has no gap to lose. A held-out score at or above the training score is an
+underfitting signature.
+
+**Capacity relative to n is the chapter's spine.** Degree 16 scores -3.107 on 18 fitting rows and +0.881
+on 1,800, where degrees 3 through 16 all agree to three decimals. Solutions E20 finds the crossover: the
+degree-16/degree-3 RMSE ratio falls 995 -> 41.8 -> 3.55 -> 1.70 -> 1.033, reaching within 5% at **240
+rows for 16 parameters - about 15 rows per parameter** - and never quite reaching 1.
+
+**Two claims had to be corrected after executing them.** The draft said degree 1's residuals show a ∩;
+they show a *wave*, which is what a cubic minus its best line looks like. And the draft's coefficient
+figure was plotted on raw powers, where the largest coefficient *shrinks* with degree (2.40 to 0.0138) -
+the opposite of the runaway it was captioned as. On standardised columns it goes 5.07 to **8,331**, which
+is the real mechanism of overfitting and the hook for 05-09's penalty.
+
+**The centring advice was wrong and is now measured.** Centring does nothing on this chapter's x (already
+near zero; improvements 1.03x, 0.97x, 0.59x). Shift the identical values to look like a year around 2005
+and the degree-3 raw expansion has condition **8.5e+27**, which centring returns to 976.9 - the value the
+unshifted column already had. E11 measures both cases; the rule is that centring matters exactly to the
+extent the mean is large relative to the spread.
+
+Solutions E10 is 04-03's split lottery applied to model *selection*: 5-fold CV picks degree 3 in 9 of 10
+seeds, a single 50/50 split picks it in 6 and otherwise wanders to 4, 6, 6 and 9. E12 builds a dataset
+where both main effects are exactly zero - marginal means 38.86/40.49 and 39.65/39.73 - so the
+main-effects model scores **-0.0052** and the interaction takes it to 0.7644; univariate feature
+screening would delete both columns. E21 shows the interaction form and a four-cell indicator encoding
+give predictions differing by 6.8e-13 and identical R-squared, with completely different coefficients.
 
 **2026-08-31 (6)** - Chapter 05-06 (gradient descent from scratch) and its solutions, 6 figures in the
 chapter and 4 in the solutions. 03-08 already built the five-line loop for one parameter and did the
