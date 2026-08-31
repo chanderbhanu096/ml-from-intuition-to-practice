@@ -191,7 +191,8 @@ notebooks/     the learner notebooks, grouped by module, numbered in learning or
 solutions/     full worked solutions, mirroring the notebooks/ tree
 assessments/   cumulative end-of-module assessments
 data/          dataset documentation and (locally) raw files - raw data is not committed
-scripts/       validation, dataset helpers, and the module-README generator
+assets/        the animated figures the chapters embed - built by scripts/build_animations.py
+scripts/       validation, dataset helpers, animations, and the module-README generator
 _template/     the notebook template every chapter follows
 ```
 

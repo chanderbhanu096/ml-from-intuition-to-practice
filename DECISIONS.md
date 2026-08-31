@@ -84,6 +84,43 @@ causality half needs a failure lab of its own - it is the most expensive confusi
 ML. Split into 00-03 (the families of learning plus the lifecycle map) and 00-04 (prediction,
 explanation, cause). Module 00 is now 4 chapters; the course is 121.
 
+**D-19 - Animation belongs in the prose, not only in the output of a cell.** (2026-08-31)
+A fourth request for more visual explanation, this one specific: the reading material itself should move,
+not just the figures a reader produces by running code. That is a fair distinction. Everything D-16 to
+D-18 added lives *below* a code cell, so a reader skimming the explanation before running anything sees
+only static prose - and the two ideas hardest to hold still are the two that matter most here, a model
+changing over time and a process whose steps happen in an order.
+
+From 05-11 onwards a chapter embeds **two or three animations directly in its markdown cells**, before
+the code that would reproduce them. They are built once by `scripts/build_animations.py`, committed under
+`assets/<module>/<chapter>/`, and referenced with a plain `<img>` tag, so they play in Jupyter, in
+nbconvert's HTML and on GitHub without the reader executing anything.
+
+Two formats, chosen by what is being shown:
+
+- **GIF for anything driven by data** - a fit improving round by round, an error curve drawing itself.
+  Built with matplotlib's Pillow writer. Budget: **under about 400 KB each**, which is roughly fifteen
+  frames at a readable size. The frame count is the lever; dropping dpi below 80 makes the text soft.
+- **Animated SVG for schematics** - boxes appearing in an order, arrows tracing a flow. A few kilobytes,
+  sharp at any zoom, and diffable as text. SMIL rather than CSS, because SMIL keeps animating when the
+  file is loaded through an `<img>` tag. Give it an explicit white `<rect>` ground: a transparent SVG
+  with dark grey text vanishes on a dark Jupyter theme.
+
+Three practical rules learned building the first set:
+
+1. **Set full-length placeholder titles before `tight_layout`.** Titles written per frame are empty at
+   layout time, so no space is reserved and every frame is clipped.
+2. **Draw the whole curve faintly underneath the animated one.** The reader can then see where it is
+   heading, which turns "wait and watch" into "watch it arrive".
+3. **The prose has to say what to look for.** An animation without a "catch these three things" list is
+   decoration; the caption is where the teaching is.
+
+The animations are checked frame by frame, the same by-eye requirement D-16 imposed on static figures -
+several frames rendered without error while being clipped or illegible.
+
+Repository cost is accepted at roughly half a megabyte per chapter. That is the price of the one thing a
+static figure genuinely cannot do.
+
 **D-18 - The solutions notebooks are taught, not just answered.** (2026-08-31)
 A third request for more visual explanation, and the honest reading of it was that D-16 and D-17 had only
 ever been applied to the chapters. The solutions were prose and printouts - 05-10's had 3 figures against

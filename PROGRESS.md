@@ -65,6 +65,16 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
 
 ## Log
 
+**2026-08-31 (12)** - Animation added to 05-11's reading material, under D-19. Three files in
+`assets/05_regression/05-11/`, embedded in markdown cells with a plain `<img>` tag so they play before
+the reader runs anything: sixty rounds of boosting with the residual cloud collapsing beneath it, the
+same fit degenerating out to round 800 while the two error curves draw themselves, and an animated SVG
+of four trees arriving all at once against four arriving one at a time. Roughly 450 KB for the chapter.
+
+**The point of the second one is the pairing.** The fitted curve visibly starts listing individual
+points while the training error slides downwards and never objects - which is the argument for early
+stopping made in a form that does not need a paragraph.
+
 **2026-08-31 (11)** - Chapter 05-11 (gradient boosting) and its solutions: 6 figures in the chapter and
 6 in the solutions, the first set built under D-18.
 
