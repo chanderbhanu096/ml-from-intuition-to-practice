@@ -1,9 +1,10 @@
 # Progress
 
 **Last updated:** 2026-08-31
-**Chapters complete:** 44 of 121
-**Next to build:** **05-11 · Gradient boosting**
-(`notebooks/05_regression/05-11_boosting.ipynb`).
+**Chapters complete:** 45 of 121
+**Next to build:** **05-12 · The applied checkpoint**
+(`notebooks/05_regression/05-12_applied_checkpoint.ipynb`) - end-to-end regression on a real
+dataset with error analysis by segment, and no new algorithms.
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -30,7 +31,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
 | 03 Math foundations | 8 | **8** | complete and validated, assessment written |
 | 04 Workflow | 8 | **8** | complete and validated, assessment written |
-| 05 Regression | 12 | 10 | 05-01 to 05-10 done |
+| 05 Regression | 12 | 11 | 05-01 to 05-11 done |
 | 06 Classification | 12 | 0 | |
 | 07 Evaluation | 7 | 0 | |
 | 08 Unsupervised | 8 | 0 | |
@@ -63,6 +64,31 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-31 (11)** - Chapter 05-11 (gradient boosting) and its solutions: 6 figures in the chapter and
+6 in the solutions, the first set built under D-18.
+
+**The hand-rolled loop is the algorithm, not a sketch of it.** Sixty rounds of depth-2 stumps fitted to
+the residual at rate 0.3 reproduce `GradientBoostingRegressor` to six decimal places, and the same loop
+generalised in E8 matches sklearn at three further settings. The chapter's spine is the pair of numbers
+that follows: held-out RMSE **1.5179 at round 10 rising to 1.6097 at round 60** while training error
+falls from 1.4192 to 1.0731 - more trees making a boosted model worse, which is the fact that separates
+it from 05-10's forest.
+
+**The learning-rate table earns its place.** Best rounds of 8, 5, 10, 33, 71 and 323 at rates 1.0 down to
+0.01, with the damage from overshooting falling from 0.4610 to 0.0033 - so a small rate is not slower for
+its own sake, it is a wider target to hit.
+
+**Robustness is one line of code.** Five corrupted rows in two hundred take squared error from 1.5522 to
+**5.4986**; fitting the *sign* of the residual instead brings it back to roughly 1.63. E20 builds that
+loop by hand and draws the negative gradient of both losses side by side, which is where the mechanism
+becomes obvious rather than remembered.
+
+**Two prose claims were corrected against the measurement, not patched over.** The solutions had asserted
+that `rounds x leaves per tree` is conserved at the optimum; the measured products are 836, 284, 448 and
+1792, so the claim was rewritten to keep the direction and drop the arithmetic. And the median-leaf
+refinement in E20 moved the score *away* from sklearn's (1.6162 to 1.6500 against 1.6292), which is now
+what the text says.
 
 **2026-08-31 (10)** - Chapter 05-10 (decision trees and random forests) and its solutions, 6 figures in
 the chapter and 3 in the solutions.

@@ -84,6 +84,29 @@ causality half needs a failure lab of its own - it is the most expensive confusi
 ML. Split into 00-03 (the families of learning plus the lifecycle map) and 00-04 (prediction,
 explanation, cause). Module 00 is now 4 chapters; the course is 121.
 
+**D-18 - The solutions notebooks are taught, not just answered.** (2026-08-31)
+A third request for more visual explanation, and the honest reading of it was that D-16 and D-17 had only
+ever been applied to the chapters. The solutions were prose and printouts - 05-10's had 3 figures against
+the chapter's 6, and the three before it were thinner still. That is the wrong way round for the notebook
+a stuck reader opens.
+
+From 05-11 onwards a solutions notebook carries **at least four or five figures**, chosen by the same
+per-idea test as D-17 and subject to the same by-eye check. Three kinds do most of the work:
+
+1. **The hand calculation, drawn.** The arithmetic the reader just did on three rows, plotted as a shape -
+   residual bars shrinking geometrically, a decay curve with the crossing marked. This is where "the
+   formula" and "the picture" get welded together, and it is cheap because the numbers already exist.
+2. **A schematic for any answer that is structural.** "What is the difference between bagging and
+   boosting?" is an interview answer whose whole content is the direction of some arrows; the diagram
+   makes it a thing you can see rather than a paragraph to memorise.
+3. **The mechanism behind a transfer answer.** Where an exercise says "choose a different loss", the
+   solution now plots the loss *and its negative gradient*, because the gradient is what the algorithm
+   actually receives and the asymmetry the business asked for is visible in it.
+
+The cost is roughly a third again on top of a chapter's authoring time. It is accepted for the same reason
+D-17 was: for a near-beginner working alone, the solutions notebook is not a marking scheme, it is the
+second explanation - and the second explanation should not be worse-illustrated than the first.
+
 **D-17 - Visual density: a figure for every idea, not one per chapter.** (2026-08-30)
 Strengthens D-16 after a second request for more visual learning. The target is now **six to ten figures
 per chapter**, and the test is per-*idea* rather than per-chapter: if a paragraph asks the reader to hold
