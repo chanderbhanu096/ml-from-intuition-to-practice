@@ -2,7 +2,7 @@
 
 > Predict a number, understand the errors, and know when complexity pays.
 
-**3 of 12 chapters complete** · ~12 learner-hours · Applied, Core
+**4 of 12 chapters complete** · ~12 learner-hours · Applied, Core
 
 ---
 
@@ -37,7 +37,7 @@ The order is capability, then cost: fit a line, read the errors, add capacity, w
 | `[x]` | **[05-01](05-01_baselines.ipynb)** Predicting a number: mean and median baselines | Core | 45m | The constant that minimises MAE is the median, not the mean - and both are baselines. |
 | `[x]` | **[05-02](05-02_simple_linear.ipynb)** Simple linear regression, fitted by hand | Core | 60m | A line fitted by hand, so least squares is arithmetic before it is a library call. |
 | `[x]` | **[05-03](05-03_multiple_linear.ipynb)** Multiple linear regression and what a coefficient means | Core | 60m | A coefficient means 'holding the others constant', which is a claim about the data you have. |
-| `[ ]` | **05-04** Metrics: MAE, MSE, RMSE, MAPE's trouble, R-squared | Core | 50m | Each error measure encodes a different belief about what mistakes cost. |
+| `[x]` | **[05-04](05-04_metrics.ipynb)** Metrics: MAE, MSE, RMSE, MAPE's trouble, R-squared | Core | 50m | Each error measure encodes a different belief about what mistakes cost. |
 | `[ ]` | **05-05** Residuals: reading the errors the model leaves | Core | 50m | The pattern in what a model got wrong tells you what to build next. |
 | `[ ]` | **05-06** Gradient descent from scratch | Core | 60m | Gradient descent from scratch: the learning rate is the whole difference between convergence and divergence. |
 | `[ ]` | **05-07** Polynomial and interaction features; under/overfitting | Core | 55m | Capacity is the ability to fit any shape, including the noise. |

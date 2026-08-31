@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-31
-**Chapters complete:** 37 of 121
-**Next to build:** **05-04 · Metrics: MAE, MSE, RMSE, MAPE's trouble, R-squared**
-(`notebooks/05_regression/05-04_metrics.ipynb`).
+**Chapters complete:** 38 of 121
+**Next to build:** **05-05 · Residuals: reading the errors the model leaves**
+(`notebooks/05_regression/05-05_residuals.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -30,7 +30,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
 | 03 Math foundations | 8 | **8** | complete and validated, assessment written |
 | 04 Workflow | 8 | **8** | complete and validated, assessment written |
-| 05 Regression | 12 | 3 | 05-01 to 05-03 done |
+| 05 Regression | 12 | 4 | 05-01 to 05-04 done |
 | 06 Classification | 12 | 0 | |
 | 07 Evaluation | 7 | 0 | |
 | 08 Unsupervised | 8 | 0 | |
@@ -63,6 +63,46 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-31 (4)** - Chapter 05-04 (metrics: MAE, MSE, RMSE, MAPE's trouble, R-squared) and its
+solutions, 6 figures in the chapter and 4 more in the solutions. The chapter's spine is that **every
+metric is a decision about which errors matter**, made visible three times.
+
+The RMSE-to-MAE ratio is taught as a free diagnostic: 1.000 when every error is the same size, 3.000
+when one row of nine carries everything, and 1.237 on the chapter's nine deliveries. E9 and E20 in the
+solutions establish why the rule is portable - normally distributed errors converge to **sqrt(pi/2) =
+1.2533** regardless of scale or sample size, while heavy-tailed errors average 1.4552. So "about 1.25,
+fine; well above it, go and read the largest residuals" is a rule that transfers.
+
+One bad prediction in nine makes MSE **37.71x** worse, RMSE 6.14x, MAE 3.40x and MAPE 2.61x - the same
+event, four verdicts.
+
+**A planned demonstration turned out to be wrong and was replaced.** The intent was "MAPE prefers the
+model that predicts low", shown with a model 3 minutes low against one 3 minutes high. Those score
+*identically* (11.0634% each). MAPE's asymmetry lives on the **ratio** scale - predicting 2x costs 100%,
+predicting half costs 50% - so the chapter uses that framing instead. Solutions E11 keeps the failed
+version deliberately, because a reader will construct it themselves: 10% high and 10% low give the same
+MAE **and** the same MAPE, and only sMAPE separates them - preferring the high one, 9.52% against
+10.53%, which is MAPE's bias reversed rather than fixed.
+
+Solutions E10 supplies the missing evidence: the constant minimising MAPE on the nine actuals is
+**25.00**, five minutes below the median of 30, because a miss on the 16-minute delivery counts 2.8x a
+miss on the 45-minute one. Nobody asked the model to under-predict.
+
+Negative R-squared is shown at **-1850.87** on fresh rows from a degree-18 polynomial on 25 points, read
+as "the squared error is 1,851 times the mean's". Solutions E12 sweeps every degree: the crossing into
+negative territory is at **degree 7**, and it is abrupt - degree 6 still scores +0.2008.
+
+Two corrections found by executing rather than by reasoning. **The fitted-row R-squared is not monotonic**
+(0.8459 at degree 11, 0.8048 at 18), which contradicts a claim made two cells earlier; the chapter now
+names the cause, which is that raw powers up to 3^18 make the least-squares solve numerically unstable,
+and forward-references 05-07. **Adjusted R-squared is not monotonic either** - it falls 0.50 to 0.18 as
+noise columns are added, then rises to 0.27 at 21 features on 25 rows, where the denominator `n - p - 1`
+is 3 and the correction becomes wild. Both are better teaching than the tidy version would have been.
+
+Figures checked by eye. The MAPE asymmetry plot needed three passes: the "under-prediction can never
+exceed 100%" note collided with the annotation on the 2.0x point, and moving either one put it on a
+curve. Resolved by making the 100% line a legend entry instead of floating text.
 
 **2026-08-31 (3)** - Chapter 05-03 (multiple regression and what a coefficient means) and its solutions,
 6 figures. Built around a **sign flip** on 300 synthetic houses where the truth is known: price rises 3.0
