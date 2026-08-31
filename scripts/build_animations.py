@@ -26,7 +26,9 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt                                   # noqa: E402
 import numpy as np                                                # noqa: E402
+import pandas as pd                                               # noqa: E402
 from matplotlib.animation import FuncAnimation, PillowWriter      # noqa: E402
+from matplotlib.colors import to_rgb                              # noqa: E402
 from sklearn.model_selection import train_test_split              # noqa: E402
 from sklearn.tree import DecisionTreeRegressor                    # noqa: E402
 
@@ -246,7 +248,205 @@ def _forest_vs_boosting_svg():
 ''' % {"forest": forest, "boosting": boosting, "blue": BLUE, "green": GREEN, "dark": DARK}
 
 
-BUILDERS = {"05-11": build_05_11}
+SPLIT_SVG = r"""
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" width="900" height="300"
+     font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="900" height="300" fill="#ffffff"/>
+  <defs>
+    <marker id="tip2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5"
+            orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="%(blue)s"/></marker>
+    <marker id="tip3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5"
+            orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="%(green)s"/></marker>
+  </defs>
+
+  <text x="450" y="28" text-anchor="middle" font-size="16" fill="%(dark)s">20,640 rows, split once, before looking at anything</text>
+
+  <rect x="40" y="50" width="480" height="34" rx="4" fill="#eef3f9" stroke="%(blue)s" stroke-width="2"/>
+  <text x="280" y="72" text-anchor="middle" font-size="13" fill="%(blue)s">fit  -  12,384 rows  -  the model learns from these</text>
+  <rect x="528" y="50" width="160" height="34" rx="4" fill="#eef7f1" stroke="%(green)s" stroke-width="2"/>
+  <text x="608" y="72" text-anchor="middle" font-size="13" fill="%(green)s">watch  -  4,128</text>
+  <rect x="696" y="50" width="164" height="34" rx="4" fill="#fdeeec" stroke="%(red)s" stroke-width="2"/>
+  <text x="778" y="72" text-anchor="middle" font-size="13" fill="%(red)s">test  -  4,128</text>
+
+  <path d="M 280 92 C 280 132, 608 132, 608 92" fill="none" stroke="%(blue)s" stroke-width="2"
+        marker-end="url(#tip2)"/>
+  <rect x="408" y="117" width="72" height="15" fill="#ffffff"/>
+  <text x="444" y="129" text-anchor="middle" font-size="12" fill="%(blue)s">fit a model</text>
+  <path d="M 608 150 C 608 196, 280 196, 280 150" fill="none" stroke="%(green)s" stroke-width="2"
+        marker-end="url(#tip3)"/>
+  <text x="444" y="208" text-anchor="middle" font-size="12" fill="%(green)s">score it, change something, go again</text>
+  <circle r="7" fill="%(blue)s">
+    <animateMotion dur="%(cycle).1fs" repeatCount="indefinite"
+      path="M 280 92 C 280 132, 608 132, 608 92 L 608 150 C 608 196, 280 196, 280 150 Z"/>
+  </circle>
+
+  <g>
+    <rect x="696" y="98" width="164" height="104" rx="6" fill="#ffffff" stroke="%(red)s"
+          stroke-width="2" stroke-dasharray="6 4"/>
+    <text x="778" y="128" text-anchor="middle" font-size="12.5" fill="%(red)s">SEALED</text>
+    <text x="778" y="150" text-anchor="middle" font-size="11" fill="%(red)s">not looked at,</text>
+    <text x="778" y="167" text-anchor="middle" font-size="11" fill="%(red)s">not fitted on,</text>
+    <text x="778" y="184" text-anchor="middle" font-size="11" fill="%(red)s">not tuned against</text>
+    <animate attributeName="opacity" values="1;1;1;0" keyTimes="0;0.78;0.86;1"
+             dur="%(cycle).1fs" repeatCount="indefinite"/>
+  </g>
+  <g opacity="0">
+    <rect x="696" y="98" width="164" height="104" rx="6" fill="#fdeeec" stroke="%(red)s" stroke-width="2"/>
+    <text x="778" y="138" text-anchor="middle" font-size="13" fill="%(red)s">opened once</text>
+    <text x="778" y="162" text-anchor="middle" font-size="13" fill="%(red)s">RMSE 0.4574</text>
+    <text x="778" y="184" text-anchor="middle" font-size="11" fill="%(red)s">and never again</text>
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.86;0.92;1"
+             dur="%(cycle).1fs" repeatCount="indefinite"/>
+  </g>
+
+  <text x="450" y="252" text-anchor="middle" font-size="12.5" fill="%(dark)s">
+    Every choice you make - which model, which depth, how many rounds - is paid for out of the green box.</text>
+  <text x="450" y="276" text-anchor="middle" font-size="12.5" fill="%(dark)s">
+    The red box buys one number, at the end, and buys nothing else.</text>
+</svg>
+"""
+
+
+# ---------------------------------------------------------------- 05-12 data
+def _california():
+    """The same split 05-12 makes: 80% train, of which a quarter is held back to
+    choose between models, and a 20% test set opened exactly once."""
+    from sklearn.datasets import fetch_california_housing
+    from sklearn.model_selection import train_test_split as split
+    frame = fetch_california_housing(as_frame=True).frame
+    features = [c for c in frame.columns if c != "MedHouseVal"]
+    train, test = split(frame, test_size=0.2, random_state=0)
+    fit, watch = split(train, test_size=0.25, random_state=0)
+    return features, fit, watch, test
+
+
+def build_05_12():
+    from sklearn.dummy import DummyRegressor
+    from sklearn.ensemble import HistGradientBoostingRegressor, RandomForestRegressor
+    from sklearn.linear_model import LinearRegression
+    from sklearn.tree import DecisionTreeRegressor
+
+    out_dir = "assets/05_regression/05-12"
+    features, fit, watch, test = _california()
+    CAP = 5.00001
+
+    # --- 1. the ladder, and the one part of it that never improves ----------
+    ladder = [
+        ("the mean of the training target", DummyRegressor(strategy="mean")),
+        ("linear regression", LinearRegression()),
+        ("one tree, depth 8", DecisionTreeRegressor(max_depth=8, random_state=0)),
+        ("a forest of 200 trees", RandomForestRegressor(n_estimators=200, random_state=0,
+                                                        n_jobs=-1)),
+        ("boosting, 400 rounds", HistGradientBoostingRegressor(max_iter=400, learning_rate=0.1,
+                                                               random_state=0)),
+    ]
+    shown = test.sample(2500, random_state=1)
+    actual = shown["MedHouseVal"].to_numpy()
+    capped = actual >= CAP - 1e-9
+    predictions, scores = [], []
+    for _, model in ladder:
+        model.fit(fit[features], fit["MedHouseVal"])
+        guess = model.predict(shown[features])
+        predictions.append(guess)
+        scores.append(float(np.sqrt(((actual - guess) ** 2).mean())))
+
+    fig, ax = plt.subplots(figsize=(6.6, 6.0))
+    ax.plot([0, 5.5], [0, 5.5], lw=1.6, ls="--", color=DARK, zorder=1)
+    loose = ax.scatter([], [], s=8, color=GREY, zorder=2,
+                       label="{:,} ordinary rows".format((~capped).sum()))
+    stuck = ax.scatter([], [], s=16, color=RED, zorder=3,
+                       label="{:,} rows recorded at the ceiling".format(capped.sum()))
+    ax.axhline(5.0, lw=1.2, color=RED, alpha=0.45, zorder=1)
+    ax.text(0.12, 5.09, "nothing above this line was ever recorded", fontsize=9, color=RED)
+    ax.set_xlim(0, 5.6)
+    ax.set_ylim(0, 5.8)
+    ax.set_xlabel("prediction (100,000s of dollars)")
+    ax.set_ylabel("the value recorded for the block group")
+    ax.legend(loc="lower right", fontsize=9)
+    title = ax.set_title("the mean of the training target - RMSE 0.0000")
+    fig.tight_layout()
+
+    def draw(step):
+        # one frame per model, held a long time - Pillow collapses identical
+        # consecutive GIF frames, so repeating a frame to slow it down does nothing
+        guess = predictions[step]
+        loose.set_offsets(np.column_stack([guess[~capped], actual[~capped]]))
+        stuck.set_offsets(np.column_stack([guess[capped], actual[capped]]))
+        title.set_text("%s - RMSE %.4f" % (ladder[step][0], scores[step]))
+        return loose, stuck
+
+    _save(FuncAnimation(fig, draw, frames=len(ladder), blit=False, repeat=True),
+          out_dir + "/model_ladder.gif", fps=0.55)
+
+    # --- 2. one number fanning out into the segments it was hiding ----------
+    best = ladder[-1][1]
+    error = best.predict(test[features]) - test["MedHouseVal"].to_numpy()
+    overall = float(np.sqrt((error ** 2).mean()))
+
+    at_cap = (test["MedHouseVal"] >= CAP - 1e-9).to_numpy()
+    bands = pd.qcut(test["MedInc"], 5, labels=["lowest", "low", "middle", "high", "highest"])
+    groups = [("not at\nthe ceiling", error[~at_cap], BLUE),
+              ("AT THE\nCEILING", error[at_cap], RED)]
+    for name in ["lowest", "low", "middle", "high", "highest"]:
+        groups.append((name + "\nincome", error[(bands == name).to_numpy()], GREEN))
+    heights = [float(np.sqrt((e ** 2).mean())) for _, e, _ in groups]
+
+    # keep the pixel width even: 9.2in rounds to 919 px, and an odd-width buffer
+    # comes out of the GIF writer sheared
+    fig, ax = plt.subplots(figsize=(9.0, 4.8))
+    positions = np.arange(len(groups)) + 1.0
+    bars = ax.bar(np.zeros(len(groups)), np.full(len(groups), overall), width=0.72,
+                  color=DARK)
+    # the bars start stacked as one neutral column and take on their segment
+    # colour as they separate, so frame one does not look like a segment already
+    target_rgb = [np.array(to_rgb(c)) for _, _, c in groups]
+    start_rgb = np.array(to_rgb("#8a8a8a"))
+    ax.axhline(overall, lw=1.3, ls=":", color=DARK)
+    ax.text(-0.6, max(heights) * 1.10, "the single number everyone quotes: %.4f" % overall,
+            fontsize=10, color=DARK, ha="left")
+    ax.set_xlim(-0.8, len(groups) + 0.7)
+    ax.set_ylim(0, max(heights) * 1.2)
+    ax.set_ylabel("RMSE on the test set")
+    ax.set_xticks([])
+    label_art = [ax.text(0, -0.02 * max(heights), "", ha="center", va="top", fontsize=8.5,
+                         color=c) for _, _, c in groups]
+    value_art = [ax.text(0, 0, "", ha="center", va="bottom", fontsize=8.5, color=c,
+                         bbox=dict(boxstyle="round,pad=0.12", facecolor="white",
+                                   edgecolor="none"))
+                 for _, _, c in groups]
+    ax.set_title("one test set, one model, seven honest answers")
+    fig.subplots_adjust(bottom=0.18, top=0.9, left=0.08, right=0.98)
+
+    def draw(frame):
+        share = min(frame / 14.0, 1.0)
+        share = share * share * (3 - 2 * share)              # ease in and out
+        for index, bar in enumerate(bars):
+            x = share * positions[index]
+            height = overall + share * (heights[index] - overall)
+            bar.set_x(x - bar.get_width() / 2)
+            bar.set_height(height)
+            bar.set_color(tuple(start_rgb + share * (target_rgb[index] - start_rgb)))
+            label_art[index].set_position((x, -0.015 * max(heights)))
+            value_art[index].set_position((x, height + 0.008))
+            showing = "" if share < 0.55 else groups[index][0]
+            label_art[index].set_text(showing)
+            value_art[index].set_text("" if share < 0.55 else "%.3f" % heights[index])
+        return bars
+
+    _save(FuncAnimation(fig, draw, frames=20, blit=False, repeat=True),
+          out_dir + "/segment_split.gif", fps=6)
+
+    # --- 3. the three-way split, and what each part is allowed to do --------
+    _write_text(_three_way_split_svg(), out_dir + "/three_way_split.svg")
+
+
+def _three_way_split_svg():
+    # The test set sits sealed while the other two are used over and over.
+    return SPLIT_SVG % {"blue": BLUE, "green": GREEN, "red": RED, "dark": DARK, "cycle": 9.0}
+
+
+BUILDERS = {"05-11": build_05_11, "05-12": build_05_12}
+
 
 if __name__ == "__main__":
     wanted = sys.argv[1:] or sorted(BUILDERS)

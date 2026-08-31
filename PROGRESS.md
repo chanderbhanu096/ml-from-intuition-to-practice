@@ -1,10 +1,10 @@
 # Progress
 
 **Last updated:** 2026-08-31
-**Chapters complete:** 45 of 121
-**Next to build:** **05-12 · The applied checkpoint**
-(`notebooks/05_regression/05-12_applied_checkpoint.ipynb`) - end-to-end regression on a real
-dataset with error analysis by segment, and no new algorithms.
+**Chapters complete:** 46 of 121
+**Next to build:** the **module 05 assessment**
+(`assessments/05_regression_assessment.ipynb`), cumulative across 05-01 to 05-12, then
+**06-01** and the classification module.
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -31,7 +31,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
 | 03 Math foundations | 8 | **8** | complete and validated, assessment written |
 | 04 Workflow | 8 | **8** | complete and validated, assessment written |
-| 05 Regression | 12 | 11 | 05-01 to 05-11 done |
+| 05 Regression | 12 | 12 | complete; assessment outstanding |
 | 06 Classification | 12 | 0 | |
 | 07 Evaluation | 7 | 0 | |
 | 08 Unsupervised | 8 | 0 | |
@@ -65,7 +65,33 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
 
 ## Log
 
-**2026-08-31 (12)** - Animation added to 05-11's reading material, under D-19. Three files in
+**2026-09-01 (13)** - Chapter 05-12, the module 05 applied checkpoint, and its solutions. First chapter
+built under D-20, and the first to use a real dataset end to end: California housing, 20,640 rows, split
+fit / watch / test before anything was plotted.
+
+**The chapter's spine is a defect in the data rather than a choice of model.** 784 training rows sit on a
+single value, 5.00001, while the entire tenth below it holds 32 - a recording ceiling at 500,001 dollars.
+The model ladder runs 1.1620 (mean), 0.7493 (linear), 0.6687 (one tree), 0.5283 (forest), 0.4705
+(boosting); test RMSE **0.4574**. Segmented, that single number is **0.4256** on 96% of the rows and
+**0.9068** on the 181 capped ones, with a one-directional bias of **-0.5509**.
+
+**Two segmentations, opposite verdicts.** Absolute error by income band is flat (0.4282 to 0.4797);
+relative error runs 38.45% down to 14.64%. Both true, and which one describes the harm depends on the
+decision downstream - 05-04's argument arriving in a real report.
+
+**The failure lab measures the obvious fix and finds it backfires.** Dropping the capped rows from
+training moves the overall RMSE from 0.4574 to 0.4726 and the capped rows from 0.9068 to 1.1394, buying a
+small improvement on the ordinary rows (0.4256 to 0.4172).
+
+**Three things were corrected against the measurement while writing.** The solutions' E13 predicted that
+the oldest housing band's poor score came from its higher share of capped rows - the share does rise
+(1.98% to 7.87%), but removing them *widens* the gap from 0.1449 to 0.1530, so the explanation is refuted
+rather than confirmed. `HouseAge` turns out to be censored too, 1,025 rows at exactly 52 against 41 at 51,
+which is the better candidate. And E23's gate was described as separating the classes "almost cleanly"
+until the histogram showed otherwise: it is high-precision, moderate-recall - 57.5% of capped rows caught
+at a 0.79% false-alarm rate.
+
+**2026-09-01 (12)** - Animation added to 05-11's reading material, under D-19. Three files in
 `assets/05_regression/05-11/`, embedded in markdown cells with a plain `<img>` tag so they play before
 the reader runs anything: sixty rounds of boosting with the residual cloud collapsing beneath it, the
 same fit degenerating out to round 800 while the two error curves draw themselves, and an animated SVG

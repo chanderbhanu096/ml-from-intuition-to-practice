@@ -44,7 +44,7 @@ exists, the notebook states it rather than quietly using the data.
 
 ---
 
-## 3a. California housing (1990 US census) - used in 02-08
+## 3a. California housing (1990 US census) - used in 02-08 and 05-12
 
 **Status:** fetched by `sklearn.datasets.fetch_california_housing`, cached in `~/scikit_learn_data`
 (about 360 KB). **Not committed to this repository.** The first call needs a network connection;
@@ -58,6 +58,7 @@ later calls are offline.
 | **Licence** | **Not stated.** No licence accompanies the file. The underlying 1990 census aggregates are US federal government output; the derived file's terms are unknown. Verify before any use outside coursework |
 | **Unit of observation** | One census block group - the smallest area for which the Census Bureau publishes sample data, typically 600-3,000 people |
 | **Rows / columns** | 20,640 rows, 8 features and 1 target, all numeric |
+| **Censoring (verified 2026-09-01)** | **The target is capped.** 965 rows (4.68%) sit at exactly 5.00001, the file's maximum, against 32 rows in the whole band from 4.9 to 5.0. `HouseAge` is capped the same way: 1,025 training rows at exactly 52 against 41 at 51. Anything above either limit was recorded at the limit, so those values are bounds and not measurements. 05-12 is built on this |
 | **Target** | `MedHouseVal` - median house value for the block group, in hundreds of thousands of dollars |
 | **Time meaning** | None. A single 1990 snapshot; no dates, no seasonality, no ordering |
 | **Retrieval** | `fetch_california_housing(as_frame=True).frame` |

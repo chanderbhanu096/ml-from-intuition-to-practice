@@ -2,7 +2,7 @@
 
 > Predict a number, understand the errors, and know when complexity pays.
 
-**11 of 12 chapters complete** · ~12 learner-hours · Applied, Core
+**12 of 12 chapters complete** · ~12 learner-hours · Applied, Core
 
 ---
 
@@ -45,11 +45,11 @@ The order is capability, then cost: fit a line, read the errors, add capacity, w
 | `[x]` | **[05-09](05-09_regularisation.ipynb)** Ridge, Lasso, Elastic Net | Core | 55m | Paying for complexity: shrinkage, sparsity, and why scaling suddenly matters. |
 | `[x]` | **[05-10](05-10_trees.ipynb)** Regression trees and random forests | Core | 60m | Trees split the space into boxes; forests average many of them to cut variance. |
 | `[x]` | **[05-11](05-11_boosting.ipynb)** Gradient boosting and honest tuning | Core | 65m | Boosting fits the residual repeatedly - strong, and easy to tune dishonestly. |
-| `[ ]` | **05-12** Applied: a regression checkpoint with segment error analysis | Applied | 100m | The full workflow on a real dataset, ending in error broken down by segment. |
+| `[x]` | **[05-12](05-12_applied_checkpoint.ipynb)** Applied: a regression checkpoint with segment error analysis | Applied | 100m | The full workflow on a real dataset, ending in error broken down by segment. |
 
 ## Data used
 
-- whichever dataset shows the idea most clearly
+- california_housing
 - datasets shipped with scikit-learn
 - generated data with a known truth
 - hand-typed tables you can check with a pen

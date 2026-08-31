@@ -84,6 +84,51 @@ causality half needs a failure lab of its own - it is the most expensive confusi
 ML. Split into 00-03 (the families of learning plus the lifecycle map) and 00-04 (prediction,
 explanation, cause). Module 00 is now 4 chapters; the course is 121.
 
+**D-20 - The chapter structure follows the evidence, and the learning pyramid is not it.** (2026-09-01)
+Asked directly about the "learning pyramid" - the tiered diagram with 5% for lecture and 90% for teaching
+others - and about the "Shadow Study Technique". The two answers went in opposite directions, and both
+changed the chapter template from 05-12 onwards.
+
+**The learning pyramid's percentages are fabricated and this course will not use them.** Edgar Dale's
+*Cone of Experience* (1946) carried no numbers and Dale warned against reading it as a ranking of
+effectiveness; the percentages were attached later and attributed to NTL Institute, which has never
+produced the study. Molenda traced the history, Thalheimer chased the citations, and Kirschner and van
+Merrienboer list it among urban legends in education (2013). The give-away is that every value is a round
+multiple of five and identical in every reproduction. **Adjacent and also disconfirmed: learning styles**
+(Pashler et al. 2008) - which matters here because "add more visuals" could easily be misread as catering
+to visual learners. It is not. Dual coding helps everyone.
+
+**What the course follows instead** is Dunlosky et al. (2013): practice testing and distributed practice
+are the high-utility techniques, interleaving and self-explanation next, and rereading, highlighting and
+summarisation are the low-utility ones. For the figures specifically it is Mayer's multimedia principles -
+put the label next to the thing it labels, cut decoration, signal what to look at - which is why captions
+in this course say *what to catch* rather than restating the axis titles.
+
+**The Shadow Study Technique is adopted, with its provenance corrected.** As described it is: scan only
+the headings, close the book, write what each one means from memory, then reopen and mark the gaps. That
+is a packaged form of **prequestioning** (Richland, Kornell and Kao; Little and Bjork), which improves
+later retention even when every attempt fails, plus the **generation effect** and Bjork's **desirable
+difficulties**. The effect is real; the folk explanation that usually travels with it - the brain "flagging
+gaps as urgent missing data" - is not a mechanism from that literature, so the chapter states the effect
+and skips the story.
+
+**Three structural changes to every chapter from 05-12:**
+
+1. **A shadow pass opens the chapter**, before "why this matters": the headings alone, an instruction to
+   close the notebook and write from memory, and a `<details>` block with a one-line gloss of each heading
+   to check against afterwards. `<details>` renders in Jupyter, in nbconvert HTML and on GitHub, so the
+   answers stay hidden until the reader has done the work.
+2. **The warm-up interleaves across the module**, not just the previous chapter. 05-12's five questions
+   come from 04-05, 05-04, 05-05, 05-08 and 05-11, and the answers sit in a `<details>` block for the same
+   reason.
+3. **The coding exercises fade.** One is worked in full in the chapter body, the next is a skeleton with
+   marked blanks, the third is cold - the completion-problem progression from the worked-example
+   literature. The skeleton lives in a fenced block inside markdown rather than a code cell, so the
+   notebook still executes top to bottom.
+
+Chapters before 05-12 keep their existing "retrieve, do not reread" warm-up, which was already the right
+idea; they are not being retrofitted with the shadow pass.
+
 **D-19 - Animation belongs in the prose, not only in the output of a cell.** (2026-08-31)
 A fourth request for more visual explanation, this one specific: the reading material itself should move,
 not just the figures a reader produces by running code. That is a fair distinction. Everything D-16 to
