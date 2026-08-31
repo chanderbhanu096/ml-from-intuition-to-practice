@@ -2,7 +2,7 @@
 
 > Predict a number, understand the errors, and know when complexity pays.
 
-**9 of 12 chapters complete** · ~12 learner-hours · Applied, Core
+**10 of 12 chapters complete** · ~12 learner-hours · Applied, Core
 
 ---
 
@@ -43,7 +43,7 @@ The order is capability, then cost: fit a line, read the errors, add capacity, w
 | `[x]` | **[05-07](05-07_capacity.ipynb)** Polynomial and interaction features; under/overfitting | Core | 55m | Capacity is the ability to fit any shape, including the noise. |
 | `[x]` | **[05-08](05-08_bias_variance.ipynb)** Bias, variance, and learning curves | Core | 60m | Learning curves tell you whether more data or a different model is the answer. |
 | `[x]` | **[05-09](05-09_regularisation.ipynb)** Ridge, Lasso, Elastic Net | Core | 55m | Paying for complexity: shrinkage, sparsity, and why scaling suddenly matters. |
-| `[ ]` | **05-10** Regression trees and random forests | Core | 60m | Trees split the space into boxes; forests average many of them to cut variance. |
+| `[x]` | **[05-10](05-10_trees_forests.ipynb)** Regression trees and random forests | Core | 60m | Trees split the space into boxes; forests average many of them to cut variance. |
 | `[ ]` | **05-11** Gradient boosting and honest tuning | Core | 65m | Boosting fits the residual repeatedly - strong, and easy to tune dishonestly. |
 | `[ ]` | **05-12** Applied: a regression checkpoint with segment error analysis | Applied | 100m | The full workflow on a real dataset, ending in error broken down by segment. |
 

@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-31
-**Chapters complete:** 43 of 121
-**Next to build:** **05-10 · Decision trees and random forests**
-(`notebooks/05_regression/05-10_trees.ipynb`).
+**Chapters complete:** 44 of 121
+**Next to build:** **05-11 · Gradient boosting**
+(`notebooks/05_regression/05-11_boosting.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -30,7 +30,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
 | 03 Math foundations | 8 | **8** | complete and validated, assessment written |
 | 04 Workflow | 8 | **8** | complete and validated, assessment written |
-| 05 Regression | 12 | 9 | 05-01 to 05-09 done |
+| 05 Regression | 12 | 10 | 05-01 to 05-10 done |
 | 06 Classification | 12 | 0 | |
 | 07 Evaluation | 7 | 0 | |
 | 08 Unsupervised | 8 | 0 | |
@@ -63,6 +63,53 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-31 (10)** - Chapter 05-10 (decision trees and random forests) and its solutions, 6 figures in
+the chapter and 3 in the solutions.
+
+**The chapter opens with a split done by hand** on eight rows: every candidate threshold scored, the
+winner at 5.0 taking SSE from 140.875 to **4.750**, and sklearn's depth-1 tree agreeing. From that table
+the two structural facts follow without assertion - the model is a mean per leaf, and the algorithm only
+ever *compares*, so scaling (the non-negotiable of 05-06 and 05-09) simply does not arise.
+
+**05-07's interaction is found unprompted.** A depth-5 tree given no product column reaches RMSE 27.94
+against the main-effects linear model's 40.65 - and does *not* catch the linear model that was handed the
+interaction (23.41). The honest reason is in the tree diagram: the root splits on `footfall`, spending
+its most valuable split approximating a straight line. **A tree gets non-linearity and interactions for
+free and pays for smooth trends.**
+
+**The memorisation number is the one to keep:** `max_depth=None` on 200 rows gives **200 leaves and a
+training RMSE of exactly 0.0000**, with held-out 2.0709 - barely better than a depth-1 stump. Every tree
+needs a stopping rule and the default does not provide one.
+
+**05-08's averaging result becomes an algorithm, and its caveat becomes a measurement.** A single
+unrestricted tree is bias² 0.0189 / variance 2.2780; a forest of 100 is 0.0097 / 1.0624. Bias unchanged,
+variance down by **2.14x** - not the 100x independent averaging would give, because bootstrap samples
+overlap. Solutions E21 supplies the formula that explains it: `rho*sigma^2 + (1-rho)*sigma^2/k` has a
+floor that adding trees cannot touch, which is exactly why `max_features` exists.
+
+**The failure lab is the one limit with no workaround.** Trained on x in [0, 10], at x = 25 the truth is
+53, the linear model says 53.219, and the tree and the forest of 200 both say **~23.5**. Averaging 200
+flatlines gives a flatline. Solutions E12 puts a number on the operational cost: a forest with a
+`day_number` column degrades **4.3x** out of period (10.67 to 45.87) while a linear model degrades 1.07x
+- and the forest *without* the counter is worst of all at 87.43, so the answer is not to delete the
+trending feature.
+
+**Feature importance gets two measured failure modes.** A near-copy of a real column takes 0.4290 of the
+credit, and removing it nearly doubles the real column's importance (0.4763 to 0.8926) while test
+R-squared moves by 0.004. And the impurity measure is biased towards many-valued columns: a real binary
+feature scores 0.0615 against a pure-noise *continuous* column's 0.0294. Permutation importance fixes the
+second (binary_real 0.5906, noise columns approximately zero) and **not the first** (the duplicate still
+scores 1.1425).
+
+Solutions E9 found `min_samples_leaf=12` beats the best `max_depth` (1.5265 against 1.5867) because a
+leaf-size limit lets the tree be deep where the data is dense. E10 found `n_estimators` is not a
+hyperparameter - monotone, 0.3675 of the 0.3952 total gain arriving by 25 trees - and also the
+uncomfortable fact that a tuned single tree (1.5265) beats a forest of 300 (1.7242) on this
+one-dimensional problem. E11 measured the `max_features` trade directly: correlation between trees rises
+0.0632 to 0.7871 as it goes 1 to 20, RMSE falls 3.1192 to 1.3469 with an optimum at 15, so "decorrelate
+the trees" is only half the mechanism - the other half is that restricted trees are worse. E20
+reimplements a depth-2 tree in thirty lines and matches sklearn to 1.8e-15.
 
 **2026-08-31 (9)** - Chapter 05-09 (regularisation: ridge, lasso, the coefficient path) and its
 solutions, 6 figures in the chapter and none in the solutions.
