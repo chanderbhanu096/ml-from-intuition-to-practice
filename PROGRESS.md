@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-31
-**Chapters complete:** 42 of 121
-**Next to build:** **05-09 · Regularisation: ridge, lasso, and the coefficient path**
-(`notebooks/05_regression/05-09_regularisation.ipynb`).
+**Chapters complete:** 43 of 121
+**Next to build:** **05-10 · Decision trees and random forests**
+(`notebooks/05_regression/05-10_trees.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -30,7 +30,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
 | 03 Math foundations | 8 | **8** | complete and validated, assessment written |
 | 04 Workflow | 8 | **8** | complete and validated, assessment written |
-| 05 Regression | 12 | 8 | 05-01 to 05-08 done |
+| 05 Regression | 12 | 9 | 05-01 to 05-09 done |
 | 06 Classification | 12 | 0 | |
 | 07 Evaluation | 7 | 0 | |
 | 08 Unsupervised | 8 | 0 | |
@@ -63,6 +63,46 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-31 (9)** - Chapter 05-09 (regularisation: ridge, lasso, the coefficient path) and its
+solutions, 6 figures in the chapter and none in the solutions.
+
+**The chapter picks up 05-07's exact number.** The degree-14 polynomial whose largest coefficient was
+8,331 is handed to ridge, which takes it to **2.90** while held-out RMSE *improves* from 3.8317 to
+**3.2123** - close to the noise floor of 3.0, from a model 05-07 could only describe as a disaster.
+Training error rises monotonically (2.48 to 4.28) so the trade is explicit.
+
+**Scaling gets the sharpest framing available.** Multiply one column by 1,000 - a change of units
+carrying no information - and least squares' predictions move by **0.0000** while ridge's move by
+**0.6353**. Not "scaling is good practice" but "without it, alpha means a different thing for every
+column, and the meaning is set by whoever chose the units."
+
+The mechanism figure was added after noticing the chapter asserted why lasso zeroes without drawing it:
+ridge's pressure is `2w` and vanishes at zero, lasso's is `±1` all the way down.
+
+**Ridge and lasso on a correlated pair, measured:** ridge shares (+1.651 and +1.148), lasso picks
+(+2.859 and exactly 0.000). The reason is arithmetic - `w0²+w1²` is 4.5 for (1.5,1.5) against 9 for
+(3,0), while `|w0|+|w1|` is 3 either way.
+
+**The one-standard-error rule earns its section.** Lowest-CV alpha keeps 7 columns and scores 0.9095 on
+test; the 1-SE alpha keeps **exactly the right 3** and scores 0.9107 - 0.0012 worse, for less than half
+the model.
+
+**Two claims were corrected against measurement.** The draft warned that lasso's choice between
+correlated columns is arbitrary and "may switch"; resampling showed it picks column 0 consistently here,
+so the warning was rewritten to say what was actually observed. And the failure lab's finding is
+stronger than intended: lasso keeps the three real columns in **100%** of 200 resamples but a pure-noise
+column in **85.5%**, averaging 9.5 of 20 when 3 are real. Lasso is reliable about what to keep and
+unreliable about what to drop.
+
+Solutions E12 turned up the sharpest version of that: ridge's *sign* is consistent in 95.5% of resamples
+for column 3, whose true coefficient is exactly zero. **Stability is not correctness** - use these
+frequencies to reject, not to accept. E8 found the honest null result that leaking a `StandardScaler`
+costs almost nothing here (CV RMSE 1.1452 against 1.1457), because two numbers per column barely move;
+the argument for the pipeline is stated without the manufactured scare. E9 found that lasso's exit order
+recovers the effect sizes (alpha 2.70, 1.50, 1.26 for truths 3.0, 2.0, 1.5) with the first noise column
+leaving at 0.21 - a factor-of-six cliff. E20 verified ridge as OLS on augmented data to 6.7e-16 and
+showed the payoff: a singular design's condition number goes from 2.22e+16 to 54.1.
 
 **2026-08-31 (8)** - Chapter 05-08 (bias, variance, learning curves) and its solutions, 6 figures in the
 chapter and 3 in the solutions.
