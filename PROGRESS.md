@@ -1,9 +1,9 @@
 # Progress
 
 **Last updated:** 2026-08-31
-**Chapters complete:** 38 of 121
-**Next to build:** **05-05 · Residuals: reading the errors the model leaves**
-(`notebooks/05_regression/05-05_residuals.ipynb`).
+**Chapters complete:** 39 of 121
+**Next to build:** **05-06 · Gradient descent from scratch**
+(`notebooks/05_regression/05-06_gradient_descent.ipynb`).
 
 A chapter counts as complete only when the learner notebook **and** its solutions notebook
 have both been executed from a fresh kernel with no errors, and the chapter quality gate in
@@ -30,7 +30,7 @@ cleanly. Notebooks are committed without stored outputs (D-15).
 | 02 Data literacy | 8 | **8** | complete and validated, assessment written |
 | 03 Math foundations | 8 | **8** | complete and validated, assessment written |
 | 04 Workflow | 8 | **8** | complete and validated, assessment written |
-| 05 Regression | 12 | 4 | 05-01 to 05-04 done |
+| 05 Regression | 12 | 5 | 05-01 to 05-05 done |
 | 06 Classification | 12 | 0 | |
 | 07 Evaluation | 7 | 0 | |
 | 08 Unsupervised | 8 | 0 | |
@@ -63,6 +63,48 @@ matplotlib 3.11.1, nbclient/nbconvert for validation. See `DECISIONS.md` D-01.
   beginner is not asked to install a deep learning framework in week one.
 
 ## Log
+
+**2026-08-31 (5)** - Chapter 05-05 (residuals) and its solutions, 8 figures in the chapter and 5 in the
+solutions. The chapter opens with **four models whose RMSE is 2.4000 to four decimal places** - the data
+was calibrated by bisection to make them agree - of which one is honest and three are broken in
+different ways. Everything else follows from that setup.
+
+Each fault is caught by exactly one grouping and invisible in the others, which is shown as three tables
+before any plot appears: curvature by mean residual per third of x (+1.16, -2.25, +0.87), fanning by
+standard deviation per third (0.94, 2.08, 3.34), a group split by mean per group (-2.21, +2.30).
+
+**The residual-vs-actual mistake gets a full treatment**, because it is the one beginners make. Two exact
+identities are demonstrated: `corr(residual, fitted) = 0` for any least-squares fit with an intercept,
+and `corr(residual, actual) = sqrt(1 - R²)`. The second means the wrong plot always slopes upward and
+**slopes less for better models** - the diagnostic runs backwards. Solutions E9 makes it concrete across
+R-squared 0.9910 (corr 0.0948) to 0.0676 (corr 0.9656), and E21 shows the flat reference is a property of
+the *intercept*: fit through the origin and the correlation goes to -0.9782.
+
+**The log-transform advice is given honestly rather than as a recipe.** On multiplicative synthetic data
+the residual spread ratio falls from 3.33 to 1.06 on the log scale - and returns to **3.38** when the
+predictions are exponentiated back, while price-scale RMSE gets *worse* (100.7 against 94.4) and picks up
+a +31.8 bias in the middle third from the geometric-mean back-transformation. The transform fixed the
+diagnostic, not the uncertainty.
+
+**The histogram section was rewritten after executing it.** The draft said all four look bell-shaped;
+the skew and kurtosis say otherwise. D has excess kurtosis **-1.60** and is visibly bimodal, C has
+**+3.30** and long tails, and only B is genuinely missed (-0.36, as respectable as A's +0.09). So the
+honest claim is that the histogram catches one fault, half-catches a second, and is blind to the third -
+because it discards the pairing with the prediction, which is the information the fitted-value plot uses.
+
+**Failure lab on real data: the California Housing ceiling.** 965 of 20,640 rows (4.68%) sit at exactly
+5.00001 because the census top-coded house values at $500k, producing a hard diagonal line of slope -1
+in any residual plot. MAE on those rows is **1.4937 against 0.4914** elsewhere - 3.04x worse - and the
+point of the section is that the model is probably right and the *recording* is wrong. No test-set metric
+could have shown it.
+
+Solutions E20 constructs two datasets with RMSE 7.231024, MAE 6.201088 and R-squared 0.399016 identical
+to six decimal places, one showing curvature and one showing bands, by projecting the residual vector off
+the span of [1, x] and then bisecting a single noise parameter. It is the cleanest available proof that
+metrics are a many-to-one map. E12 finds real spatial structure in the California residuals that the
+per-feature sweep misses entirely: 18.1% of the residual variance is between cells of a 20x20 grid, and
+49 populated cells have mean residuals from -1.129 to +0.706, while latitude and longitude taken one at a
+time barely leave the band of +-0.1.
 
 **2026-08-31 (4)** - Chapter 05-04 (metrics: MAE, MSE, RMSE, MAPE's trouble, R-squared) and its
 solutions, 6 figures in the chapter and 4 more in the solutions. The chapter's spine is that **every
