@@ -26,6 +26,8 @@ def notebooks(args: list[str]) -> list[Path]:
     found: list[Path] = []
     for t in targets:
         t = t if t.is_absolute() else Path.cwd() / t
+        if not t.exists():
+            raise FileNotFoundError(f"Notebook target does not exist: {t}")
         found += [t] if t.is_file() else sorted(t.rglob("*.ipynb"))
     return [p for p in found if ".ipynb_checkpoints" not in p.parts]
 
@@ -43,7 +45,11 @@ def run(path: Path) -> tuple[bool, str, float]:
 
 
 def main() -> int:
-    found = notebooks(sys.argv[1:])
+    try:
+        found = notebooks(sys.argv[1:])
+    except FileNotFoundError as e:
+        print(e, file=sys.stderr)
+        return 2
     if not found:
         print("No notebooks found.")
         return 0
